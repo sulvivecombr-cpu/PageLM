@@ -11,7 +11,7 @@ const DEFAULT_QUIZ_SETTINGS: QuizSettings = {
   count: 10,
   difficulty: "medium",
   questionType: "mcq",
-  language: "auto",
+  language: "pt",
   hints: true,
   optionsCount: 4,
 };

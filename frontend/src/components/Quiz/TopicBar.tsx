@@ -23,6 +23,7 @@ const QUESTION_TYPES: Array<{ value: QuizQuestionType; label: string }> = [
 
 const LANGUAGES: Array<{ value: QuizLanguage; label: string }> = [
   { value: "auto", label: "Automático" },
+  { value: "pt", label: "Português" },
   { value: "ar", label: "Árabe" },
   { value: "fr", label: "Francês" },
   { value: "en", label: "Inglês" },

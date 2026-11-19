@@ -157,7 +157,7 @@ export default function ExamLabs() {
               />
             </svg>
           </button>
-          <h1 className="text-2xl font-semibold text-white">Exam Labs</h1>
+          <h1 className="text-2xl font-semibold text-white">Laboratório de provas</h1>
         </div>
         <div className="px-3 py-1 rounded-full bg-gradient-to-r from-sky-500/20 to-blue-500/20 border border-sky-500/30 text-sky-300 text-xs font-medium">
           BETA

@@ -40,7 +40,7 @@ function wrap(s: string, max = 90) {
 async function readInput(opts: SmartNotesOptions) {
   if (opts.notes) return opts.notes
   if (opts.filePath) return await fs.promises.readFile(opts.filePath, "utf8")
-  if (opts.topic) return `Generate detailed Cornell notes on: ${normalizeTopic(opts.topic)}`
+  if (opts.topic) return `Gere anotações detalhadas no estilo Cornell sobre: ${normalizeTopic(opts.topic)}`
   throw new Error("No input")
 }
 
@@ -79,6 +79,7 @@ SCHEMA
 }
 
 RULES
+- Write every field in Brazilian Portuguese (pt-BR), even when the input is in another language.
 - Do not wrap with code fences.
 - Do not add commentary.
 - Use plain text only.
@@ -91,7 +92,7 @@ RULES
   const parsed1 = safeParse<any>(extractFirstJsonObject(raw1) || raw1)
   if (parsed1 && typeof parsed1 === "object") return parsed1
 
-  const retrySys = `Return only a JSON object matching the schema. No markdown. No extra text.`
+  const retrySys = `Return only a JSON object matching the schema, written in Brazilian Portuguese. No markdown. No extra text.`
   const r2 = await llm.invoke([
     { role: "system", content: retrySys },
     { role: "user", content: prompt + "\n\nINPUT:\n" + text }

@@ -13,7 +13,7 @@ export type QuizItem = {
 export type QuizDifficulty = "easy" | "medium" | "hard"
 export type QuizLength = "short" | "medium" | "long"
 export type QuizQuestionType = "mcq" | "truefalse" | "mixed"
-export type QuizLanguage = "auto" | "ar" | "fr" | "en"
+export type QuizLanguage = "auto" | "pt" | "ar" | "fr" | "en"
 
 export type QuizOptions = {
   context?: string
@@ -52,7 +52,7 @@ function normalizeOptions(topic: string, options: QuizOptions): Normalized {
   const length: QuizLength =
     options.length === "short" || options.length === "long" ? options.length : "medium"
   const language: QuizLanguage =
-    options.language === "ar" || options.language === "fr" || options.language === "en"
+    options.language === "pt" || options.language === "ar" || options.language === "fr" || options.language === "en"
       ? options.language
       : "auto"
   const arabic =
@@ -71,19 +71,24 @@ function normalizeOptions(topic: string, options: QuizOptions): Normalized {
 }
 
 const LANGUAGE_NAME: Record<Exclude<QuizLanguage, "auto">, string> = {
+  pt: "Brazilian Portuguese",
   ar: "Arabic",
   fr: "French",
   en: "English",
 }
 
 function trueFalseWords(o: Normalized) {
+  if (o.language === "pt") return { true: "Verdadeiro", false: "Falso" }
   if (o.language === "fr") return { true: "Vrai", false: "Faux" }
   if (o.language === "en") return { true: "True", false: "False" }
   if (o.arabic) return { true: "صحيح", false: "خطأ" }
-  return { true: "True", false: "False" }
+  return { true: "Verdadeiro", false: "Falso" }
 }
 
 function languageRule(o: Normalized) {
+  if (o.language === "pt") {
+    return "Write every question, option, hint, and explanation in Brazilian Portuguese. Keep numbers, symbols, and mathematical notation unchanged."
+  }
   if (o.language === "ar") {
     return "Write every question, option, hint, and explanation in Arabic. Keep numbers, symbols, and mathematical notation unchanged."
   }
@@ -197,6 +202,7 @@ If uncertain, choose the standard interpretation of the source. Output only the 
 
 function buildStrict(o: Normalized) {
   const language = o.language === "auto" ? (o.arabic ? "Arabic" : "the source language") : LANGUAGE_NAME[o.language]
+
   return `RETRY: STRICT FORMAT ONLY
 Return only a JSON array with exactly ${o.count} objects, no markdown and no extra text.
 Each object has: id (1..${o.count}), question, options, correct (1-based), hint (${o.hints ? "6..160 chars" : "empty string"}), explanation.

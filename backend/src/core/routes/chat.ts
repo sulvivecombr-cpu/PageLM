@@ -46,14 +46,16 @@ export function chatRoutes(app: any) {
       let q = "";
       let chatId: string | undefined;
       let sourceId: string | undefined;
+      let language: string | undefined;
       let files: UpFile[] = [];
 
       if (isMp) {
         const tMp = Date.now();
-        const { q: mq, chatId: mcid, sourceId: msid, files: mf } = await parseMultipart(req);
+        const { q: mq, chatId: mcid, sourceId: msid, language: mlang, files: mf } = await parseMultipart(req);
         q = mq;
         chatId = mcid;
         sourceId = msid;
+        language = mlang;
         files = mf || [];
         if (!q)
           return res.status(400).send({ error: "q required for file uploads" });
@@ -61,6 +63,7 @@ export function chatRoutes(app: any) {
         q = req.body?.q || "";
         chatId = req.body?.chatId;
         sourceId = req.body?.sourceId;
+        language = req.body?.language;
         if (!q) return res.status(400).send({ error: "q required" });
       }
 
@@ -120,6 +123,7 @@ export function chatRoutes(app: any) {
             q,
             namespace: ns,
             history: relevantHistory,
+            language,
           });
 
           await addMsg(id, {

@@ -5,7 +5,7 @@ export type ChatMessage = { role: "user" | "assistant"; content: string; at: num
 export type ChatInfo = { id: string; title?: string; createdAt?: number; sourceId?: string };
 export type ChatsList = { ok: true; chats: ChatInfo[] };
 export type ChatDetail = { ok: true; chat: ChatInfo; messages: ChatMessage[] };
-export type ChatJSONBody = { q: string; chatId?: string; sourceId?: string };
+export type ChatJSONBody = { q: string; chatId?: string; sourceId?: string; language?: string };
 export type ChatPhase = "upload_start" | "upload_done" | "generating";
 export type FlashCard = { q: string; a: string; tags?: string[] };
 export type SourceItem = {
@@ -24,7 +24,7 @@ export type StudioKind = "quiz" | "qcm" | "flashcards" | "summary" | "mindmap" |
 export type QuizDifficulty = "easy" | "medium" | "hard";
 export type QuizLength = "short" | "medium" | "long";
 export type QuizQuestionType = "mcq" | "truefalse" | "mixed";
-export type QuizLanguage = "auto" | "ar" | "fr" | "en";
+export type QuizLanguage = "auto" | "pt" | "ar" | "fr" | "en";
 export type LearningMode = "summary" | "lesson" | "exercises" | "questions";
 export type LearningTemplate = "quick" | "academic" | "exam" | "pedagogical";
 export type QuizSettings = {
@@ -204,11 +204,12 @@ export async function chatJSON(body: ChatJSONBody) {
   });
 }
 
-export async function chatMultipart(q: string, files: File[], chatId?: string, sourceId?: string) {
+export async function chatMultipart(q: string, files: File[], chatId?: string, sourceId?: string, language?: string) {
   const f = new FormData();
   f.append("q", q);
   if (chatId) f.append("chatId", chatId);
   if (sourceId) f.append("sourceId", sourceId);
+  if (language) f.append("language", language);
   for (const file of files) f.append("file", file, file.name);
   return req<ChatStartResponse>(`${env.backend}/chat`, {
     method: "POST",
@@ -237,12 +238,13 @@ export async function chatAskOnce(opts: {
   files?: File[];
   chatId?: string;
   sourceId?: string;
+  language?: string;
   onEvent?: (ev: ChatEvent) => void;
 }) {
-  const { q, files = [], chatId, sourceId, onEvent } = opts;
+  const { q, files = [], chatId, sourceId, language, onEvent } = opts;
   const start = files.length
-    ? await chatMultipart(q, files, chatId, sourceId)
-    : await chatJSON({ q, chatId, sourceId });
+    ? await chatMultipart(q, files, chatId, sourceId, language)
+    : await chatJSON({ q, chatId, sourceId, language });
   let answer = "";
   let flashcards: FlashCard[] | undefined;
 

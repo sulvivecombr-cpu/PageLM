@@ -110,6 +110,7 @@ User's position: They are arguing ${session.position.toUpperCase()} the topic.
 ${shouldCheckConcede ? `IMPORTANT: If you find that you have run out of strong arguments, or if the user has made overwhelmingly convincing points that you cannot reasonably counter, you MUST start your response with exactly "[CONCEDE]" followed by a brief explanation of why you are conceding. This shows intellectual honesty and good sportsmanship.
 
 ` : ""}Guidelines for your responses:
+0. Always write in Brazilian Portuguese (pt-BR)
 1. Present strong, logical arguments ${opposingPosition} the topic
 2. Use evidence, examples, and reasoning to support your points
 3. Address and counter the user's arguments directly
@@ -218,6 +219,7 @@ ${userMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
 AI's arguments:
 ${aiMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
 
+Write every value in Brazilian Portuguese (pt-BR).
 Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JSON):
 {
   "winner": "user",
@@ -231,7 +233,7 @@ Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JS
 }`;
 
     const messages = [
-        { role: "system" as const, content: "You are an expert debate judge. Provide fair, balanced analysis. Respond with valid JSON only." },
+        { role: "system" as const, content: "You are an expert debate judge. Provide fair, balanced analysis in Brazilian Portuguese. Respond with valid JSON only." },
         { role: "user" as const, content: analysisPrompt }
     ];
 
@@ -301,6 +303,7 @@ ${userMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
 AI's arguments:
 ${aiMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
 
+Write every value in Brazilian Portuguese (pt-BR).
 Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JSON):
 {
   "winner": "user",
@@ -314,7 +317,7 @@ Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JS
 }`;
 
     const messages = [
-        { role: "system" as const, content: "You are an expert debate judge. Provide fair, balanced analysis. Respond with valid JSON only." },
+        { role: "system" as const, content: "You are an expert debate judge. Provide fair, balanced analysis in Brazilian Portuguese. Respond with valid JSON only." },
         { role: "user" as const, content: analysisPrompt }
     ];
 

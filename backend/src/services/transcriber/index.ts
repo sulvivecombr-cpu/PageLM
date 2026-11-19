@@ -97,7 +97,7 @@ async function transcribeWithGoogle(filePath: string): Promise<TranscriptionResu
         const audioConfig = {
             encoding: 'WEBM_OPUS' as any,
             sampleRateHertz: 48000,
-            languageCode: 'en-US',
+            languageCode: 'pt-BR',
             enableAutomaticPunctuation: true,
         };
 
@@ -264,14 +264,15 @@ Please provide a JSON response with the following structure:
     }
 }
 
-Make it educational and useful for studying. Focus on extracting the most important information for learning purposes.`;
+Make it educational and useful for studying. Focus on extracting the most important information for learning purposes.
+Write every value in Brazilian Portuguese (pt-BR).`;
 
         const completion = await openai.chat.completions.create({
             model: 'gpt-4o-mini',
             messages: [
                 {
                     role: 'system',
-                    content: 'You are an expert educational content analyzer. Create comprehensive study materials from transcriptions. Always respond with valid JSON only.'
+                    content: 'You are an expert educational content analyzer. Create comprehensive study materials from transcriptions in Brazilian Portuguese. Always respond with valid JSON only.'
                 },
                 {
                     role: 'user',

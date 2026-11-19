@@ -11,6 +11,7 @@ import BagFab from "../components/Chat/BagFab";
 import BagDrawer from "../components/Chat/BagDrawer";
 import LoadingIndicator from "../components/Chat/LoadingIndicator";
 import { useCompanion } from "../components/Companion/CompanionProvider";
+import { getAiLanguage } from "../lib/language";
 
 type BagItem = { id: string; kind: "flashcard" | "note"; title: string; content: string };
 
@@ -190,7 +191,7 @@ export default function Chat() {
     (async () => {
       try {
         setConnecting(true);
-        const r = await chatJSON({ q: initialQuestion, sourceId: initialSourceId });
+        const r = await chatJSON({ q: initialQuestion, sourceId: initialSourceId, language: getAiLanguage() });
         if (r?.chatId) {
           setChatId(r.chatId);
           navigate(`/chat?chatId=${encodeURIComponent(r.chatId)}&sourceId=${encodeURIComponent(initialSourceId)}`, { replace: true });
@@ -354,7 +355,7 @@ export default function Chat() {
     setAwaitingAnswer(true);
     setBusy(true);
     try {
-      const r = await chatJSON({ q: text, chatId: chatId || undefined, sourceId: sourceId || undefined });
+      const r = await chatJSON({ q: text, chatId: chatId || undefined, sourceId: sourceId || undefined, language: getAiLanguage() });
       if (r?.chatId && r.chatId !== chatId) {
         setChatId(r.chatId);
         const params = new URLSearchParams({ chatId: r.chatId });

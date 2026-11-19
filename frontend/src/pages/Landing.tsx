@@ -5,6 +5,7 @@ import PromptRail from "../components/Landing/PromptRail";
 import PromptBox from "../components/Landing/PromptBox";
 import ExploreTopics from "../components/Landing/ExploreTopics";
 import { chatJSON, uploadSources } from "../lib/api";
+import { AI_LANGUAGES, getAiLanguage, setAiLanguage as persistAiLanguage, type AiLanguage } from "../lib/language";
 
 const MODE_LABEL = { Chat: "Conversa", Quiz: "Quiz" } as const;
 const LENGTH_LABEL = { Short: "Curta", Medium: "Média", Long: "Longa" } as const;
@@ -15,6 +16,8 @@ export default function Landing() {
   const [responseLength, setResponseLength] = useState<"Short" | "Medium" | "Long">("Medium");
   const [showMode, setShowMode] = useState(false);
   const [showLength, setShowLength] = useState(false);
+  const [aiLanguage, setAiLanguage] = useState<AiLanguage>(getAiLanguage);
+  const [showLanguage, setShowLanguage] = useState(false);
   const [stagedFile, setStagedFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -60,7 +63,7 @@ export default function Landing() {
         }
         return;
       }
-      const r = await chatJSON({ q });
+      const r = await chatJSON({ q, language: aiLanguage });
       navigate(`/chat?chatId=${encodeURIComponent(r.chatId)}&q=${encodeURIComponent(q)}`);
     } catch {
       adaptiveToast.error("Não foi possível iniciar a conversa", "Houve um problema ao falar com a IA. Tente enviar seu pedido novamente.");
@@ -104,7 +107,7 @@ export default function Landing() {
 
         <div className="w-full md:w-fit flex">
           <div className="w-full md:w-fit md:min-w-fit p-1.5 rounded-2xl rounded-t-none bg-stone-950 flex flex-col items-start sm:items-center border border-stone-900 border-t-0 border-r-0 border-b-0 sm:border-b shadow-[inset_2px_-2px_15px] shadow-stone-900/80">
-            <div className="flex items-start justify-between md:justify-start space-x-2 p-1.5 w-full">
+            <div className="flex flex-wrap items-start justify-between md:justify-start gap-y-1 space-x-2 p-1.5 w-full">
               <div className="relative">
                 <div
                   onClick={() => setShowMode(!showMode)}
@@ -182,6 +185,41 @@ export default function Landing() {
                           }`}
                       >
                         {LENGTH_LABEL[opt as "Short" | "Medium" | "Long"]}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="w-px h-8 mx-2 bg-white/10 rounded-full mt-2 hidden sm:block" />
+
+              <div className="relative">
+                <div
+                  onClick={() => setShowLanguage(!showLanguage)}
+                  className="flex items-center space-x-4 p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer">
+                  <div className="flex flex-col -space-y-0.5 pr-2">
+                    <span className="text-xs text-stone-300">A IA está falando em</span>
+                    <span className="text-sm font-semibold text-white">{aiLanguage}</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 text-stone-400">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                  </svg>
+                </div>
+
+                {showLanguage && (
+                  <div className="absolute top-full left-0 mt-1 p-1 w-40 bg-stone-950 border border-stone-800 rounded-xl shadow-lg z-20">
+                    {AI_LANGUAGES.map((opt) => (
+                      <div
+                        key={opt}
+                        onClick={() => {
+                          setAiLanguage(opt);
+                          persistAiLanguage(opt);
+                          setShowLanguage(false);
+                        }}
+                        className={`px-3 py-2 cursor-pointer hover:bg-stone-800 transition rounded-lg ${aiLanguage === opt ? "text-sky-400" : "text-white"
+                          }`}
+                      >
+                        {opt}
                       </div>
                     ))}
                   </div>

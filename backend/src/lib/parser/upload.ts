@@ -31,22 +31,24 @@ function decodeUploadName(name: string) {
   return name
 }
 
-export function parseMultipart(req: any): Promise<{ q: string; chatId?: string; sourceId?: string; files: UpFile[] }> {
+export function parseMultipart(req: any): Promise<{ q: string; chatId?: string; sourceId?: string; language?: string; files: UpFile[] }> {
   return new Promise((resolve, reject) => {
     const bb = Busboy({ headers: req.headers, defParamCharset: "utf8" })
     let q = ''
     let chatId = ''
     let sourceId = ''
+    let language = ''
     const files: UpFile[] = []
     let pending = 0
     let ended = false
     let failed = false
-    const done = () => { if (!failed && ended && pending === 0) resolve({ q, chatId: chatId || undefined, sourceId: sourceId || undefined, files }) }
+    const done = () => { if (!failed && ended && pending === 0) resolve({ q, chatId: chatId || undefined, sourceId: sourceId || undefined, language: language || undefined, files }) }
 
     bb.on('field', (n, v) => {
       if (n === 'q') q = v
       if (n === 'chatId') chatId = v
       if (n === 'sourceId') sourceId = v
+      if (n === 'language') language = v
     })
     bb.on('file', (_n, file, info: any) => {
       pending++

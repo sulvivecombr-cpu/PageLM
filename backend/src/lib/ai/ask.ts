@@ -290,6 +290,7 @@ Apply all principles above to create content that demonstrates:
 - Explicit challenges to rote memorization with "but why?" moments
 [[ENHANCED EXAMPLE OUTPUT "END"]]
 [[RESTRICTIONS "START"]]
+- Write every field ("topic", "answer", flashcard "q"/"a") in Brazilian Portuguese (pt-BR), even when the source material is in another language. Keep numbers, symbols and mathematical notation unchanged
 - Output ONLY the JSON object
 - No prose or explanation outside JSON
 - No backticks around JSON
@@ -343,6 +344,7 @@ type AskWithContextOptions = {
   systemPrompt?: string
   history?: HistoryMessage[]
   cacheScope?: string
+  language?: string
 }
 
 export async function askWithContext(opts: AskWithContextOptions): Promise<AskPayload> {
@@ -352,7 +354,10 @@ export async function askWithContext(opts: AskWithContextOptions): Promise<AskPa
   const topic = typeof opts.topic === "string" && opts.topic.trim()
     ? opts.topic.trim()
     : guessTopic(safeQ) || "General"
-  const systemPrompt = opts.systemPrompt?.trim() || BASE_SYSTEM_PROMPT
+  const basePrompt = opts.systemPrompt?.trim() || BASE_SYSTEM_PROMPT
+  const systemPrompt = opts.language?.trim()
+    ? `${basePrompt}\n\n[[LANGUAGE]]\nWrite every field in ${opts.language.trim()}, overriding any other language instruction.`
+    : basePrompt
   const historyArr = Array.isArray(opts.history) ? opts.history : undefined
   const historyCache = serializeHistoryForCache(historyArr)
 
@@ -384,14 +389,15 @@ export async function askWithContext(opts: AskWithContextOptions): Promise<AskPa
 }
 
 export async function handleAsk(
-  q: string | { q: string; namespace?: string; history?: any[] },
+  q: string | { q: string; namespace?: string; history?: any[]; language?: string },
   ns?: string,
   k = 6,
-  historyArg?: any[]
+  historyArg?: any[],
+  languageArg?: string
 ): Promise<AskPayload> {
   if (typeof q === "object" && q !== null) {
     const params = q
-    return handleAsk(params.q, params.namespace ?? ns, k, params.history ?? historyArg)
+    return handleAsk(params.q, params.namespace ?? ns, k, params.history ?? historyArg, params.language ?? languageArg)
   }
 
   const questionRaw = typeof q === "string" ? q : String(q ?? "")
@@ -415,6 +421,7 @@ export async function handleAsk(
     topic,
     history: historyArg,
     systemPrompt: BASE_SYSTEM_PROMPT,
-    cacheScope: `ans:${nsFinal}`
+    cacheScope: `ans:${nsFinal}`,
+    language: languageArg
   })
 }

@@ -80,7 +80,7 @@ const DEFAULT_QUIZ_SETTINGS: StudioQuizSettings = {
   hints: true,
   optionsCount: 4,
   questionType: "mcq",
-  language: "auto",
+  language: "pt",
   mode: "practice",
 };
 
@@ -103,6 +103,7 @@ const LENGTH_LABEL = { short: "Curto", medium: "Médio", long: "Longo" } as cons
 const QUESTION_TYPE_LABEL = { mcq: "Múltipla escolha", truefalse: "Verdadeiro ou falso", mixed: "Misto" } as const;
 const LANGUAGE_LABEL: Record<QuizLanguage, string> = {
   auto: "Automático (segue a fonte)",
+  pt: "Português",
   ar: "Árabe",
   fr: "Francês",
   en: "Inglês",
@@ -140,6 +141,7 @@ const QTYPE_OPTIONS: Array<{ value: QuizQuestionType; label: string }> = [
 
 const LANGUAGE_OPTIONS: Array<{ value: QuizLanguage; label: string }> = [
   { value: "auto", label: "Automático" },
+  { value: "pt", label: "Português" },
   { value: "ar", label: "Árabe" },
   { value: "fr", label: "Francês" },
   { value: "en", label: "Inglês" },
@@ -1061,7 +1063,7 @@ export default function Studio() {
                         onChange={(v) => setQuizSettings((s) => ({ ...s, language: v }))}
                       />
                       <p className="text-[11px] text-stone-500 mt-1.5">
-                        «Automático» segue o idioma da fonte; você pode forçar árabe, francês ou inglês.
+                        «Automático» segue o idioma da fonte; você pode forçar português, árabe, francês ou inglês.
                       </p>
                     </div>
 

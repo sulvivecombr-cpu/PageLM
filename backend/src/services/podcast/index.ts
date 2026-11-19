@@ -25,6 +25,7 @@ Return only one valid JSON object in this format:
 }
 
 RULES
+- Write the title, summary and every segment in Brazilian Portuguese (pt-BR)
 - 8–16 segments total
 - Alternate speakers A and B consistently
 - Each segment = 1–3 sentences max (natural spoken rhythm)

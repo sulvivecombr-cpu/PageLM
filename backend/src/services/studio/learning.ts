@@ -45,7 +45,7 @@ function difficultyRule(d: LearningDifficulty) {
 function summaryStructure(template: LearningTemplate, answers: boolean) {
   if (template === "pedagogical") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 > **Nível:** <infer it from the source, or write "não informado na fonte">
 > **Fonte:** <source title>
 ## 🎯 Competências-alvo
@@ -65,7 +65,7 @@ A table or bullet list of the key formulas/rules. Omit this section if the sourc
   }
   if (template === "exam") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## O que você precisa saber antes da prova
 5 to 8 bullets with the essential facts, formulas, and definitions.
 ## Conceitos essenciais em resumo
@@ -78,7 +78,7 @@ A compact table or list of formulas and rules. Omit if not relevant.
 4 to 6 exam-style questions. ${answers ? "Add a concise model answer for each." : "Do not include answers."}`
   }
   return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## Visão geral
 A short paragraph: what the source covers and why it matters.
 ## Conceitos essenciais
@@ -140,7 +140,7 @@ A compact recap: the definitions, the key properties, and the method to follow.
 
   if (template === "quick") {
     return `Use this structure:
-# <lesson title in the source language>
+# <título da aula em português>
 ## Objetivos rápidos
 3 to 5 measurable objectives.
 ## Ideia central
@@ -157,7 +157,7 @@ One worked example with clear steps.
 
   if (template === "exam") {
     return `Use this structure:
-# <lesson title in the source language>
+# <título da aula em português>
 ## Objetivos da prova
 3 to 5 competencies likely to be assessed.
 ## Fundamentos essenciais
@@ -173,7 +173,7 @@ A general method for the main types of questions, with what to check at each ste
   }
 
   return `Use this structure:
-# <lesson title in the source language>
+# <título da aula em português>
 ## Pré-requisitos
 3 to 5 prerequisites the learner needs.
 ## Objetivos de aprendizagem
@@ -195,7 +195,7 @@ A compact recap of the lesson.
 function exercisesStructure(template: LearningTemplate, answers: boolean) {
   if (template === "pedagogical") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 > **Nível:** <infer it or write "não informado na fonte">
 ## 🎯 Competências-alvo
 3 to 5 competencies targeted by the exercise set.
@@ -216,7 +216,7 @@ A short rubric: what a correct answer must contain.`
   }
   if (template === "exam") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## Instruções da prova
 Duration, allowed tools, and instructions.
 ## Exercícios de prova
@@ -227,7 +227,7 @@ ${answers ? "## Critérios de correção e soluções\nA complete answer key wit
   }
   if (template === "quick") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## Instruções
 One short paragraph.
 ## Exercícios
@@ -235,7 +235,7 @@ One short paragraph.
 ${answers ? "## Soluções\nA concise answer for each exercise." : "Do not include solutions."}`
   }
   return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## Instruções
 Brief instructions and any notation the learner needs.
 ## Exercícios
@@ -246,7 +246,7 @@ ${answers ? "## Soluções\nA complete answer key, with reasoning for each exerc
 function questionsStructure(template: LearningTemplate, answers: boolean) {
   if (template === "pedagogical") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 > **Nível:** <infer it or write "não informado na fonte">
 ## 🎯 Competências-alvo
 3 to 5 competencies covered by the questions.
@@ -265,7 +265,7 @@ A short rubric: what a complete answer must include.`
   }
   if (template === "exam") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## Instruções
 Duration and instructions.
 ## Perguntas curtas
@@ -278,13 +278,13 @@ ${answers ? "## Respostas modelo e critérios de correção\nModel answers with 
   }
   if (template === "quick") {
     return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## Perguntas rápidas
 8 to 10 short questions covering the whole source.
 ${answers ? "## Respostas\nA one-line answer for each question." : "Do not include answers."}`
   }
   return `Use this structure:
-# <title in the source language>
+# <título claro em português>
 ## Perguntas curtas
 8 to 12 short-answer questions that cover the whole source.
 ## Perguntas dissertativas
@@ -338,7 +338,7 @@ NUMERIC AND LOGICAL CHECKS
 - Check that every equation, implication, and sign table is internally consistent.
 
 LANGUAGE
-Write in the dominant language of the source material. Keep numbers, symbols, and mathematical notation unchanged.
+Write in Brazilian Portuguese. Keep numbers, symbols, and mathematical notation unchanged.
 
 GROUNDING
 Every statement must be supported by the source. Never invent facts, dates, names, formulas, or exercise statements.
@@ -361,7 +361,7 @@ QUALITY BAR
 - Exercises must be solvable from the source and must not require invented data.
 - Before stating a numerical fact, verify it from the source. For theorem-based exercises, choose values and intervals that actually satisfy the hypotheses.
 - Preserve the direction of every implication and equivalence exactly as supported by the source. Never reverse a one-way statement.
-- Write only in the source language. Never mix in English words or phrases.
+- Write only in Brazilian Portuguese. Never mix in words or phrases from other languages.
 - Never write a heading whose section has no substantive content and never state that the source lacks a table or figure; simply omit that subsection. Never drop a supported table or geometric interpretation just to save space.
 - Do not include self-corrections, doubts, or meta-commentary about the source in the final document. Fix the issue silently before writing.
 - Never invent named properties, theorems, or formulas; include only what the source supports. Never leave placeholder notes such as "não há tabela".

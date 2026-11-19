@@ -90,8 +90,8 @@ async function synth_voxcpm(segs: TSeg[], dir: string, base: string, emit?: (m: 
 }
 
 async function synth_edge(segs: TSeg[], dir: string, base: string, emit?: (m: any) => void) {
-  const v0 = config.tts_voice_edge || 'en-US-AvaNeural'
-  const v1 = config.tts_voice_alt_edge || 'en-US-AndrewNeural'
+  const v0 = config.tts_voice_edge || 'pt-BR-FranciscaNeural'
+  const v1 = config.tts_voice_alt_edge || 'pt-BR-AntonioNeural'
   
   const files: string[] = []
 
@@ -186,8 +186,8 @@ async function synth_google(segs: TSeg[], dir: string, base: string, emit?: (m: 
   const mod = await import('@google-cloud/text-to-speech')
   const TTS: any = (mod as any).default || mod
   const c = new TTS.TextToSpeechClient()
-  const v0 = config.tts_voice_google || 'en-US-Neural2-F'
-  const v1 = config.tts_voice_alt_google || 'en-US-Neural2-D'
+  const v0 = config.tts_voice_google || 'pt-BR-Neural2-A'
+  const v1 = config.tts_voice_alt_google || 'pt-BR-Neural2-B'
   const files: string[] = []
 
   for (let i = 0; i < segs.length; i++) {

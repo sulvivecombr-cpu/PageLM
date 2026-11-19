@@ -24,13 +24,14 @@ No markdown, no code fences, no prose outside the JSON.
 
 SCHEMA
 "id": 1..${count}
-"question": plain English, 12..160 chars, unambiguous
+"question": Brazilian Portuguese, 12..160 chars, unambiguous
 "options": array of exactly 4 distinct strings; each 6..80 chars; each prefixed with A) , B) , C) , D)  OR  1) , 2) , 3) , 4)
 "correct": 1|2|3|4 (1-based index into options)
 "hint": 6..120 chars
 "explanation": 12..200 chars
 
 STYLE
+Write every question, option, hint and explanation in Brazilian Portuguese (pt-BR).
 Plain text only. ASCII. No LaTeX. No extra keys or nesting.
 ${style ? `Style: ${style}` : ""} ${difficulty ? `Difficulty: ${difficulty}` : ""} ${topic ? `Topic: ${topic}` : ""}`.trim()
 
@@ -40,6 +41,7 @@ OUTPUT
 Only a JSON array with ${count} objects. No markdown. No extra text.
 
 FIELDS
+All text in Brazilian Portuguese (pt-BR)
 id 1..${count}
 question 12..160 chars
 options exactly 4 strings; prefixed A) , B) , C) , D)  OR  1) , 2) , 3) , 4)
@@ -209,7 +211,7 @@ export async function generateSectionItems(gen: GenSpec, seed: string): Promise<
     const count = Math.max(1, Number(gen.count || 5))
     const sys = SYS(count, gen.style, gen.difficulty, normalizeTopic(gen.topic))
     const promptNorm = normalizeTopic(gen.prompt)
-    const user = `${promptNorm}\nSeed: ${seed}\nReturn only the JSON array with ${count} objects.`
+    const user = `${promptNorm}\nSeed: ${seed}\nWrite everything in Brazilian Portuguese (pt-BR).\nReturn only the JSON array with ${count} objects.`
     const key = keyOf(JSON.stringify({ t: "mcq", count, style: gen.style, difficulty: gen.difficulty, topic: normalizeTopic(gen.topic), prompt: promptNorm }))
     const s = await compiled.invoke({ key, sys, user, count, arr: null, norm: [] })
     return s.norm
@@ -218,7 +220,7 @@ export async function generateSectionItems(gen: GenSpec, seed: string): Promise<
     const count = Math.max(1, Number(gen.count || 5))
     const sys = SYS(count, gen.style, gen.difficulty, normalizeTopic(gen.topic))
     const promptNorm = normalizeTopic(gen.prompt)
-    const user = `First think of ${count} strong short-answer questions for the topic and then convert each into a 4-option MCQ with one correct answer. Keep answers factual and concise.\n\n${promptNorm}\nSeed: ${seed}\nReturn only the JSON array with ${count} objects.`
+    const user = `First think of ${count} strong short-answer questions for the topic and then convert each into a 4-option MCQ with one correct answer. Keep answers factual and concise. Write everything in Brazilian Portuguese (pt-BR).\n\n${promptNorm}\nSeed: ${seed}\nReturn only the JSON array with ${count} objects.`
     const key = keyOf(JSON.stringify({ t: "short→mcq", count, style: gen.style, difficulty: gen.difficulty, topic: normalizeTopic(gen.topic), prompt: promptNorm }))
     const s = await compiled.invoke({ key, sys, user, count, arr: null, norm: [] })
     return s.norm

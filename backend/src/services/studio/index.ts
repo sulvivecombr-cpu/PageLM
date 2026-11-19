@@ -135,7 +135,7 @@ OUTPUT CONTRACT
 Return only a JSON array with 8 objects. No markdown, no code fences, no prose outside the JSON.
 
 LANGUAGE
-Write every question and answer in the dominant language of the source material.
+Write every question and answer in Brazilian Portuguese.
 Keep numbers, symbols, and mathematical notation unchanged.
 
 SCHEMA
@@ -155,7 +155,7 @@ Output only the JSON array.`
 
 const FLASHCARD_STRICT = `RETRY: STRICT FORMAT ONLY
 Return only a JSON array with exactly 8 objects. Each object has "q", "a", "tags" (array of 2-4 strings).
-No markdown, no code fences, no extra text. Use the source language.`
+No markdown, no code fences, no extra text. Use Brazilian Portuguese.`
 
 const SUMMARY_SYS = `You are an expert study-notes writer.
 
@@ -167,10 +167,10 @@ GitHub-flavored Markdown only. No code fences around the whole answer.
 Use $...$ for inline math and $$...$$ for display math. Never use \(...\) or \[...\].
 
 LANGUAGE
-Write in the dominant language of the source material.
+Write in Brazilian Portuguese.
 
 STRUCTURE
-# <a clear title in the source language>
+# <um título claro em português>
 ## Visão geral
 A short paragraph explaining what the source covers and why it matters.
 ## Conceitos essenciais
@@ -235,7 +235,7 @@ STRUCTURE RULES
 LABEL RULES
 - Short noun phrases, not sentences. No markdown, no bullets, no LaTeX delimiters.
 - Labels must be informative on their own and understandable without the parent.
-- Write in the dominant language of the source material. Keep numbers and symbols unchanged.
+- Write in Brazilian Portuguese. Keep numbers and symbols unchanged.
 
 GROUNDING
 - Every node must be supported by the source material. Never invent facts.
@@ -248,7 +248,7 @@ Output only the JSON object.`
 const MINDMAP_STRICT = `RETRY: STRICT FORMAT ONLY
 Return only one JSON object shaped as:
 {"title":"...","template":"tree|balanced|org|radial|arc|timeline|stairs|outline|fishbone|columns|lanes|matrix","root":{"label":"...","children":[{"label":"...","children":[{"label":"..."}]}]}}
-Rules: 4-7 main branches in a logical learning order (foundations first), 2-4 sub-ideas per branch, no repeated concepts across branches, max depth 3 below root, short labels, source language, no markdown, no extra text.`
+Rules: 4-7 main branches in a logical learning order (foundations first), 2-4 sub-ideas per branch, no repeated concepts across branches, max depth 3 below root, short labels, Brazilian Portuguese, no markdown, no extra text.`
 
 function cleanLabel(v: any): string {
   return String(v ?? "")
@@ -504,7 +504,7 @@ function resolveQuizSettings(kind: StudioKind, options: StudioOptions): StudioQu
   const length: QuizLength =
     options.length === "short" || options.length === "long" ? options.length : "medium"
   const language: QuizLanguage =
-    options.language === "ar" || options.language === "fr" || options.language === "en"
+    options.language === "pt" || options.language === "ar" || options.language === "fr" || options.language === "en"
       ? options.language
       : "auto"
   return {
