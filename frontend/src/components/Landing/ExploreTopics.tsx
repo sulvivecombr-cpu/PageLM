@@ -2,23 +2,33 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { chatJSON } from "../../lib/api";
 
+type Topic = { key: string; label: string };
+
 export default function ExploreTopics() {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
 
-  const moreRows = useMemo(
+  const moreRows = useMemo<Topic[][]>(
     () => [
-      ["History", "Geography", "Music"],
-      ["Art", "Technology", "Philosophy"],
+      [
+        { key: "history", label: "História" },
+        { key: "geography", label: "Geografia" },
+        { key: "music", label: "Música" },
+      ],
+      [
+        { key: "art", label: "Arte" },
+        { key: "technology", label: "Tecnologia" },
+        { key: "philosophy", label: "Filosofia" },
+      ],
     ],
     []
   );
 
-  const imgSrc = (title: string) => `/pictures/${encodeURIComponent(title.toLocaleLowerCase())}.png`;
+  const imgSrc = (key: string) => `/pictures/${encodeURIComponent(key)}.png`;
 
   const promptFor = (topic: string) =>
-    `Give me a clear, beginner-friendly lesson on ${topic}`;
+    `Me dê uma aula clara e para iniciantes sobre ${topic}`;
 
   const startTopic = async (title: string) => {
     if (busy) return;
@@ -34,19 +44,19 @@ export default function ExploreTopics() {
     }
   };
 
-  const Card = ({ title, extra }: { title: string; extra?: string }) => (
+  const Card = ({ topic, extra }: { topic: Topic; extra?: string }) => (
     <button
       type="button"
-      onClick={() => startTopic(title)}
+      onClick={() => startTopic(topic.label)}
       disabled={busy}
       className={`w-full h-48 relative rounded-3xl border border-stone-900 bg-stone-950 
                   hover:scale-105 transition-transform duration-200 ease-out 
                   focus:outline-none focus:ring-2 focus:ring-stone-700 disabled:opacity-60 ${extra || ""}`}
-      title={busy ? "Starting…" : `Learn ${title}`}
+      title={busy ? "Iniciando…" : `Aprender ${topic.label}`}
     >
-      <img src={imgSrc(title)} alt={title} className="w-full h-full rounded-3xl object-cover" draggable={false} />
+      <img src={imgSrc(topic.key)} alt={topic.label} className="w-full h-full rounded-3xl object-cover" draggable={false} />
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-transparent to-black" />
-      <div className="absolute right-0 bottom-0 pr-4 pb-4 text-stone-200 text-xl sm:text-2xl">{title}</div>
+      <div className="absolute right-0 bottom-0 pr-4 pb-4 text-stone-200 text-xl sm:text-2xl">{topic.label}</div>
     </button>
   );
 
@@ -69,14 +79,14 @@ export default function ExploreTopics() {
             clipRule="evenodd"
           />
         </svg>
-        <span className="text-sm">{busy ? "Starting…" : "EXPLORE TOPICS"}</span>
+        <span className="text-sm">{busy ? "Iniciando…" : "EXPLORAR TÓPICOS"}</span>
       </div>
 
       <div className="w-full max-w-4xl mx-auto overflow-hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-          <Card title="Mathematics" />
-          <Card title="English" />
-          <Card title="Science" extra="col-span-1 sm:col-span-2 lg:col-span-1" />
+          <Card topic={{ key: "mathematics", label: "Matemática" }} />
+          <Card topic={{ key: "english", label: "Inglês" }} />
+          <Card topic={{ key: "science", label: "Ciências" }} extra="col-span-1 sm:col-span-2 lg:col-span-1" />
         </div>
 
         <div
@@ -88,8 +98,8 @@ export default function ExploreTopics() {
         >
           {moreRows.map((row, i) => (
             <div key={i} className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-              {row.map((title, j) => (
-                <Card key={title} title={title} extra={j === 2 ? "col-span-1 sm:col-span-2 lg:col-span-1" : ""} />
+              {row.map((topic, j) => (
+                <Card key={topic.key} topic={topic} extra={j === 2 ? "col-span-1 sm:col-span-2 lg:col-span-1" : ""} />
               ))}
             </div>
           ))}

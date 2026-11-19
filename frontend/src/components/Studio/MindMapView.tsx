@@ -413,7 +413,7 @@ export default function MindMapView({ map }: Props) {
           },
         });
     } catch {
-      setExportError("تعذر التصدير. حاول مرة أخرى.");
+      setExportError("Não foi possível exportar. Tente novamente.");
     } finally {
       setExporting("");
       setPdfProgress(0);
@@ -468,13 +468,13 @@ export default function MindMapView({ map }: Props) {
           <div className="min-w-0">
             <div className="truncate font-semibold text-white" dir="auto">{map.title || map.root.label}</div>
             <div className="mt-0.5 text-xs text-stone-500">
-              {layout.total.toLocaleString("ar")} عقدة · {branches.toLocaleString("ar")} فروع رئيسية · {layout.visible.toLocaleString("ar")} ظاهرة الآن
+              {layout.total.toLocaleString("pt-BR")} nós · {branches.toLocaleString("pt-BR")} ramos principais · {layout.visible.toLocaleString("pt-BR")} visíveis agora
             </div>
           </div>
         </div>
         <div className="flex flex-wrap shrink-0 items-center gap-1.5">
           <span className="hidden rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-1 text-[10px] text-violet-300 lg:inline-flex">
-            خريطة تفاعلية
+            Mapa interativo
           </span>
           <button
             onClick={copyMarkdown}
@@ -485,7 +485,7 @@ export default function MindMapView({ map }: Props) {
                   ? "border-red-500/30 bg-red-500/10 text-red-300"
                   : "border-stone-700 bg-stone-900 text-stone-300 hover:bg-stone-800 hover:text-white"
             }`}
-            title="نسخ الخريطة بصيغة Markdown"
+            title="Copiar o mapa em Markdown"
           >
             {copyState === "done" ? (
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-4">
@@ -497,7 +497,7 @@ export default function MindMapView({ map }: Props) {
               </svg>
             )}
             <span className="hidden sm:inline">
-              {copyState === "done" ? "تم النسخ" : copyState === "fail" ? "تعذر النسخ" : "نسخ Markdown"}
+              {copyState === "done" ? "Copiado" : copyState === "fail" ? "Não foi possível copiar" : "Copiar Markdown"}
             </span>
           </button>
           <div className="relative" ref={exportRef}>
@@ -511,7 +511,7 @@ export default function MindMapView({ map }: Props) {
               }`}
               aria-haspopup="menu"
               aria-expanded={exportOpen}
-              title="تصدير الخريطة"
+              title="Exportar o mapa"
             >
               {exporting ? (
                 <span className="size-4 animate-spin rounded-full border-2 border-violet-300/30 border-t-violet-200" />
@@ -523,9 +523,9 @@ export default function MindMapView({ map }: Props) {
               <span>
                 {exporting
                   ? exporting === "pdf" && pdfProgress > 0
-                    ? `PDF ${pdfProgress.toLocaleString("ar")}٪`
-                    : "جارٍ التصدير"
-                  : "تصدير"}
+                    ? `PDF ${pdfProgress.toLocaleString("pt-BR")}%`
+                    : "Exportando"
+                  : "Exportar"}
               </span>
               <svg
                 viewBox="0 0 24 24"
@@ -546,9 +546,9 @@ export default function MindMapView({ map }: Props) {
                 className="fixed z-[90] w-[17.5rem] overflow-hidden rounded-2xl border border-stone-700 bg-stone-950/95 p-1.5 shadow-2xl shadow-black/70 backdrop-blur-xl"
               >
                 <div className="px-2.5 pb-2 pt-1.5">
-                  <div className="text-[11px] font-semibold text-white">تصدير الخريطة</div>
+                  <div className="text-[11px] font-semibold text-white">Exportar o mapa</div>
                   <div className="mt-0.5 text-[10px] leading-relaxed text-stone-500">
-                    نسخة فاتحة كاملة العقد، جاهزة للمشاركة أو الطباعة.
+                    Versão clara com todos os nós, pronta para compartilhar ou imprimir.
                   </div>
                 </div>
                 <div className="my-1 h-px bg-stone-800" />
@@ -565,10 +565,10 @@ export default function MindMapView({ map }: Props) {
                   </span>
                   <span className="min-w-0">
                     <span className="flex items-center gap-1.5 text-xs font-medium text-stone-100">
-                      صورة PNG
-                      {exporting === "png" && <span className="text-[10px] text-sky-300">جارٍ…</span>}
+                      Imagem PNG
+                      {exporting === "png" && <span className="text-[10px] text-sky-300">Gerando…</span>}
                     </span>
-                    <span className="mt-0.5 block text-[10px] text-stone-500">دقة عالية، مناسبة للعرض والمشاركة</span>
+                    <span className="mt-0.5 block text-[10px] text-stone-500">Alta resolução, ideal para apresentações e compartilhamento</span>
                   </span>
                 </button>
                 <button
@@ -584,10 +584,10 @@ export default function MindMapView({ map }: Props) {
                   </span>
                   <span className="min-w-0">
                     <span className="flex items-center gap-1.5 text-xs font-medium text-stone-100">
-                      متجهات SVG
-                      {exporting === "svg" && <span className="text-[10px] text-emerald-300">جارٍ…</span>}
+                      Vetor SVG
+                      {exporting === "svg" && <span className="text-[10px] text-emerald-300">Gerando…</span>}
                     </span>
-                    <span className="mt-0.5 block text-[10px] text-stone-500">قابل للتكبير والتحرير دون فقدان الجودة</span>
+                    <span className="mt-0.5 block text-[10px] text-stone-500">Amplia e edita sem perder qualidade</span>
                   </span>
                 </button>
                 <button
@@ -603,11 +603,11 @@ export default function MindMapView({ map }: Props) {
                   </span>
                   <span className="min-w-0">
                     <span className="flex items-center gap-1.5 text-xs font-medium text-stone-100">
-                      PDF احترافي
-                      {exporting === "pdf" && <span className="text-[10px] text-rose-300">جارٍ…</span>}
+                      PDF profissional
+                      {exporting === "pdf" && <span className="text-[10px] text-rose-300">Gerando…</span>}
                     </span>
                     <span className="mt-0.5 block text-[10px] text-stone-500">
-                      غلاف + صفحات مفصّلة لكل فرع، بمقاس A4 جاهز للطباعة
+                      Capa + páginas detalhadas por ramo, em A4 prontas para imprimir
                     </span>
                   </span>
                 </button>
@@ -625,8 +625,8 @@ export default function MindMapView({ map }: Props) {
                     </svg>
                   </span>
                   <span className="min-w-0">
-                    <span className="block text-xs font-medium text-stone-100">ملف Markdown</span>
-                    <span className="mt-0.5 block text-[10px] text-stone-500">بنية هرمية نصية قابلة للتحرير</span>
+                    <span className="block text-xs font-medium text-stone-100">Arquivo Markdown</span>
+                    <span className="mt-0.5 block text-[10px] text-stone-500">Estrutura hierárquica em texto, editável</span>
                   </span>
                 </button>
               </div>,
@@ -636,8 +636,8 @@ export default function MindMapView({ map }: Props) {
           <button
             onClick={() => setFullscreen((v) => !v)}
             className="flex size-9 items-center justify-center rounded-xl border border-stone-700 bg-stone-900 text-stone-300 transition-colors hover:bg-stone-800 hover:text-white"
-            title={fullscreen ? "إنهاء ملء الشاشة (Esc)" : "ملء الشاشة"}
-            aria-label={fullscreen ? "إنهاء ملء الشاشة" : "ملء الشاشة"}
+            title={fullscreen ? "Sair da tela cheia (Esc)" : "Tela cheia"}
+            aria-label={fullscreen ? "Sair da tela cheia" : "Tela cheia"}
           >
             {fullscreen ? (
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-4">
@@ -655,7 +655,7 @@ export default function MindMapView({ map }: Props) {
       <div className="border-b border-stone-900 px-4 py-3 sm:px-5">
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
           <div className="flex min-w-0 items-center gap-2">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-stone-500">شكل الخريطة</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-stone-500">Formato do mapa</span>
             <span className="rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-200">
               {activeTemplate.name}
             </span>
@@ -676,7 +676,7 @@ export default function MindMapView({ map }: Props) {
                     ? "border-amber-400/60 bg-gradient-to-b from-amber-400/15 to-amber-500/5 text-amber-100 shadow-[0_0_0_1px_rgba(251,191,36,0.08),0_8px_24px_-12px_rgba(251,191,36,0.5)]"
                     : "border-stone-800 bg-stone-900/60 text-stone-400 hover:-translate-y-0.5 hover:border-stone-600 hover:bg-stone-900 hover:text-stone-100"
                 }`}
-                title={`${t.name} — ${t.hint}${suggested ? " (النموذج المقترح)" : ""}`}
+                title={`${t.name} — ${t.hint}${suggested ? " (modelo sugerido)" : ""}`}
                 aria-pressed={active}
               >
                 <TemplateGlyph id={t.id} className="size-5" />
@@ -684,7 +684,7 @@ export default function MindMapView({ map }: Props) {
                 {suggested && (
                   <span
                     className="absolute right-1 top-1 size-1.5 rounded-full bg-violet-400 shadow-[0_0_0_2px_rgba(167,139,250,0.2)]"
-                    title="النموذج المقترح من المحتوى"
+                    title="Modelo sugerido pelo conteúdo"
                   />
                 )}
               </button>
@@ -694,7 +694,7 @@ export default function MindMapView({ map }: Props) {
         <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
           <p className="text-[10px] text-stone-500 sm:hidden">{activeTemplate.hint}</p>
           <p className="text-[10px] text-stone-600">
-            النقطة البنفسجية = الشكل المقترح تلقائيًا من المحتوى.
+            O ponto roxo indica o formato sugerido automaticamente pelo conteúdo.
           </p>
         </div>
         {exportError && <p className="mt-1 text-[10px] text-red-300">{exportError}</p>}
@@ -767,7 +767,7 @@ export default function MindMapView({ map }: Props) {
                 {d === 0 ? (
                   <div className="flex h-full flex-col items-center justify-center text-center">
                     <span className="mb-1 text-[8.5px] font-medium uppercase tracking-[0.18em] text-violet-200/70">
-                      الموضوع الرئيسي
+                      Tema principal
                     </span>
                     <span className="line-clamp-2 text-[15px] font-semibold leading-snug" dir="auto">
                       {node.label}
@@ -788,7 +788,7 @@ export default function MindMapView({ map }: Props) {
                         ? "size-6 border-sky-400/40 bg-sky-500/20 text-[9px] text-sky-200 group-hover:bg-sky-500/35"
                         : "size-5 border-stone-700 bg-stone-900 text-[11px] text-stone-400 group-hover:text-white"
                     }`}
-                    title={isCollapsed ? "توسيع الفرع" : "طيّ الفرع"}
+                    title={isCollapsed ? "Expandir ramo" : "Recolher ramo"}
                   >
                     {isCollapsed ? node.children.length.toLocaleString("ar") : "−"}
                   </span>
@@ -806,8 +806,8 @@ export default function MindMapView({ map }: Props) {
           <button
             onClick={() => zoomBy(0.85)}
             className="flex size-7 items-center justify-center rounded-lg text-stone-300 transition-colors hover:bg-stone-800 hover:text-white"
-            title="تصغير"
-            aria-label="تصغير"
+            title="Diminuir zoom"
+            aria-label="Diminuir zoom"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-3.5">
               <path strokeLinecap="round" d="M5 12h14" />
@@ -816,15 +816,15 @@ export default function MindMapView({ map }: Props) {
           <button
             onClick={fit}
             className="min-w-11 rounded-lg px-1 py-1 text-[10px] tabular-nums text-stone-400 transition-colors hover:bg-stone-800 hover:text-white"
-            title="ملاءمة مقروءة"
+            title="Ajustar para leitura"
           >
             {Math.round(view.k * 100)}%
           </button>
           <button
             onClick={() => zoomBy(1.18)}
             className="flex size-7 items-center justify-center rounded-lg text-stone-300 transition-colors hover:bg-stone-800 hover:text-white"
-            title="تكبير"
-            aria-label="تكبير"
+            title="Aumentar zoom"
+            aria-label="Aumentar zoom"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-3.5">
               <path strokeLinecap="round" d="M12 5v14M5 12h14" />
@@ -833,8 +833,8 @@ export default function MindMapView({ map }: Props) {
           <button
             onClick={fitAll}
             className="flex size-7 items-center justify-center rounded-lg text-stone-400 transition-colors hover:bg-stone-800 hover:text-white"
-            title="عرض الخريطة كاملة"
-            aria-label="عرض الخريطة كاملة"
+            title="Ver o mapa inteiro"
+            aria-label="Ver o mapa inteiro"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-3.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 9V4h5M20 15v5h-5M4 4l6 6m10 10-6-6" />
@@ -845,19 +845,19 @@ export default function MindMapView({ map }: Props) {
             onClick={expandAll}
             className="rounded-lg px-2 py-1 text-[10px] text-stone-300 transition-colors hover:bg-stone-800 hover:text-white"
           >
-            توسيع الكل
+            Expandir tudo
           </button>
           <button
             onClick={collapseAll}
             className="rounded-lg px-2 py-1 text-[10px] text-stone-300 transition-colors hover:bg-stone-800 hover:text-white"
           >
-            طيّ الفروع
+            Recolher ramos
           </button>
         </div>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-3 z-10 hidden justify-center px-3 sm:flex">
           <span className="rounded-full border border-stone-800/80 bg-stone-950/85 px-3 py-1.5 text-[10px] text-stone-500 backdrop-blur">
-            انقر فرعًا لطيّه أو توسيعه · اسحب للتنقل · عجلة الفأرة للتكبير
+            Clique em um ramo para recolher ou expandir · arraste para navegar · use a roda do mouse para ampliar
           </span>
         </div>
       </div>

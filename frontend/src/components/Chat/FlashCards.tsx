@@ -13,7 +13,7 @@ export default function FlashCards({ items = [], onAdd, onToggleCollapse }: Prop
         <div className="mb-4">
           <div className="rounded-2xl bg-stone-950/80 border border-zinc-900 px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h3 className="text-stone-100 font-semibold tracking-wide text-sm">Important Topics</h3>
+              <h3 className="text-stone-100 font-semibold tracking-wide text-sm">Tópicos importantes</h3>
               <span className="text-[11px] font-medium text-stone-400 bg-stone-900 px-2 py-0.5 rounded-full border border-zinc-800">
                 {items.length}
               </span>
@@ -22,8 +22,8 @@ export default function FlashCards({ items = [], onAdd, onToggleCollapse }: Prop
               <button
                 onClick={onToggleCollapse}
                 className="p-1 rounded-lg text-stone-400 hover:text-stone-100 hover:bg-stone-900 transition-colors"
-                title="Collapse sidebar"
-                aria-label="Collapse topics sidebar"
+                title="Recolher painel"
+                aria-label="Recolher painel de tópicos"
               >
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 6 6 18M6 6l12 12" />
@@ -36,7 +36,7 @@ export default function FlashCards({ items = [], onAdd, onToggleCollapse }: Prop
         <div className="flex-1 overflow-y-auto pr-1 custom-scroll space-y-4 mb-8">
           {items.length === 0 ? (
             <div className="text-stone-400 text-sm bg-stone-950/60 border border-zinc-900 rounded-2xl p-6 text-center">
-              No flashcards yet
+              Ainda não há flashcards
             </div>
           ) : (
             items.map((c, i) => {
@@ -60,8 +60,8 @@ export default function FlashCards({ items = [], onAdd, onToggleCollapse }: Prop
                       <button
                         onClick={() => onAdd({ kind: "flashcard", title, content })}
                         className="shrink-0 h-9 w-9 inline-flex items-center justify-center rounded-xl bg-stone-900/70 border border-zinc-800 text-stone-400 hover:text-white hover:bg-stone-800 transition-colors"
-                        aria-label="Add to bag"
-                        title="Add to bag"
+                        aria-label="Adicionar à mochila"
+                        title="Adicionar à mochila"
                       >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M19 12H5" />

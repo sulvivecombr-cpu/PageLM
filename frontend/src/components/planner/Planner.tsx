@@ -14,7 +14,7 @@ function DaySlots({ date, slots, tasks }: { date: string; slots: PlannerSlot[]; 
         <div className="rounded-xl border border-zinc-800 bg-stone-950 p-3">
             <div className="text-xs text-stone-400 mb-2">{date}</div>
             <div className="space-y-2">
-                {slots.length === 0 && <div className="text-stone-500 text-sm">No slots</div>}
+                {slots.length === 0 && <div className="text-stone-500 text-sm">Sem horários</div>}
                 {slots.map(s => (
                     <div key={s.id} className="flex items-center justify-between text-sm text-stone-200/90">
                         <div className="truncate">
@@ -77,18 +77,18 @@ export default function Planner() {
             }
             if (ev.type === "task.created") {
                 setTasks(t => [ev.task, ...t.filter(x => x.id !== ev.task.id)])
-                addNotification("success", `Task "${ev.task.title}" created`)
+                addNotification("success", `Tarefa "${ev.task.title}" criada`)
             }
             if (ev.type === "task.updated") {
                 setTasks(t => t.map(x => x.id === ev.task.id ? ev.task : x))
             }
             if (ev.type === "task.deleted") {
                 setTasks(t => t.filter(x => x.id !== ev.taskId))
-                addNotification("info", "Task deleted")
+                addNotification("info", "Tarefa excluída")
             }
             if (ev.type === "task.files.added") {
                 setTasks(t => t.map(x => x.id === ev.taskId ? { ...x, files: [...(x.files || []), ...ev.files] } : x))
-                addNotification("success", `${ev.files.length} file(s) uploaded`)
+                addNotification("success", `${ev.files.length} arquivo(s) enviado(s)`)
             }
             if (ev.type === "task.file.removed") {
                 setTasks(t => t.map(x => x.id === ev.taskId ? { ...x, files: (x.files || []).filter(f => f.id !== ev.fileId) } : x))
@@ -99,7 +99,7 @@ export default function Planner() {
             if (ev.type === "reminder") {
                 addNotification("reminder", ev.text)
                 if ('Notification' in window && Notification.permission === 'granted') {
-                    new Notification('Homework Reminder', { body: ev.text })
+                    new Notification('Lembrete de tarefa', { body: ev.text })
                 }
             }
             if (ev.type === "break.reminder") {
@@ -109,10 +109,10 @@ export default function Planner() {
                 addNotification("info", ev.message)
             }
             if (ev.type === "session.started") {
-                addNotification("success", "Study session started")
+                addNotification("success", "Sessão de estudo iniciada")
             }
             if (ev.type === "session.ended") {
-                addNotification("success", `Session completed: ${ev.session.minutesWorked} minutes`)
+                addNotification("success", `Sessão concluída: ${ev.session.minutesWorked} minutos`)
             }
             if (ev.type === "materials.chunk") {
                 setMaterials(m => ({ ...m, _chunks: [...(m._chunks || []), ev] }))
@@ -195,10 +195,10 @@ export default function Planner() {
             setTasks(t => t.map(x => x.id === id ? task as any : x))
             const wp = await plannerWeekly(false)
             setPlan(wp.plan)
-            addNotification("success", "Task planned successfully")
+            addNotification("success", "Tarefa planejada com sucesso")
         } catch (error) {
             console.error('Plan task error:', error)
-            addNotification("error", "Failed to plan task: " + (error as any)?.message)
+            addNotification("error", "Falha ao planejar a tarefa: " + (error as any)?.message)
         } finally {
             setLoadingStates(prev => ({ ...prev, [id]: { ...prev[id], plan: false } }))
         }
@@ -219,7 +219,7 @@ export default function Planner() {
             await plannerUploadFiles(id, [file])
             // Files will be updated via WebSocket event
         } catch (e) {
-            addNotification("error", "Failed to upload file")
+            addNotification("error", "Falha ao enviar o arquivo")
         }
     }
 
@@ -228,7 +228,7 @@ export default function Planner() {
             await plannerDeleteFile(taskId, fileId)
             // File removal will be updated via WebSocket event
         } catch (e) {
-            addNotification("error", "Failed to delete file")
+            addNotification("error", "Falha ao excluir o arquivo")
         }
     }
 
@@ -268,14 +268,14 @@ export default function Planner() {
     return (
         <div className="rounded-2xl border border-zinc-800 bg-stone-950">
             <div className="px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
-                <div className="text-stone-200 font-medium">Homework Planner</div>
+                <div className="text-stone-200 font-medium">Planejador de tarefas</div>
                 <div className="flex items-center gap-2">
                     <div className="text-xs bg-zinc-900 border border-zinc-800 rounded overflow-hidden">
-                        <button onClick={() => setView("today")} className={`px-2 py-1 ${view === 'today' ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-300'}`}>Today</button>
-                        <button onClick={() => setView("list")} className={`px-2 py-1 ${view === 'list' ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-300'}`}>List</button>
-                        <button onClick={() => setView("mindmap")} className={`px-2 py-1 ${view === 'mindmap' ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-300'}`}>Mindmap</button>
+                        <button onClick={() => setView("today")} className={`px-2 py-1 ${view === 'today' ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-300'}`}>Hoje</button>
+                        <button onClick={() => setView("list")} className={`px-2 py-1 ${view === 'list' ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-300'}`}>Lista</button>
+                        <button onClick={() => setView("mindmap")} className={`px-2 py-1 ${view === 'mindmap' ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-300'}`}>Mapa mental</button>
                     </div>
-                    <button onClick={reload} className="text-xs px-2 py-1 rounded bg-stone-800 text-stone-200">Refresh</button>
+                    <button onClick={reload} className="text-xs px-2 py-1 rounded bg-stone-800 text-stone-200">Atualizar</button>
                 </div>
             </div>
 
@@ -331,28 +331,28 @@ export default function Planner() {
                                     <div className="min-w-0">
                                         <div className="text-zinc-100 font-medium truncate">{t.title}</div>
                                         <div className="text-zinc-400 text-xs">
-                                            Due {fmtTime(t.dueAt)} · {t.estMins} mins · P{t.priority}
-                                            {t.files && t.files.length > 0 && ` · ${t.files.length} file(s)`}
+                                            Entrega {fmtTime(t.dueAt)} · {t.estMins} min · P{t.priority}
+                                            {t.files && t.files.length > 0 && ` · ${t.files.length} arquivo(s)`}
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <select value={t.status} onChange={e => mark(t.id, e.target.value as any)} className="bg-stone-900 border border-zinc-800 text-stone-200 text-xs rounded px-2 py-1">
-                                            <option value="todo">todo</option>
-                                            <option value="doing">doing</option>
-                                            <option value="done">done</option>
-                                            <option value="blocked">blocked</option>
+                                            <option value="todo">a fazer</option>
+                                            <option value="doing">fazendo</option>
+                                            <option value="done">concluída</option>
+                                            <option value="blocked">bloqueada</option>
                                         </select>
-                                        <button onClick={() => planTask(t.id)} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Plan</button>
-                                        <button onClick={() => gen(t.id, "summary")} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Summary</button>
+                                        <button onClick={() => planTask(t.id)} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Planejar</button>
+                                        <button onClick={() => gen(t.id, "summary")} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Resumo</button>
                                         <button onClick={() => gen(t.id, "flashcards")} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Flashcards</button>
-                                        <button onClick={() => del(t.id)} className="text-xs px-2 py-1 rounded bg-red-600 text-white">Delete</button>
+                                        <button onClick={() => del(t.id)} className="text-xs px-2 py-1 rounded bg-red-600 text-white">Excluir</button>
                                     </div>
                                 </div>
 
                                 {/* Task Files */}
                                 {t.files && t.files.length > 0 && (
                                     <div className="mt-3 border-t border-zinc-800 pt-3">
-                                        <div className="text-zinc-300 text-xs mb-2">Attached Files:</div>
+                                        <div className="text-zinc-300 text-xs mb-2">Arquivos anexados:</div>
                                         <div className="flex flex-wrap gap-2">
                                             {t.files.map(file => (
                                                 <div key={file.id} className="flex items-center gap-1 px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-200">
@@ -361,7 +361,7 @@ export default function Planner() {
                                                     <button
                                                         onClick={() => deleteFile(t.id, file.id)}
                                                         className="text-zinc-400 hover:text-red-400 ml-1"
-                                                        title="Delete file"
+                                                        title="Excluir arquivo"
                                                     >×</button>
                                                 </div>
                                             ))}
@@ -376,8 +376,8 @@ export default function Planner() {
                                     <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                                         {materials[t.id].flashcards.flashcards.map((c: any, i: number) => (
                                             <div key={i} className="border border-zinc-800 rounded-lg p-2">
-                                                <div className="text-zinc-200 text-sm font-medium">Q: {c.q}</div>
-                                                <div className="text-zinc-400 text-sm">A: {c.a}</div>
+                                                <div className="text-zinc-200 text-sm font-medium">P: {c.q}</div>
+                                                <div className="text-zinc-400 text-sm">R: {c.a}</div>
                                             </div>
                                         ))}
                                     </div>
@@ -388,7 +388,7 @@ export default function Planner() {
                 )}
                 {view === 'list' && (
                     <div>
-                        <div className="text-stone-300 text-sm mb-2">Weekly Plan</div>
+                        <div className="text-stone-300 text-sm mb-2">Plano semanal</div>
                         {plan ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                 {plan.days.map(d => (
@@ -396,7 +396,7 @@ export default function Planner() {
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-stone-500 text-sm">No plan yet</div>
+                            <div className="text-stone-500 text-sm">Nenhum plano ainda</div>
                         )}
                     </div>
                 )}

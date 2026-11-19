@@ -6,6 +6,9 @@ import PromptBox from "../components/Landing/PromptBox";
 import ExploreTopics from "../components/Landing/ExploreTopics";
 import { chatJSON, uploadSources } from "../lib/api";
 
+const MODE_LABEL = { Chat: "Conversa", Quiz: "Quiz" } as const;
+const LENGTH_LABEL = { Short: "Curta", Medium: "Média", Long: "Longa" } as const;
+
 export default function Landing() {
   const [prompt, setPrompt] = useState("");
   const [mode, setMode] = useState<"Chat" | "Quiz">("Chat");
@@ -60,7 +63,7 @@ export default function Landing() {
       const r = await chatJSON({ q });
       navigate(`/chat?chatId=${encodeURIComponent(r.chatId)}&q=${encodeURIComponent(q)}`);
     } catch {
-      adaptiveToast.error("Failed to start chat", "There was a problem reaching the AI. Please try sending your prompt again.");
+      adaptiveToast.error("Não foi possível iniciar a conversa", "Houve um problema ao falar com a IA. Tente enviar seu pedido novamente.");
     } finally {
       setBusy(false);
     }
@@ -70,14 +73,14 @@ export default function Landing() {
     <div className="flex flex-col min-h-screen w-full pl-4 pr-4 md:pl-32">
       <div className="flex-1 flex flex-col justify-center max-w-4xl mx-auto my-20 md:my-4 w-full px-2">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl text-white font-semibold pl-3 border-l-2 border-sky-500 mb-8">
-          What&apos;d you like to learn today?
+          O que você quer aprender hoje?
         </h1>
 
         <AdaptiveErrorBoundary
           mode="manual"
           severity="medium"
-          title="Input Area Unavailable"
-          description="An error occurred while loading the chat input or file uploader. Please refresh the page to continue."
+          title="Área de entrada indisponível"
+          description="Ocorreu um erro ao carregar o campo de mensagem ou o envio de arquivos. Atualize a página para continuar."
           theme={{
             backgroundColor: "#0c0a09",
             textColor: "#e7e5e4",
@@ -108,8 +111,8 @@ export default function Landing() {
                   className="flex items-center space-x-4 p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer"
                 >
                   <div className="flex flex-col -space-y-0.5 pr-2">
-                    <span className="text-xs text-stone-300">Prompt Mode</span>
-                    <span className="text-sm font-semibold text-white">{mode}</span>
+                    <span className="text-xs text-stone-300">Modo do prompt</span>
+                    <span className="text-sm font-semibold text-white">{MODE_LABEL[mode]}</span>
                   </div>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 text-stone-400">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
@@ -128,7 +131,7 @@ export default function Landing() {
                         className={`px-3 py-2 cursor-pointer hover:bg-stone-800 transition rounded-lg ${mode === opt ? "text-sky-400" : "text-white"
                           }`}
                       >
-                        {opt}
+                        {MODE_LABEL[opt as "Chat" | "Quiz"]}
                       </div>
                     ))}
                   </div>
@@ -137,10 +140,10 @@ export default function Landing() {
 
               <div className="w-px h-8 mx-2 bg-white/10 rounded-full mt-2" />
 
-              <div className="p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer min-w-fit h-fit hidden md:flex items-center space-x-4" onClick={onPickFile} title={stagedFile ? stagedFile.name : "Click or drop"}>
+              <div className="p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer min-w-fit h-fit hidden md:flex items-center space-x-4" onClick={onPickFile} title={stagedFile ? stagedFile.name : "Clique ou arraste"}>
                 <div className="flex flex-col -space-y-0.5 pr-2">
-                  <span className="text-xs text-stone-300">{stagedFile ? "File selected" : "Add files"}</span>
-                  <span className="text-sm font-semibold text-white">{stagedFile ? stagedFile.name : "Click or drop"}</span>
+                  <span className="text-xs text-stone-300">{stagedFile ? "Arquivo selecionado" : "Adicionar arquivos"}</span>
+                  <span className="text-sm font-semibold text-white">{stagedFile ? stagedFile.name : "Clique ou arraste"}</span>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-6 text-stone-400">
                   <path
@@ -158,8 +161,8 @@ export default function Landing() {
                   onClick={() => setShowLength(!showLength)}
                   className="flex items-center space-x-4 p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer">
                   <div className="flex flex-col -space-y-0.5 pr-2">
-                    <span className="text-xs text-stone-300">Response Length</span>
-                    <span className="text-sm font-semibold text-white">{responseLength}</span>
+                    <span className="text-xs text-stone-300">Tamanho da resposta</span>
+                    <span className="text-sm font-semibold text-white">{LENGTH_LABEL[responseLength]}</span>
                   </div>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 text-stone-400">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
@@ -178,7 +181,7 @@ export default function Landing() {
                         className={`px-3 py-2 cursor-pointer hover:bg-stone-800 transition rounded-lg ${responseLength === opt ? "text-sky-400" : "text-white"
                           }`}
                       >
-                        {opt}
+                        {LENGTH_LABEL[opt as "Short" | "Medium" | "Long"]}
                       </div>
                     ))}
                   </div>

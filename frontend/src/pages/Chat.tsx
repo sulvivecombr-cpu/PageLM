@@ -377,7 +377,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (latestAssistantContent) {
-      const docTitle = topic || deriveTopicFromMarkdown(latestAssistantContent) || "Study Topic";
+      const docTitle = topic || deriveTopicFromMarkdown(latestAssistantContent) || "Tema de estudo";
       const docId = chatId ? `chat:${chatId}` : "chat:current";
       setDocument({
         id: docId,
@@ -401,14 +401,14 @@ export default function Chat() {
         <button
           onClick={() => setShowTopics(true)}
           className="fixed top-5 right-6 z-20 hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-stone-950/90 border border-zinc-800 text-stone-400 hover:text-stone-100 hover:bg-stone-900 text-xs font-medium shadow-lg backdrop-blur transition-colors"
-          title="Show Important Topics"
-          aria-label="Show Important Topics"
+          title="Mostrar tópicos importantes"
+          aria-label="Mostrar tópicos importantes"
         >
           <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect width="18" height="18" x="3" y="3" rx="2" />
             <path d="M15 3v18" />
           </svg>
-          <span>Topics ({cards.length})</span>
+          <span>Tópicos ({cards.length})</span>
         </button>
       )}
 
@@ -429,16 +429,16 @@ export default function Chat() {
                     </svg>
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[10px] uppercase tracking-wider text-sky-300/80">محادثة مرتبطة بمصدر</div>
-                    <div className="text-sm text-stone-200 truncate" dir="auto">{sourceName || "المصدر المحدد"}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-sky-300/80">Conversa vinculada a uma fonte</div>
+                    <div className="text-sm text-stone-200 truncate" dir="auto">{sourceName || "Fonte selecionada"}</div>
                   </div>
                 </div>
                 <div className="sm:ms-auto flex items-center gap-2 shrink-0">
                   <Link to={`/studio?sourceId=${encodeURIComponent(sourceId)}`} className="rounded-lg border border-violet-500/30 bg-violet-500/10 px-3 py-1.5 text-xs text-violet-200 hover:bg-violet-500/20 transition-colors">
-                    حوّله إلى مواد
+                    Transformar em material
                   </Link>
                   <Link to="/sources" className="rounded-lg border border-stone-800 bg-stone-900/70 px-3 py-1.5 text-xs text-stone-300 hover:bg-stone-800 transition-colors">
-                    تغيير المصدر
+                    Trocar fonte
                   </Link>
                 </div>
               </div>
@@ -467,7 +467,7 @@ export default function Chat() {
               })}
               {(connecting || awaitingAnswer) && (
                 <div className="w-full flex justify-start">
-                  <LoadingIndicator label={connecting ? "Connecting…" : "Thinking…"} />
+                  <LoadingIndicator label={connecting ? "Conectando…" : "Pensando…"} />
                 </div>
               )}
               <div ref={scrollRef} />
@@ -476,19 +476,19 @@ export default function Chat() {
             {latestAssistantContent && !awaitingAnswer && (
               <ActionRow
                 disabled={busy}
-                onSummarize={() => sendFollowup("Summarize the previous answer into 5–7 concise bullet points with bolded keywords.")}
-                onLearnMore={() => sendFollowup("Go deeper into this topic with advanced details, real-world examples, and a short analogy.")}
+                onSummarize={() => sendFollowup("Resuma a resposta anterior em 5 a 7 tópicos concisos com palavras-chave em negrito.")}
+                onLearnMore={() => sendFollowup("Aprofunde este tema com detalhes avançados, exemplos do mundo real e uma analogia curta.")}
                 onStartQuiz={() => {
                   if (sourceId) {
                     navigate(`/studio?sourceId=${encodeURIComponent(sourceId)}`);
                     return;
                   }
-                  const t = topic || deriveTopicFromMarkdown(latestAssistantContent) || "General";
+                  const t = topic || deriveTopicFromMarkdown(latestAssistantContent) || "Geral";
                   navigate(`/quiz?topic=${encodeURIComponent(t)}`, { state: { topic: t } });
                 }}
                 onCreatePodcast={async () => {
                   try {
-                    const topicContent = latestAssistantContent || topic || "Generated from chat";
+                    const topicContent = latestAssistantContent || topic || "Gerado a partir da conversa";
                     const response = await podcastStart({ topic: topicContent });
                     navigate("/tools", { state: { podcastPid: response.pid, podcastTopic: topicContent } });
                   } catch (error) {
@@ -512,7 +512,7 @@ export default function Chat() {
       <SelectionPopup
         selected={selected}
         popupRef={selPopupRef}
-        addNote={(text) => { addToBag("note", `Note: ${text.slice(0, 30)}${text.length > 30 ? "..." : ""}`, text); setSelected(null); }}
+        addNote={(text) => { addToBag("note", `Anotação: ${text.slice(0, 30)}${text.length > 30 ? "..." : ""}`, text); setSelected(null); }}
         askDoubt={(text) => { const v = text.trim(); if (v) sendFollowup(v); setSelected(null); }}
       />
 

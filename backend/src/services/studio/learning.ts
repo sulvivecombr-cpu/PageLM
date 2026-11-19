@@ -19,10 +19,10 @@ export type LearningFile = {
 }
 
 const MODE_LABEL: Record<LearningMode, string> = {
-  summary: "ملخص دراسي",
-  lesson: "درس متكامل",
-  exercises: "سلسلة تمارين",
-  questions: "سلسلة أسئلة",
+  summary: "resumo de estudo",
+  lesson: "aula completa",
+  exercises: "série de exercícios",
+  questions: "série de perguntas",
 }
 
 const TEMPLATE_RULE: Record<LearningTemplate, string> = {
@@ -46,250 +46,250 @@ function summaryStructure(template: LearningTemplate, answers: boolean) {
   if (template === "pedagogical") {
     return `Use this structure:
 # <title in the source language>
-> **المستوى:** <infer it from the source, or write "غير محدد في المصدر">
-> **المصدر:** <source title>
-## 🎯 الكفاءات المستهدفة
+> **Nível:** <infer it from the source, or write "não informado na fonte">
+> **Fonte:** <source title>
+## 🎯 Competências-alvo
 3 to 5 bullets describing what the learner must be able to do.
-## 🧭 خريطة المفاهيم
-A Markdown table with 4 to 8 rows: | المفهوم | تعريف مختصر | علاقته بالمفاهيم الأخرى |
-## 📌 المفاهيم الأساسية
+## 🧭 Mapa de conceitos
+A Markdown table with 4 to 8 rows: | Conceito | Definição breve | Relação com os outros conceitos |
+## 📌 Conceitos essenciais
 3 to 6 subsections. For each: a precise definition, a formula or example when relevant, and one sentence explaining why it matters.
-## 🧮 الصيغ والقواعد الأساسية
+## 🧮 Fórmulas e regras essenciais
 A table or bullet list of the key formulas/rules. Omit this section if the source has no formulas.
-## ⚠️ أخطاء شائعة
+## ⚠️ Erros comuns
 3 to 5 common mistakes and how to avoid them.
-## ✅ نقاط المراجعة السريعة
+## ✅ Pontos de revisão rápida
 6 to 8 bullets with the highest-value facts and relationships.
-## 📝 تقويم ذاتي
+## 📝 Autoavaliação
 4 to 6 short questions covering the whole source. ${answers ? "Add a concise answer under each question." : "Do not include answers."}`
   }
   if (template === "exam") {
     return `Use this structure:
 # <title in the source language>
-## ما يجب أن تعرفه قبل الامتحان
+## O que você precisa saber antes da prova
 5 to 8 bullets with the essential facts, formulas, and definitions.
-## المفاهيم الأساسية باختصار
+## Conceitos essenciais em resumo
 3 to 6 bolded concepts, each explained in 2..3 sentences.
-## الصيغ والقواعد
+## Fórmulas e regras
 A compact table or list of formulas and rules. Omit if not relevant.
-## أخطاء شائعة في الامتحان
+## Erros comuns na prova
 3 to 5 traps with the correct approach.
-## أسئلة امتحانية سريعة
+## Perguntas rápidas de prova
 4 to 6 exam-style questions. ${answers ? "Add a concise model answer for each." : "Do not include answers."}`
   }
   return `Use this structure:
 # <title in the source language>
-## نظرة عامة
+## Visão geral
 A short paragraph: what the source covers and why it matters.
-## المفاهيم الأساسية
+## Conceitos essenciais
 3 to 6 subsections. Bold each key term, explain it in 2..4 sentences, and add a formula or example when relevant.
-## نقاط المراجعة السريعة
+## Pontos de revisão rápida
 5 to 8 bullets with the most important facts and relationships.
-## أسئلة سريعة
+## Perguntas rápidas
 3 to 5 short questions. ${answers ? "Add a one-line answer under each question." : "Do not include answers."}`
 }
 
 function lessonStructure(template: LearningTemplate, answers: boolean) {
   const solutions = answers
-    ? `**الحل المفصل:**
+    ? `**Solução detalhada:**
 Write numbered steps. Justify each key step, show the main calculation, and state the final result clearly. Keep the solution focused and free of repetition.`
     : `Do not include the solution. Keep only the exercise statement and what the learner must find.`
 
   if (template === "pedagogical") {
     return `Use this structure exactly, adapting the section titles to the subject when needed:
-# <عنوان الدرس>
+# <título da aula>
 
-> **الفئة المستهدفة:** <infer it from the source, or write "طلبة المستوى ...">
-> **المصدر:** <source title>
+> **Público-alvo:** <infer it from the source, or write "estudantes do nível ...">
+> **Fonte:** <source title>
 
-## 🎯 الكفاءات المستهدفة
-3 to 5 measurable competencies. Start each with an action verb: تعريف، تطبيق، تحليل، استنتاج، توظيف...
+## 🎯 Competências-alvo
+3 to 5 measurable competencies. Start each with an action verb: definir, aplicar, analisar, inferir, empregar...
 
-## 🚀 مدخل تمهيدي
+## 🚀 Introdução
 A motivating contextual, historical, or practical introduction that shows why the concept is needed. Include a concrete example or two contrasting cases that motivate the new concept.
 
-## 📚 المحور الأول: <عنوان المحور>
-### 1. تعريف
-**تعريف:** A precise definition supported by the source.
-### 2. ملاحظات وترميز
+## 📚 Eixo 1: <título do eixo>
+### 1. Definição
+**Definição:** A precise definition supported by the source.
+### 2. Notações e observações
 Bullets for notation, vocabulary, conditions, and special cases.
-### 3. أمثلة تطبيقية سريعة
+### 3. Exemplos rápidos
 2 to 3 short examples with the answer or a one-line justification.
-### 4. خواص ومبرهنات (إن وجدت)
+### 4. Propriedades e teoremas (se houver)
 The key properties/theorems, with conditions stated clearly. Omit if not relevant.
-### 5. جدول قيم أو ملخص (إن وجد)
+### 5. Tabela de valores ou resumo (se houver)
 A Markdown table only when it genuinely organizes the content. Omit if not relevant.
-### 6. التمثيل البياني أو الهندسي (إن وجد)
+### 6. Representação gráfica ou geométrica (se houver)
 Describe the figure, axes, points, or geometric interpretation precisely. Omit if not relevant.
 
-## 📐 المحور الثاني: <عنوان المحور>
+## 📐 Eixo 2: <título do eixo>
 Repeat the same pedagogical progression as the first axis. Use exactly two axes in total; never add a third axis or an empty subsection.
 
-## ✍️ تمارين تطبيقية ${answers ? "محلولة" : "بدون حلول"}
-### تمرين 1: <عنوان مختصر>
-**نص التمرين:**
+## ✍️ Exercícios aplicados ${answers ? "com solução" : "sem soluções"}
+### Exercício 1: <título curto>
+**Enunciado:**
 One exercise with 2 or 3 numbered questions that combines both axes.
 ${solutions}
 
-## ✅ خلاصة الدرس
+## ✅ Resumo da aula
 A compact recap: the definitions, the key properties, and the method to follow.
 
-## 📝 تقويم ذاتي
+## 📝 Autoavaliação
 4 questions ordered from recall to application. ${answers ? "Add a short answer for each." : "Do not include answers."}`
   }
 
   if (template === "quick") {
     return `Use this structure:
 # <lesson title in the source language>
-## أهداف سريعة
+## Objetivos rápidos
 3 to 5 measurable objectives.
-## الفكرة الأساسية
+## Ideia central
 A short motivating explanation that connects to prior knowledge.
-## الشرح المختصر
+## Explicação resumida
 3 to 5 progressive sections with definitions, formulas, and one concrete example each.
-## مثال محلول
+## Exemplo resolvido
 One worked example with clear steps.
-## خلاصة
+## Resumo
 5 to 7 bullets.
-## تمرين سريع
-1 to 2 exercises. ${answers ? "Add the solution under ## الحل." : "Do not include solutions."}`
+## Exercício rápido
+1 to 2 exercises. ${answers ? "Add the solution under ## Solução." : "Do not include solutions."}`
   }
 
   if (template === "exam") {
     return `Use this structure:
 # <lesson title in the source language>
-## أهداف الامتحان
+## Objetivos da prova
 3 to 5 competencies likely to be assessed.
-## الأساسيات التي لا تُنسى
+## Fundamentos essenciais
 Definitions, formulas, and conditions in a compact table or bullet list.
-## منهجية الحل خطوة بخطوة
+## Método de resolução passo a passo
 A general method for the main types of questions, with what to check at each step.
-## أمثلة امتحانية محلولة
+## Exemplos de prova resolvidos
 2 to 3 exam-style examples with full reasoning and common traps highlighted.
-## أخطاء شائعة
+## Erros comuns
 3 to 5 errors and how to avoid them.
-## تدريب موقوت
-2 to 3 exercises with a suggested time. ${answers ? "Add a complete answer key under ## الحلول." : "Do not include solutions."}`
+## Treino cronometrado
+2 to 3 exercises with a suggested time. ${answers ? "Add a complete answer key under ## Soluções." : "Do not include solutions."}`
   }
 
   return `Use this structure:
 # <lesson title in the source language>
-## المتطلبات السابقة
+## Pré-requisitos
 3 to 5 prerequisites the learner needs.
-## أهداف التعلم
+## Objetivos de aprendizagem
 3 to 5 measurable objectives.
-## مقدمة
+## Introdução
 A short motivating introduction that connects to prior knowledge.
-## الشرح خطوة بخطوة
+## Explicação passo a passo
 3 to 6 sections that build the concept progressively. For each section: a precise definition, the key properties or theorem, a formula when relevant, and a concrete example.
-## أمثلة محلولة
+## Exemplos resolvidos
 2 to 4 worked examples with the reasoning shown.
-## أخطاء شائعة
+## Erros comuns
 3 to 5 common mistakes and how to avoid them.
-## خلاصة
+## Resumo
 A compact recap of the lesson.
-## تمارين سريعة
-3 to 5 exercises. ${answers ? "Add a complete answer key at the end under ## الحلول." : "Do not include solutions."}`
+## Exercícios rápidos
+3 to 5 exercises. ${answers ? "Add a complete answer key at the end under ## Soluções." : "Do not include solutions."}`
 }
 
 function exercisesStructure(template: LearningTemplate, answers: boolean) {
   if (template === "pedagogical") {
     return `Use this structure:
 # <title in the source language>
-> **المستوى:** <infer it or write "غير محدد في المصدر">
-## 🎯 الكفاءات المستهدفة
+> **Nível:** <infer it or write "não informado na fonte">
+## 🎯 Competências-alvo
 3 to 5 competencies targeted by the exercise set.
-## 📋 تعليمات
+## 📋 Instruções
 Instructions, notation, allowed tools, and the expected work.
-## 🟢 المستوى الأول: تطبيق مباشر
+## 🟢 Nível 1: aplicação direta
 3 to 4 exercises that apply definitions, formulas, and standard methods.
-## 🟠 المستوى الثاني: تحليل واستدلال
+## 🟠 Nível 2: análise e raciocínio
 2 to 3 exercises that require several steps, comparison, or justification.
-## 🔴 المستوى الثالث: تحدٍّ
+## 🔴 Nível 3: desafio
 1 to 2 challenging exercises that combine several ideas.
-## 💡 تلميحات
+## 💡 Dicas
 One short hint per exercise, only if it helps without revealing the answer.
-${answers ? `## ✅ الحلول المفصلة
-For every exercise: numbered steps, the reasoning, and the final result. Add a short "لماذا؟" note for the key step.` : "Do not include solutions."}
-## 📊 معايير التقييم
+${answers ? `## ✅ Soluções detalhadas
+For every exercise: numbered steps, the reasoning, and the final result. Add a short "Por quê?" note for the key step.` : "Do not include solutions."}
+## 📊 Critérios de avaliação
 A short rubric: what a correct answer must contain.`
   }
   if (template === "exam") {
     return `Use this structure:
 # <title in the source language>
-## تعليمات الامتحان
+## Instruções da prova
 Duration, allowed tools, and instructions.
-## تمارين الامتحان
+## Exercícios de prova
 6 to 8 exam-style exercises with point values and a suggested time.
-## أخطاء شائعة
+## Erros comuns
 3 to 5 traps and how to avoid them.
-${answers ? "## سلم التنقيط والحلول\nA complete answer key with the marking points." : "Do not include solutions."}`
+${answers ? "## Critérios de correção e soluções\nA complete answer key with the marking points." : "Do not include solutions."}`
   }
   if (template === "quick") {
     return `Use this structure:
 # <title in the source language>
-## تعليمات
+## Instruções
 One short paragraph.
-## تمارين
+## Exercícios
 6 to 8 short exercises ordered by difficulty.
-${answers ? "## الحلول\nA concise answer for each exercise." : "Do not include solutions."}`
+${answers ? "## Soluções\nA concise answer for each exercise." : "Do not include solutions."}`
   }
   return `Use this structure:
 # <title in the source language>
-## تعليمات
+## Instruções
 Brief instructions and any notation the learner needs.
-## تمارين
+## Exercícios
 6 to 10 exercises ordered by difficulty: application, analysis, then a challenge. Number them and state what is required.
-${answers ? "## الحلول\nA complete answer key, with reasoning for each exercise." : "Do not include solutions."}`
+${answers ? "## Soluções\nA complete answer key, with reasoning for each exercise." : "Do not include solutions."}`
 }
 
 function questionsStructure(template: LearningTemplate, answers: boolean) {
   if (template === "pedagogical") {
     return `Use this structure:
 # <title in the source language>
-> **المستوى:** <infer it or write "غير محدد في المصدر">
-## 🎯 الكفاءات المستهدفة
+> **Nível:** <infer it or write "não informado na fonte">
+## 🎯 Competências-alvo
 3 to 5 competencies covered by the questions.
-## 🧠 أسئلة المعرفة والتذكر
+## 🧠 Perguntas de conhecimento e memória
 5 to 7 short questions on definitions, notation, and facts.
-## 🔍 أسئلة الفهم والتفسير
+## 🔍 Perguntas de compreensão e interpretação
 4 to 6 questions that ask the learner to explain, compare, or justify.
-## 🛠️ أسئلة التطبيق
+## 🛠️ Perguntas de aplicação
 3 to 5 questions that apply the concepts to a new situation or exercise.
-## 💬 أسئلة التحليل والتقويم
+## 💬 Perguntas de análise e avaliação
 2 to 4 open questions that require synthesis, argument, or critique.
-${answers ? `## ✅ الإجابات النموذجية
+${answers ? `## ✅ Respostas modelo
 Model answers for every question. For open questions, give the expected elements rather than one rigid answer.` : "Do not include answers."}
-## 📊 معايير التقييم
+## 📊 Critérios de avaliação
 A short rubric: what a complete answer must include.`
   }
   if (template === "exam") {
     return `Use this structure:
 # <title in the source language>
-## تعليمات
+## Instruções
 Duration and instructions.
-## أسئلة قصيرة
+## Perguntas curtas
 6 to 8 short-answer questions.
-## أسئلة تطبيقية
+## Perguntas de aplicação
 3 to 5 application questions.
-## أسئلة مقالية
+## Perguntas dissertativas
 2 to 3 open questions.
-${answers ? "## الإجابات النموذجية وسلم التنقيط\nModel answers with marking points." : "Do not include answers."}`
+${answers ? "## Respostas modelo e critérios de correção\nModel answers with marking points." : "Do not include answers."}`
   }
   if (template === "quick") {
     return `Use this structure:
 # <title in the source language>
-## أسئلة سريعة
+## Perguntas rápidas
 8 to 10 short questions covering the whole source.
-${answers ? "## الإجابات\nA one-line answer for each question." : "Do not include answers."}`
+${answers ? "## Respostas\nA one-line answer for each question." : "Do not include answers."}`
   }
   return `Use this structure:
 # <title in the source language>
-## أسئلة قصيرة
+## Perguntas curtas
 8 to 12 short-answer questions that cover the whole source.
-## أسئلة مقالية
+## Perguntas dissertativas
 3 to 5 open questions that require synthesis or argument.
-${answers ? "## الإجابات النموذجية\nModel answers for every question, concise but complete." : "Do not include answers."}`
+${answers ? "## Respostas modelo\nModel answers for every question, concise but complete." : "Do not include answers."}`
 }
 
 function structure(mode: LearningMode, template: LearningTemplate, answers: boolean) {
@@ -329,12 +329,12 @@ MATH FORMATTING
 NUMERIC AND LOGICAL CHECKS
 - Recompute every numeric substitution before writing it: f(x0), f'(x0), and the final result must agree with the previous line.
 - When f'(x)=0 at a point, say the derivative vanishes there and the tangent is horizontal. Never say the function is constant at that point.
-- When using the intermediate value theorem, choose an interval with opposite signs at the endpoints and an interior root. Never design an exercise whose only root is an endpoint. If a root is at an endpoint, call it "على طرف الفترة" and never describe it as interior.
+- When using the intermediate value theorem, choose an interval with opposite signs at the endpoints and an interior root. Never design an exercise whose only root is an endpoint. If a root is at an endpoint, call it "no extremo do intervalo" and never describe it as interior.
 - When claiming a root is unique, prove monotonicity on the entire stated interval. If f' changes sign inside it, the root is not unique: change the exercise or the interval.
 - In a counterexample about an interior point, place that point strictly inside the interval, never at an endpoint.
 - A horizontal tangent y=c is parallel to the x-axis and crosses the y-axis at (0,c). Never say it meets the x-axis at y=c.
 - Say a function is continuous on its domain; do not add "open domain" unless the source does.
-- When two different one-sided tangents exist, write "نصفَي مماس" and do not call the angle acute unless the source does.
+- When two different one-sided tangents exist, write "semirretas tangentes" and do not call the angle acute unless the source does.
 - Check that every equation, implication, and sign table is internally consistent.
 
 LANGUAGE
@@ -364,7 +364,7 @@ QUALITY BAR
 - Write only in the source language. Never mix in English words or phrases.
 - Never write a heading whose section has no substantive content and never state that the source lacks a table or figure; simply omit that subsection. Never drop a supported table or geometric interpretation just to save space.
 - Do not include self-corrections, doubts, or meta-commentary about the source in the final document. Fix the issue silently before writing.
-- Never invent named properties, theorems, or formulas; include only what the source supports. Never leave placeholder notes such as "لا يوجد جدول".
+- Never invent named properties, theorems, or formulas; include only what the source supports. Never leave placeholder notes such as "não há tabela".
 - If a section is not supported by the source, omit it instead of filling it with generic text.
 
 FAIL-SAFE

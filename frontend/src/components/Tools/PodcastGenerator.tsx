@@ -16,41 +16,41 @@ export default function PodcastGenerator() {
       const { podcastPid, podcastTopic } = location.state
       setTopic(podcastTopic || "")
       setBusy(true)
-      setStatus("Connecting to podcast generation...")
+      setStatus("Conectando à geração do podcast...")
 
       // Connect to the existing podcast stream
       const { close } = connectPodcastStream(podcastPid, (ev: PodcastEvent) => {
         if (ev.type === "ready") {
-          setStatus("Connected, generating...")
+          setStatus("Conectado, gerando...")
         }
         if (ev.type === "phase") {
           setStatus(`Status: ${ev.value}`)
         }
         if (ev.type === "script") {
-          setStatus("Script generated, creating audio...")
+          setStatus("Roteiro gerado, criando o áudio...")
         }
         if (ev.type === "audio") {
           const audioUrl = ev.file || ev.staticUrl || ""
           setAudioFile(audioUrl)
           setAudioFilename(ev.filename || "podcast.mp3")
-          setStatus("Ready - Audio file is ready!")
+          setStatus("Pronto — o arquivo de áudio está pronto!")
         }
         if (ev.type === "done") {
-          setStatus("Done")
+          setStatus("Concluído")
           setBusy(false)
           setTimeout(() => {
             close()
           }, 1000)
         }
         if (ev.type === "error") {
-          setStatus(`Error: ${ev.error}`)
+          setStatus(`Erro: ${ev.error}`)
           close()
           setBusy(false)
         }
       })
 
       const timeout = setTimeout(() => {
-        setStatus("Error: Timeout - generation took too long")
+        setStatus("Erro: tempo esgotado — a geração demorou demais")
         setBusy(false)
         close()
       }, 120000)
@@ -66,7 +66,7 @@ export default function PodcastGenerator() {
     if (!topic.trim() || busy) return
 
     setBusy(true)
-    setStatus("Starting…")
+    setStatus("Iniciando…")
     setAudioFile(null)
     setAudioFilename(null)
 
@@ -77,37 +77,37 @@ export default function PodcastGenerator() {
 
       const { close } = connectPodcastStream(pid, (ev: PodcastEvent) => {
         if (ev.type === "ready") {
-          setStatus("Connected, generating...")
+          setStatus("Conectado, gerando...")
         }
         if (ev.type === "phase") {
           setStatus(`Status: ${ev.value}`)
         }
         if (ev.type === "script") {
-          setStatus("Script generated, creating audio...")
+          setStatus("Roteiro gerado, criando o áudio...")
         }
         if (ev.type === "audio") {
           const audioUrl = ev.file || ev.staticUrl || ""
 
           setAudioFile(audioUrl)
           setAudioFilename(ev.filename || "podcast.mp3")
-          setStatus("Ready - Audio file is ready!")
+          setStatus("Pronto — o arquivo de áudio está pronto!")
         }
         if (ev.type === "done") {
-          setStatus("Done")
+          setStatus("Concluído")
           setBusy(false)
           setTimeout(() => {
             close()
           }, 1000)
         }
         if (ev.type === "error") {
-          setStatus(`Error: ${ev.error}`)
+          setStatus(`Erro: ${ev.error}`)
           close()
           setBusy(false)
         }
       })
 
       const timeout = setTimeout(() => {
-        setStatus("Error: Timeout - generation took too long")
+        setStatus("Erro: tempo esgotado — a geração demorou demais")
         setBusy(false)
         close()
       }, 120000)
@@ -120,7 +120,7 @@ export default function PodcastGenerator() {
 
       return { close: closeWithCleanup }
     } catch (e: unknown) {
-      setStatus((e as Error).message || "Failed")
+      setStatus((e as Error).message || "Falhou")
       setBusy(false)
     }
   }
@@ -130,12 +130,12 @@ export default function PodcastGenerator() {
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <div className="text-xs uppercase tracking-wide text-purple-400 font-semibold">podcast generator</div>
+            <div className="text-xs uppercase tracking-wide text-purple-400 font-semibold">gerador de podcast</div>
             <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-pulse"></div>
           </div>
-          <div className="text-white font-semibold text-xl mb-2">AI Podcast</div>
+          <div className="text-white font-semibold text-xl mb-2">Podcast com IA</div>
           <div className="text-stone-300 text-sm leading-relaxed">
-            Generate engaging podcasts from any topic or notes. Perfect for learning on the go.
+            Gere podcasts envolventes a partir de qualquer tema ou anotações. Perfeito para aprender em movimento.
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function PodcastGenerator() {
             <input
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              placeholder="Enter topic or paste notes..."
+              placeholder="Digite um tema ou cole anotações..."
               className="w-full px-4 py-3 pr-16 rounded-xl bg-stone-900/70 border border-zinc-700 text-white placeholder-zinc-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none transition-all duration-300"
               onKeyDown={(e) => e.key === "Enter" && onGenerate()}
             />
@@ -156,7 +156,7 @@ export default function PodcastGenerator() {
             disabled={busy || !topic.trim()}
             className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium transition-all duration-300"
           >
-            {busy ? "Generating…" : "Generate"}
+            {busy ? "Gerando…" : "Gerar"}
           </button>
         </div>
 
@@ -164,8 +164,8 @@ export default function PodcastGenerator() {
           <div className="p-4 rounded-xl bg-purple-950/40 border border-purple-800/40 text-purple-200 font-medium">
             {status}
             <div className="text-xs mt-2 opacity-70">
-              Audio file: {audioFile ? 'Set' : 'Not set'} |
-              Busy: {busy ? 'Yes' : 'No'}
+              Arquivo de áudio: {audioFile ? 'Definido' : 'Não definido'} |
+              Processando: {busy ? 'Sim' : 'Não'}
             </div>
           </div>
         )}
@@ -173,13 +173,13 @@ export default function PodcastGenerator() {
         {audioFile && (
           <div className="space-y-3">
             <div className="p-4 rounded-xl bg-stone-900/70 border border-zinc-700">
-              <div className="text-sm text-stone-400 mb-2">Preview:</div>
+              <div className="text-sm text-stone-400 mb-2">Prévia:</div>
               <audio
                 controls
                 className="w-full"
                 src={audioFile}
               >
-                Your browser does not support the audio element.
+                Seu navegador não suporta o elemento de áudio.
               </audio>
             </div>
 
@@ -188,14 +188,14 @@ export default function PodcastGenerator() {
               download={audioFilename || "podcast.mp3"}
               className="block p-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium text-center transition-all duration-300 shadow-lg hover:shadow-emerald-500/20"
             >
-              Download Podcast
+              Baixar podcast
             </a>
           </div>
         )}
 
         {!audioFile && !busy && (
           <div className="text-xs text-stone-500 text-center p-2">
-            Click Generate to create a podcast
+            Clique em Gerar para criar um podcast
           </div>
         )}
       </div>

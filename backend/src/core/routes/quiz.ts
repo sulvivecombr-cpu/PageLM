@@ -84,7 +84,7 @@ export function quizRoutes(app: any) {
           return res.status(400).send({ ok: false, error: "source is empty; upload a readable file" })
         }
         sourceName = String(src.name || src.originalName || "Source")
-        if (!topic) topic = sourceName.replace(/\.[^.]+$/, "").trim() || "المصدر"
+        if (!topic) topic = sourceName.replace(/\.[^.]+$/, "").trim() || "Fonte"
       }
 
       if (!topic) return res.status(400).send({ ok: false, error: "topic required" })

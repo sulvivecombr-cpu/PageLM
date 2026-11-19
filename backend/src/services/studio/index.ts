@@ -171,13 +171,13 @@ Write in the dominant language of the source material.
 
 STRUCTURE
 # <a clear title in the source language>
-## Overview / نظرة عامة
+## Visão geral
 A short paragraph explaining what the source covers and why it matters.
-## Key Concepts / المفاهيم الأساسية
+## Conceitos essenciais
 3-6 sections with bolded terms, short explanations, and examples or formulas when relevant.
-## Quick Review / نقاط للمراجعة السريعة
+## Revisão rápida
 5-8 bullet points that capture the most important facts and relationships.
-## Check Your Understanding / أسئلة لفهم أعمق
+## Verifique sua compreensão
 3-5 open questions that require reasoning, not memorization.
 
 Keep it accurate to the source. Do not invent facts.`

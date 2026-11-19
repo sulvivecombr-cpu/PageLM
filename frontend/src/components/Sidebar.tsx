@@ -68,8 +68,8 @@ export default function Sidebar() {
           type="button"
           onClick={() => setIsCollapsed(false)}
           className="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 z-50 h-16 w-8 items-center justify-center rounded-r-2xl border border-l-0 border-stone-800 bg-stone-950/95 text-stone-300 shadow-xl shadow-black/40 transition-colors hover:bg-stone-900 hover:text-white"
-          title="إظهار القائمة"
-          aria-label="إظهار القائمة"
+          title="Mostrar menu"
+          aria-label="Mostrar menu"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" />
@@ -86,7 +86,7 @@ export default function Sidebar() {
         >
           <div className="flex items-center justify-between pb-3 border-b border-stone-800">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-stone-200 tracking-wide uppercase">Chat History</span>
+              <span className="text-xs font-semibold text-stone-200 tracking-wide uppercase">Histórico de conversas</span>
               {chats?.chats && (
                 <span className="text-[10px] bg-stone-900 text-stone-400 px-1.5 py-0.5 rounded-full border border-stone-800">
                   {chats.chats.length}
@@ -96,8 +96,8 @@ export default function Sidebar() {
             <button
               onClick={() => setIsToggled(false)}
               className="p-1 rounded-lg text-stone-400 hover:text-stone-100 hover:bg-stone-900 transition-colors"
-              title="Close history (Esc)"
-              aria-label="Close chat history"
+              title="Fechar histórico (Esc)"
+              aria-label="Fechar histórico de conversas"
             >
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 6 6 18M6 6l12 12" />
@@ -107,7 +107,7 @@ export default function Sidebar() {
 
           <div className="flex-1 overflow-y-auto space-y-1">
             {chats === null ? (
-              <p className="text-xs text-stone-500 text-center py-6">Loading…</p>
+              <p className="text-xs text-stone-500 text-center py-6">Carregando…</p>
             ) : chats.chats.length ? (
               chats.chats.map((chat) => (
                 <Link
@@ -116,11 +116,11 @@ export default function Sidebar() {
                   onClick={() => setIsToggled(false)}
                   className="p-2.5 hover:text-stone-100 hover:bg-stone-900/90 rounded-xl block text-sm truncate border border-transparent hover:border-stone-800 transition-colors"
                 >
-                  {chat.title || "Untitled Chat"}
+                  {chat.title || "Conversa sem título"}
                 </Link>
               ))
             ) : (
-              <p className="text-xs text-stone-500 text-center py-6">No previous chats</p>
+              <p className="text-xs text-stone-500 text-center py-6">Nenhuma conversa anterior</p>
             )}
           </div>
 
@@ -133,7 +133,7 @@ export default function Sidebar() {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
               </svg>
-              إدارة المصادر
+              Gerenciar fontes
             </Link>
           </div>
         </div>
@@ -149,25 +149,25 @@ export default function Sidebar() {
           </Link>
 
           <nav className='flex md:flex-col items-center gap-3 md:gap-3 my-auto'>
-            <Link to='/sources' className={cls(isSources)} title="المصادر" aria-label="المصادر">
+            <Link to='/sources' className={cls(isSources)} title="Fontes" aria-label="Fontes">
               <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
               </svg>
-              <span className="sr-only">المصادر</span>
+              <span className="sr-only">Fontes</span>
             </Link>
 
-            <Link to='/' className={cls(isChat)} title="المحادثة" aria-label="المحادثة">
+            <Link to='/' className={cls(isChat)} title="Conversa" aria-label="Conversa">
               <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3.75h6.75M21 12c0 4.556-4.03 8.25-9 8.25a9.76 9.76 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
               </svg>
-              <span className="sr-only">المحادثة</span>
+              <span className="sr-only">Conversa</span>
             </Link>
 
-            <Link to='/studio' className={cls(isStudio)} title="الاستوديو" aria-label="الاستوديو">
+            <Link to='/studio' className={cls(isStudio)} title="Estúdio" aria-label="Estúdio">
               <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
               </svg>
-              <span className="sr-only">الاستوديو</span>
+              <span className="sr-only">Estúdio</span>
             </Link>
           </nav>
 
@@ -176,8 +176,8 @@ export default function Sidebar() {
               type="button"
               onClick={collapseNav}
               className={`hidden md:inline-flex ${chatButtonClass}`}
-              aria-label="إخفاء القائمة"
-              title="إخفاء القائمة"
+              aria-label="Ocultar menu"
+              title="Ocultar menu"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m15 18-6-6 6-6" />
@@ -188,8 +188,8 @@ export default function Sidebar() {
               type="button"
               onClick={() => setIsToggled(prev => !prev)}
               className={chatButtonClass}
-              aria-label="Toggle chat history"
-              title="سجل المحادثات"
+              aria-label="Alternar histórico de conversas"
+              title="Histórico de conversas"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
