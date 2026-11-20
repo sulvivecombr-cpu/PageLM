@@ -10,22 +10,23 @@ import type {
 const DEFAULT_COUNT = 10;
 
 const DIFFICULTIES: Array<{ value: QuizDifficulty; label: string }> = [
-  { value: "easy", label: "سهل" },
-  { value: "medium", label: "متوسط" },
-  { value: "hard", label: "صعب" },
+  { value: "easy", label: "Fácil" },
+  { value: "medium", label: "Médio" },
+  { value: "hard", label: "Difícil" },
 ];
 
 const QUESTION_TYPES: Array<{ value: QuizQuestionType; label: string }> = [
-  { value: "mcq", label: "اختيار من متعدد" },
-  { value: "truefalse", label: "صواب أو خطأ" },
-  { value: "mixed", label: "مختلط" },
+  { value: "mcq", label: "Múltipla escolha" },
+  { value: "truefalse", label: "Verdadeiro ou falso" },
+  { value: "mixed", label: "Misto" },
 ];
 
 const LANGUAGES: Array<{ value: QuizLanguage; label: string }> = [
-  { value: "auto", label: "تلقائي" },
-  { value: "ar", label: "العربية" },
-  { value: "fr", label: "الفرنسية" },
-  { value: "en", label: "الإنجليزية" },
+  { value: "auto", label: "Automático" },
+  { value: "pt", label: "Português" },
+  { value: "en", label: "Inglês" },
+  { value: "fr", label: "Francês" },
+  { value: "ar", label: "Árabe" },
 ];
 
 function fmtChars(n: number) {
@@ -92,10 +93,7 @@ export default function TopicBar({
   const disabled = (!value.trim() && !sourceId) || isLoading;
 
   return (
-    <div
-      dir="rtl"
-      className="relative mb-8 overflow-hidden rounded-3xl border border-stone-800 bg-stone-950/85 shadow-2xl shadow-stone-500/15"
-    >
+    <div className="relative mb-8 overflow-hidden rounded-3xl border border-stone-800 bg-stone-950/85 shadow-2xl shadow-stone-500/15">
       <div className="pointer-events-none absolute -top-24 -left-20 size-64 rounded-full bg-sky-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-28 -right-16 size-72 rounded-full bg-violet-500/10 blur-3xl" />
 
@@ -104,14 +102,14 @@ export default function TopicBar({
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 px-3 py-1 text-[11px] font-medium text-sky-300">
               <span className="size-1.5 rounded-full bg-sky-400 animate-pulse" />
-              منشئ الاختبار
+              Gerador de quiz
               <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] text-emerald-300">
                 LLM
               </span>
             </div>
-            <h2 className="mt-2 text-xl font-semibold text-white">اختبار من مصدرك، بإعداداتك</h2>
+            <h2 className="mt-2 text-xl font-semibold text-white">Um quiz da sua fonte, com as suas configurações</h2>
             <p className="mt-1 max-w-xl text-xs leading-relaxed text-stone-400">
-              اختر مصدرًا أو اكتب موضوعًا، واضبط الأسئلة قبل التوليد. كل سؤال يُبنى الآن من المحتوى المحدد — لا أسئلة محفوظة مسبقًا.
+              Escolha uma fonte ou escreva um tema e ajuste as perguntas antes de gerar. Cada pergunta é criada a partir do conteúdo escolhido — nada de perguntas prontas.
             </p>
           </div>
           <Link
@@ -121,7 +119,7 @@ export default function TopicBar({
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
-            إدارة المصادر
+            Gerenciar fontes
           </Link>
         </div>
 
@@ -129,10 +127,10 @@ export default function TopicBar({
           <div className="space-y-3">
             <div>
               <div className="mb-1.5 flex items-center justify-between gap-2">
-                <label htmlFor="quiz-source" className="text-xs font-medium text-stone-300">المصدر</label>
+                <label htmlFor="quiz-source" className="text-xs font-medium text-stone-300">Fonte</label>
                 {selectedSource && (
                   <span className="text-[10px] text-stone-500">
-                    {fmtChars(selectedSource.chars)} حرف مستخرج
+                    {fmtChars(selectedSource.chars)} caracteres extraídos
                   </span>
                 )}
               </div>
@@ -142,37 +140,35 @@ export default function TopicBar({
                   value={sourceId}
                   onChange={(e) => onSourceChange(e.target.value)}
                   disabled={isLoading}
-                  dir="auto"
-                  className="w-full appearance-none rounded-xl border border-stone-800 bg-stone-900/80 px-3 py-2.5 pe-9 text-sm text-stone-200 outline-none transition-colors focus:border-sky-500/50 disabled:opacity-60"
+                  className="w-full appearance-none rounded-xl border border-stone-800 bg-stone-900/80 px-3 py-2.5 pr-9 text-sm text-stone-200 outline-none transition-colors focus:border-sky-500/50 disabled:opacity-60"
                 >
-                  <option value="">بدون مصدر — موضوع حر</option>
+                  <option value="">Sem fonte — tema livre</option>
                   {sources.map((s) => (
                     <option key={s.id} value={s.id}>
-                      {s.name} — {fmtChars(s.chars)} حرف
+                      {s.name} — {fmtChars(s.chars)} caracteres
                     </option>
                   ))}
                 </select>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-stone-500">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-stone-500">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                 </svg>
               </div>
               <div className="mt-1.5 flex items-center justify-between gap-2 text-[10px] text-stone-500">
-                <span>{sourcesLoading ? "جارٍ تحميل المصادر…" : sources.length ? `${sources.length} مصدر متاح` : "لا توجد مصادر بعد"}</span>
+                <span>{sourcesLoading ? "Carregando fontes…" : sources.length ? `${sources.length} fonte${sources.length === 1 ? "" : "s"} disponível${sources.length === 1 ? "" : "is"}` : "Nenhuma fonte ainda"}</span>
                 {!sourcesLoading && !sources.length && (
-                  <Link to="/sources" className="text-sky-300 hover:text-sky-200">ارفع ملفك الأول</Link>
+                  <Link to="/sources" className="text-sky-300 hover:text-sky-200">Envie seu primeiro arquivo</Link>
                 )}
               </div>
             </div>
 
             <div>
-              <label htmlFor="quiz-topic" className="mb-1.5 block text-xs font-medium text-stone-300">الموضوع</label>
+              <label htmlFor="quiz-topic" className="mb-1.5 block text-xs font-medium text-stone-300">Tema</label>
               <input
                 id="quiz-topic"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter" && !disabled) onStart(); }}
-                dir="auto"
-                placeholder={selectedSource ? "اتركه فارغًا لاستخدام عنوان المصدر" : "اكتب موضوعًا لاختبار حر (مثال: الاستمرارية والاشتقاقية)"}
+                placeholder={selectedSource ? "Deixe em branco para usar o título da fonte" : "Escreva um tema para um quiz livre (ex.: continuidade e derivadas)"}
                 className="w-full rounded-xl border border-stone-800 bg-stone-900/80 px-3 py-2.5 text-sm text-stone-100 outline-none transition-colors placeholder:text-stone-600 focus:border-sky-500/50"
               />
             </div>
@@ -188,15 +184,15 @@ export default function TopicBar({
             <div className="rounded-2xl border border-stone-800 bg-stone-900/40 p-3">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <div className="text-xs font-medium text-stone-200">عدد الأسئلة</div>
-                  <div className="mt-0.5 text-[10px] text-stone-500">من 1 إلى 20 سؤالًا</div>
+                  <div className="text-xs font-medium text-stone-200">Número de perguntas</div>
+                  <div className="mt-0.5 text-[10px] text-stone-500">De 1 a 20 perguntas</div>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => onSettingsChange({ count: Math.max(1, settings.count - 1) })}
                     disabled={settings.count <= 1 || isLoading}
-                    aria-label="تقليل عدد الأسئلة"
+                    aria-label="Diminuir o número de perguntas"
                     className="size-8 rounded-lg border border-stone-700 bg-stone-900 text-lg text-stone-200 transition-colors hover:bg-stone-800 disabled:opacity-40"
                   >
                     −
@@ -206,7 +202,7 @@ export default function TopicBar({
                     type="button"
                     onClick={() => onSettingsChange({ count: Math.min(20, settings.count + 1) })}
                     disabled={settings.count >= 20 || isLoading}
-                    aria-label="زيادة عدد الأسئلة"
+                    aria-label="Aumentar o número de perguntas"
                     className="size-8 rounded-lg border border-stone-700 bg-stone-900 text-lg text-stone-200 transition-colors hover:bg-stone-800 disabled:opacity-40"
                   >
                     +
@@ -217,7 +213,7 @@ export default function TopicBar({
                     disabled={settings.count === DEFAULT_COUNT || isLoading}
                     className="ms-1 rounded-lg border border-stone-800 px-2 py-1 text-[10px] text-stone-400 transition-colors hover:bg-stone-800 disabled:opacity-40"
                   >
-                    افتراضي {DEFAULT_COUNT}
+                    Padrão {DEFAULT_COUNT}
                   </button>
                 </div>
               </div>
@@ -241,7 +237,7 @@ export default function TopicBar({
             </div>
 
             <div>
-              <div className="mb-1.5 text-xs font-medium text-stone-300">مستوى الصعوبة</div>
+              <div className="mb-1.5 text-xs font-medium text-stone-300">Nível de dificuldade</div>
               <div className="flex flex-wrap gap-1.5">
                 {DIFFICULTIES.map((d) => (
                   <Choice
@@ -256,7 +252,7 @@ export default function TopicBar({
             </div>
 
             <div>
-              <div className="mb-1.5 text-xs font-medium text-stone-300">أنواع الأسئلة</div>
+              <div className="mb-1.5 text-xs font-medium text-stone-300">Tipos de pergunta</div>
               <div className="flex flex-wrap gap-1.5">
                 {QUESTION_TYPES.map((t) => (
                   <Choice
@@ -277,9 +273,9 @@ export default function TopicBar({
 
             <div>
               <div className="mb-1.5 flex items-center gap-2">
-                <span className="text-xs font-medium text-stone-300">لغة الأسئلة</span>
+                <span className="text-xs font-medium text-stone-300">Idioma das perguntas</span>
                 <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-medium text-emerald-300">
-                  جديد
+                  Novo
                 </span>
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -294,7 +290,7 @@ export default function TopicBar({
                 ))}
               </div>
               <p className="mt-1 text-[10px] text-stone-500">
-                «تلقائي» يتبع لغة المصدر. اختر لغة محددة إذا أردت ترجمة المفاهيم مع الحفاظ على الرموز.
+                “Automático” segue o idioma da fonte. Escolha um idioma específico se quiser traduzir os conceitos mantendo os símbolos.
               </p>
             </div>
           </div>
@@ -303,9 +299,9 @@ export default function TopicBar({
         <div className="mt-5 flex flex-col gap-3 border-t border-stone-800 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-[10px] leading-relaxed text-stone-500">
             {selectedSource ? (
-              <>سيُبنى الاختبار حصريًا من: <span className="text-stone-300" dir="auto">{selectedSource.name}</span></>
+              <>O quiz será criado exclusivamente a partir de: <span className="text-stone-300">{selectedSource.name}</span></>
             ) : (
-              <>وضع الموضوع الحر — أضف مصدرًا لتصبح الأسئلة موثّقة من ملفك.</>
+              <>Modo tema livre — adicione uma fonte para que as perguntas sejam documentadas pelo seu arquivo.</>
             )}
           </div>
           <button
@@ -320,13 +316,13 @@ export default function TopicBar({
                   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" />
                   <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                 </svg>
-                {phase || "نبني اختبارك…"}
+                {phase || "Montando seu quiz…"}
               </>
             ) : (
               <>
-                ابدأ الاختبار
+                Começar o quiz
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
               </>
             )}

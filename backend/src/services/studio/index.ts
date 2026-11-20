@@ -504,7 +504,7 @@ function resolveQuizSettings(kind: StudioKind, options: StudioOptions): StudioQu
   const length: QuizLength =
     options.length === "short" || options.length === "long" ? options.length : "medium"
   const language: QuizLanguage =
-    options.language === "ar" || options.language === "fr" || options.language === "en"
+    options.language === "ar" || options.language === "fr" || options.language === "en" || options.language === "pt"
       ? options.language
       : "auto"
   return {

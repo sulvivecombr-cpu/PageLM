@@ -75,19 +75,19 @@ export function quizRoutes(app: any) {
 
       if (sourceId) {
         const src: any = await db.get(`source:${sourceId}`)
-        if (!src) return res.status(404).send({ ok: false, error: "source not found" })
+        if (!src) return res.status(404).send({ ok: false, error: "fonte não encontrada" })
         if (!src.textPath || !fs.existsSync(src.textPath)) {
-          return res.status(400).send({ ok: false, error: "source text is missing; upload it again" })
+          return res.status(400).send({ ok: false, error: "o texto da fonte está ausente; envie o arquivo novamente" })
         }
         text = fs.readFileSync(src.textPath, "utf-8")
         if (!text.trim()) {
-          return res.status(400).send({ ok: false, error: "source is empty; upload a readable file" })
+          return res.status(400).send({ ok: false, error: "a fonte está vazia; envie um arquivo legível" })
         }
         sourceName = String(src.name || src.originalName || "Source")
         if (!topic) topic = sourceName.replace(/\.[^.]+$/, "").trim() || "المصدر"
       }
 
-      if (!topic) return res.status(400).send({ ok: false, error: "topic required" })
+      if (!topic) return res.status(400).send({ ok: false, error: "tema obrigatório" })
 
       const options: QuizOptions = {
         ...rawOptions,

@@ -56,12 +56,12 @@ export function chatRoutes(app: any) {
         sourceId = msid;
         files = mf || [];
         if (!q)
-          return res.status(400).send({ error: "q required for file uploads" });
+          return res.status(400).send({ error: "o campo q é obrigatório para envio de arquivos" });
       } else {
         q = req.body?.q || "";
         chatId = req.body?.chatId;
         sourceId = req.body?.sourceId;
-        if (!q) return res.status(400).send({ error: "q required" });
+        if (!q) return res.status(400).send({ error: "o campo q é obrigatório" });
       }
 
       let chat = chatId ? await getChat(chatId) : undefined;
@@ -155,7 +155,7 @@ export function chatRoutes(app: any) {
     const id = req.params.id;
     const chat = await getChat(id);
     if (!chat) {
-      return res.status(404).send({ error: "not found" });
+      return res.status(404).send({ error: "não encontrado" });
     }
     const messages = await getMsgs(id);
     res.send({ ok: true, chat, messages });

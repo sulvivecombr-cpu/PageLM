@@ -66,7 +66,7 @@ export default function Quiz() {
   const q = qs[idx];
 
   const percentage = useMemo(() => (total ? Math.round((score / total) * 100) : 0), [score, total]);
-  const resultVisual = useMemo(() => { if (percentage >= 90) return { msg: "Excellent! You have mastered this topic!", cls: "bg-green-900/20 border border-green-700 text-green-200", icon: "🏆" }; if (percentage >= 70) return { msg: "Great job! You have a solid understanding.", cls: "bg-blue-900/20 border border-blue-700 text-blue-200", icon: "🎉" }; if (percentage >= 50) return { msg: "Good effort! Review the concepts and try again.", cls: "bg-yellow-900/20 border border-yellow-700 text-yellow-200", icon: "📚" }; return { msg: "Keep studying! Practice makes perfect.", cls: "bg-red-900/20 border border-red-700 text-red-200", icon: "💪" }; }, [percentage]);
+  const resultVisual = useMemo(() => { if (percentage >= 90) return { msg: "Excelente! Você dominou este tema!", cls: "bg-green-900/20 border border-green-700 text-green-200", icon: "🏆" }; if (percentage >= 70) return { msg: "Muito bem! Você tem uma base sólida.", cls: "bg-blue-900/20 border border-blue-700 text-blue-200", icon: "🎉" }; if (percentage >= 50) return { msg: "Bom esforço! Revise os conceitos e tente novamente.", cls: "bg-yellow-900/20 border border-yellow-700 text-yellow-200", icon: "📚" }; return { msg: "Continue estudando! A prática leva à perfeição.", cls: "bg-red-900/20 border border-red-700 text-red-200", icon: "💪" }; }, [percentage]);
 
   useEffect(() => () => { if (closeRef.current) closeRef.current(); }, []);
 
@@ -75,7 +75,7 @@ export default function Quiz() {
     setSourcesLoading(true);
     listSources()
       .then((res) => { if (alive) setSources(res.sources || []); })
-      .catch((e: any) => { if (alive) setError(e?.message || "تعذر تحميل المصادر"); })
+      .catch((e: any) => { if (alive) setError(e?.message || "Não foi possível carregar as fontes"); })
       .finally(() => { if (alive) setSourcesLoading(false); });
     return () => { alive = false; };
   }, []);
@@ -105,7 +105,7 @@ export default function Quiz() {
     const selectedSource = sources.find((s) => s.id === sourceId);
     const trimmed = t.trim() || String(selectedSource?.name || "").replace(/\.[^.]+$/, "").trim();
     if (!trimmed && !sourceId) {
-      setError("اختر مصدرًا أو اكتب موضوعًا لبدء الاختبار.");
+      setError("Escolha uma fonte ou escreva um tema para começar o quiz.");
       return;
     }
     autoStartedRef.current = true;
@@ -134,7 +134,7 @@ export default function Quiz() {
           setConnecting(false);
         }
         if (ev.type === "error") {
-          setError(ev.error || "تعذر توليد الاختبار");
+          setError(ev.error || "Não foi possível gerar o quiz");
           setConnecting(false);
         }
         if (ev.type === "done") {
@@ -158,7 +158,7 @@ export default function Quiz() {
         });
       }
     } catch (e: any) {
-      setError(e?.message || "تعذر بدء الاختبار");
+      setError(e?.message || "Não foi possível iniciar o quiz");
       setConnecting(false);
     }
   }
@@ -236,16 +236,16 @@ export default function Quiz() {
           <div className="flex items-center gap-3">
             <Link to={(passedSourceId || sourceId) ? `/studio?sourceId=${encodeURIComponent(passedSourceId || sourceId)}` : '/'}
               className="p-2 rounded-xl bg-stone-950 border border-zinc-800 hover:bg-stone-900 transition-colors"
-              aria-label="Back">
+              aria-label="Voltar">
               <svg viewBox="0 0 24 24" className="size-5 text-stone-300" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
               </svg>
             </Link>
             <h1 className="text-2xl font-semibold text-white flex items-center gap-3">
-              {passedQuestions && examMode ? "اختبار · وضع الامتحان" : "اختبار"}
+              {passedQuestions && examMode ? "Quiz · modo prova" : "Quiz"}
               {passedQuestions && (
                 <span className="text-[11px] font-medium px-2 py-1 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-300">
-                  {passedQuestions.length} أسئلة
+                  {passedQuestions.length} perguntas
                 </span>
               )}
             </h1>
@@ -260,14 +260,14 @@ export default function Quiz() {
             {activeSourceName && !passedQuestions && (
               <div className="mb-3 flex items-center gap-2 text-xs text-stone-500" dir="auto">
                 <span className="size-1.5 rounded-full bg-emerald-400" />
-                المصدر النشط: <span className="text-stone-300">{activeSourceName}</span>
+                Fonte ativa: <span className="text-stone-300">{activeSourceName}</span>
               </div>
             )}
             <TopicBar
               value={topic}
               onChange={setTopic}
               onStart={() => start(topic)}
-              phase="نبني اختبارك…"
+              phase="Montando seu quiz…"
               isLoading={connecting}
               sources={sources}
               sourcesLoading={sourcesLoading}

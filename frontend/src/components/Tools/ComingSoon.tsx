@@ -3,30 +3,30 @@ export default function ComingSoon() {
     <div className="mt-8">
       <div className="flex items-center gap-3 mb-6">
         <h2 className="text-xl font-semibold text-white">
-          More Tools Coming Soon
+          Mais ferramentas em breve
         </h2>
         <div className="flex-1 h-px bg-gradient-to-r from-zinc-700 to-transparent"></div>
         <div className="px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 text-xs font-medium">
-          IN DEVELOPMENT
+          EM DESENVOLVIMENTO
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* AI Study Planner */}
+        {/* Planejador de estudos com IA */}
         <div className="group rounded-2xl bg-stone-950/50 border border-zinc-800 p-4 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 opacity-70 hover:opacity-90">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <div className="text-xs uppercase tracking-wide text-blue-400 font-semibold">
-                  study planner
+                  planejador de estudos
                 </div>
               </div>
               <div className="text-white font-semibold text-lg mb-2">
-                AI Study Planner
+                Planejador de estudos com IA
               </div>
               <div className="text-stone-400 text-sm leading-relaxed">
-                Create personalized study schedules with AI-optimized spaced
-                repetition and deadline management.
+                Crie cronogramas de estudo personalizados com repetição
+                espaçada e gestão de prazos otimizadas por IA.
               </div>
             </div>
             <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30">
@@ -48,21 +48,21 @@ export default function ComingSoon() {
           </div>
         </div>
 
-        {/* Mind Map Generator */}
+        {/* Gerador de mapas mentais */}
         <div className="group rounded-2xl bg-stone-950/50 border border-zinc-800 p-4 hover:border-pink-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10 opacity-70 hover:opacity-90">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <div className="text-xs uppercase tracking-wide text-pink-400 font-semibold">
-                  visual learning
+                  aprendizagem visual
                 </div>
               </div>
               <div className="text-white font-semibold text-lg mb-2">
-                Mind Map Generator
+                Gerador de mapas mentais
               </div>
               <div className="text-stone-400 text-sm leading-relaxed">
-                Convert complex topics into interactive visual mind maps with
-                AI-generated connections and insights.
+                Converta temas complexos em mapas mentais visuais e interativos,
+                com conexões e insights gerados por IA.
               </div>
             </div>
             <div className="p-3 rounded-xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 border border-pink-500/30">
@@ -90,15 +90,15 @@ export default function ComingSoon() {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <div className="text-xs uppercase tracking-wide text-yellow-400 font-semibold">
-                  presentation maker
+                  criador de apresentações
                 </div>
               </div>
               <div className="text-white font-semibold text-lg mb-2">
-                Slide Builder Pro
+                Construtor de slides Pro
               </div>
               <div className="text-stone-400 text-sm leading-relaxed">
-                Generate professional presentations with AI-designed slides,
-                animations, and speaker notes.
+                Gere apresentações profissionais com slides, animações e
+                notas do apresentador criados por IA.
               </div>
             </div>
             <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500/20 to-amber-500/20 border border-yellow-500/30">
@@ -112,7 +112,7 @@ export default function ComingSoon() {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-zinc-800/50 to-zinc-700/50 border border-zinc-600/50">
           <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-sky-400 animate-pulse"></div>
           <span className="text-stone-300 text-sm font-medium">
-            New tools launching every week
+            Novas ferramentas toda semana
           </span>
         </div>
       </div>

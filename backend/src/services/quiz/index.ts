@@ -13,7 +13,7 @@ export type QuizItem = {
 export type QuizDifficulty = "easy" | "medium" | "hard"
 export type QuizLength = "short" | "medium" | "long"
 export type QuizQuestionType = "mcq" | "truefalse" | "mixed"
-export type QuizLanguage = "auto" | "ar" | "fr" | "en"
+export type QuizLanguage = "auto" | "ar" | "fr" | "en" | "pt"
 
 export type QuizOptions = {
   context?: string
@@ -52,7 +52,7 @@ function normalizeOptions(topic: string, options: QuizOptions): Normalized {
   const length: QuizLength =
     options.length === "short" || options.length === "long" ? options.length : "medium"
   const language: QuizLanguage =
-    options.language === "ar" || options.language === "fr" || options.language === "en"
+    options.language === "ar" || options.language === "fr" || options.language === "en" || options.language === "pt"
       ? options.language
       : "auto"
   const arabic =
@@ -74,11 +74,13 @@ const LANGUAGE_NAME: Record<Exclude<QuizLanguage, "auto">, string> = {
   ar: "Arabic",
   fr: "French",
   en: "English",
+  pt: "Brazilian Portuguese",
 }
 
 function trueFalseWords(o: Normalized) {
   if (o.language === "fr") return { true: "Vrai", false: "Faux" }
   if (o.language === "en") return { true: "True", false: "False" }
+  if (o.language === "pt") return { true: "Verdadeiro", false: "Falso" }
   if (o.arabic) return { true: "صحيح", false: "خطأ" }
   return { true: "True", false: "False" }
 }
@@ -92,6 +94,9 @@ function languageRule(o: Normalized) {
   }
   if (o.language === "en") {
     return "Write every question, option, hint, and explanation in English. Keep numbers, symbols, and mathematical notation unchanged."
+  }
+  if (o.language === "pt") {
+    return "Write every question, option, hint, and explanation in Brazilian Portuguese. Keep numbers, symbols, and mathematical notation unchanged."
   }
   return o.arabic
     ? "Write every question, option, hint, and explanation in Arabic. Keep numbers, symbols, and mathematical notation unchanged."

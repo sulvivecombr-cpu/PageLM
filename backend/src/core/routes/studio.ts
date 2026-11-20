@@ -89,13 +89,13 @@ export function studioRoutes(app: any) {
       const sourceId = String(req.body?.sourceId || "").trim()
       const kind = String(req.body?.kind || "").trim() as StudioKind
       const options = req.body?.options && typeof req.body.options === "object" ? req.body.options : {}
-      if (!sourceId) return res.status(400).send({ ok: false, error: "sourceId required" })
-      if (!KINDS.includes(kind)) return res.status(400).send({ ok: false, error: "invalid kind" })
+      if (!sourceId) return res.status(400).send({ ok: false, error: "sourceId obrigatório" })
+      if (!KINDS.includes(kind)) return res.status(400).send({ ok: false, error: "tipo inválido" })
 
       const src: any = await db.get(`source:${sourceId}`)
-      if (!src) return res.status(404).send({ ok: false, error: "source not found" })
+      if (!src) return res.status(404).send({ ok: false, error: "fonte não encontrada" })
       if (!src.textPath || !fs.existsSync(src.textPath)) {
-        return res.status(400).send({ ok: false, error: "source text is missing; upload it again" })
+        return res.status(400).send({ ok: false, error: "o texto da fonte está ausente; envie o arquivo novamente" })
       }
 
       const jobId = crypto.randomUUID()

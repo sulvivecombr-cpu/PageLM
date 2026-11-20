@@ -76,7 +76,7 @@ export function companionRoutes(app: any) {
     try {
       const body = req.body || {}
       const question = typeof body.question === "string" ? body.question.trim() : ""
-      if (!question) return res.status(400).send({ error: "question required" })
+      if (!question) return res.status(400).send({ error: "pergunta obrigatória" })
 
       const history = Array.isArray(body.history) ? (body.history as CompanionHistory[]) : undefined
       const documentTitle = typeof body.documentTitle === "string" ? body.documentTitle.trim() : ""
@@ -88,7 +88,7 @@ export function companionRoutes(app: any) {
         contextText = body.documentText
       } else if (typeof body.filePath === "string" && body.filePath.trim()) {
         const resolved = resolveDocumentPath(body.filePath)
-        if (!resolved) return res.status(404).send({ error: "document not found or not accessible" })
+        if (!resolved) return res.status(404).send({ error: "documento não encontrado ou sem acesso" })
         filename = path.basename(resolved)
         try {
           contextText = await readDocumentText(resolved)
@@ -97,11 +97,11 @@ export function companionRoutes(app: any) {
           return res.status(400).send({ error: msg })
         }
       } else {
-        return res.status(400).send({ error: "documentText or filePath required" })
+        return res.status(400).send({ error: "documentText ou filePath é obrigatório" })
       }
 
       if (!contextText.trim()) {
-        return res.status(400).send({ error: "document is empty" })
+        return res.status(400).send({ error: "o documento está vazio" })
       }
 
       const prompt = buildCompanionPrompt(filename || documentTitle)
@@ -117,7 +117,7 @@ export function companionRoutes(app: any) {
       res.send({ ok: true, companion: answer })
     } catch (err: any) {
       console.error("[companion] ask failed", err?.message || err)
-      res.status(500).send({ error: "failed to run companion request" })
+      res.status(500).send({ error: "não foi possível executar a solicitação do companheiro" })
     }
   })
 }

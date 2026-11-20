@@ -2,6 +2,20 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { chatJSON } from "../../lib/api";
 
+const LABELS: Record<string, string> = {
+  mathematics: "Matemática",
+  english: "Inglês",
+  science: "Ciências",
+  history: "História",
+  geography: "Geografia",
+  music: "Música",
+  art: "Arte",
+  technology: "Tecnologia",
+  philosophy: "Filosofia",
+};
+
+const labelOf = (key: string) => LABELS[key] ?? key;
+
 export default function ExploreTopics() {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -9,8 +23,8 @@ export default function ExploreTopics() {
 
   const moreRows = useMemo(
     () => [
-      ["History", "Geography", "Music"],
-      ["Art", "Technology", "Philosophy"],
+      ["history", "geography", "music"],
+      ["art", "technology", "philosophy"],
     ],
     []
   );
@@ -18,7 +32,7 @@ export default function ExploreTopics() {
   const imgSrc = (title: string) => `/pictures/${encodeURIComponent(title.toLocaleLowerCase())}.png`;
 
   const promptFor = (topic: string) =>
-    `Give me a clear, beginner-friendly lesson on ${topic}`;
+    `Me dê uma aula clara e para iniciantes sobre ${labelOf(topic)}`;
 
   const startTopic = async (title: string) => {
     if (busy) return;
@@ -42,11 +56,11 @@ export default function ExploreTopics() {
       className={`w-full h-48 relative rounded-3xl border border-stone-900 bg-stone-950 
                   hover:scale-105 transition-transform duration-200 ease-out 
                   focus:outline-none focus:ring-2 focus:ring-stone-700 disabled:opacity-60 ${extra || ""}`}
-      title={busy ? "Starting…" : `Learn ${title}`}
+      title={busy ? "Iniciando…" : `Aprender ${labelOf(title)}`}
     >
-      <img src={imgSrc(title)} alt={title} className="w-full h-full rounded-3xl object-cover" draggable={false} />
+      <img src={imgSrc(title)} alt={labelOf(title)} className="w-full h-full rounded-3xl object-cover" draggable={false} />
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-transparent to-black" />
-      <div className="absolute right-0 bottom-0 pr-4 pb-4 text-[#fff] text-xl sm:text-2xl">{title}</div>
+      <div className="absolute right-0 bottom-0 pr-4 pb-4 text-[#fff] text-xl sm:text-2xl">{labelOf(title)}</div>
     </button>
   );
 
@@ -69,14 +83,14 @@ export default function ExploreTopics() {
             clipRule="evenodd"
           />
         </svg>
-        <span className="text-sm">{busy ? "Starting…" : "EXPLORE TOPICS"}</span>
+        <span className="text-sm">{busy ? "Iniciando…" : "EXPLORAR TEMAS"}</span>
       </div>
 
       <div className="w-full max-w-4xl mx-auto overflow-hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-          <Card title="Mathematics" />
-          <Card title="English" />
-          <Card title="Science" extra="col-span-1 sm:col-span-2 lg:col-span-1" />
+          <Card title="mathematics" />
+          <Card title="english" />
+          <Card title="science" extra="col-span-1 sm:col-span-2 lg:col-span-1" />
         </div>
 
         <div

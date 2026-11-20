@@ -45,7 +45,7 @@ export function plannerRoutes(app: any) {
     app.post("/tasks/ingest", async (req: any, res: any) => {
         try {
             const text = String(req.body?.text || "").trim()
-            if (!text) return res.status(400).send({ ok: false, error: "text required" })
+            if (!text) return res.status(400).send({ ok: false, error: "texto obrigatório" })
             const task = await plannerService.createTaskFromRequest({ text })
             res.send({ ok: true, task })
             emitToAll(rooms.get("default"), { type: "task.created", task })
@@ -200,12 +200,12 @@ export function plannerRoutes(app: any) {
         try {
             const ct = req.headers['content-type'] || ''
             if (!ct.includes("multipart/form-data")) {
-                return res.status(400).send({ ok: false, error: "multipart/form-data required" })
+                return res.status(400).send({ ok: false, error: "multipart/form-data é obrigatório" })
             }
 
             const { files } = await parseMultipart(req)
             if (!files || files.length === 0) {
-                return res.status(400).send({ ok: false, error: "no files uploaded" })
+                return res.status(400).send({ ok: false, error: "nenhum arquivo enviado" })
             }
 
             const taskId = req.params.id
@@ -231,7 +231,7 @@ export function plannerRoutes(app: any) {
     app.post("/sessions/start", async (req: any, res: any) => {
         try {
             const { taskId, slotId } = req.body
-            if (!taskId) return res.status(400).send({ ok: false, error: "taskId required" })
+            if (!taskId) return res.status(400).send({ ok: false, error: "taskId obrigatório" })
 
             const session = {
                 id: crypto.randomUUID(),
@@ -272,7 +272,7 @@ export function plannerRoutes(app: any) {
         try {
             const { text, scheduledFor, taskId } = req.body
             if (!text || !scheduledFor) {
-                return res.status(400).send({ ok: false, error: "text and scheduledFor required" })
+                return res.status(400).send({ ok: false, error: "texto e scheduledFor são obrigatórios" })
             }
 
             const reminder = {

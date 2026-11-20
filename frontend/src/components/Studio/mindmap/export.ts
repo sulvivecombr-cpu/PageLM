@@ -178,7 +178,7 @@ function renderSvg(layout: Layout, options: SvgRenderOptions): string {
   const title = options.title ?? null;
   const background = options.background === undefined ? PAGE_BG : options.background;
   const fontScale = options.fontScale ?? 1;
-  const rootCaption = options.rootCaption === undefined ? "الموضوع الرئيسي" : options.rootCaption;
+  const rootCaption = options.rootCaption === undefined ? "Tema principal" : options.rootCaption;
   const top = title ? TOP : 0;
   const height = layout.H + top;
   const titleDir = title ? textDirection(title) : "rtl";
@@ -373,7 +373,7 @@ function buildPdf(pages: PdfPageImage[], title: string, subject: string) {
   const now = pdfDate();
   obj(
     3,
-    `<< /Title ${pdfTextString(title)} /Author (PageLM) /Subject ${pdfTextString(subject)} /Keywords ${pdfTextString("mind map, PageLM, خريطة ذهنية")} /Creator (PageLM Studio) /Producer (PageLM) /CreationDate (${now}) /ModDate (${now}) >>`,
+    `<< /Title ${pdfTextString(title)} /Author (PageLM) /Subject ${pdfTextString(subject)} /Keywords ${pdfTextString("mind map, PageLM, mapa mental")} /Creator (PageLM Studio) /Producer (PageLM) /CreationDate (${now}) /ModDate (${now}) >>`,
   );
 
   pages.forEach((page, i) => {
@@ -602,7 +602,7 @@ function drawPageChrome(
     pageH - (compact ? 27 : 32),
     { size: 8.5, color: FAINT, dir: textDirection(footerRight) },
   );
-  drawText(ctx, `صفحة ${formatNum(pageNo)} من ${formatNum(pageCount)}`, margin, pageH - (compact ? 27 : 32), {
+  drawText(ctx, `Página ${formatNum(pageNo)} de ${formatNum(pageCount)}`, margin, pageH - (compact ? 27 : 32), {
     size: 8.5,
     weight: 600,
     color: MUTED,
@@ -901,9 +901,9 @@ async function renderSinglePage(
 ) {
   const { canvas, ctx } = createPageCanvas();
   const branchCount = map.root.children?.length ?? 0;
-  drawPageChrome(ctx, PAGE_W, PAGE_H, 1, 1, common.title, `القالب · ${common.templateName}`);
+  drawPageChrome(ctx, PAGE_W, PAGE_H, 1, 1, common.title, `Modelo · ${common.templateName}`);
 
-  drawText(ctx, "خريطة ذهنية · مستند كامل", PAGE_W - MARGIN, 94, {
+  drawText(ctx, "Mapa mental · documento completo", PAGE_W - MARGIN, 94, {
     size: 9.5,
     weight: 600,
     color: ACCENT,
@@ -919,7 +919,7 @@ async function renderSinglePage(
     dir: textDirection(common.title),
   });
 
-  const meta = `${formatNum(common.totalNodes)} عقدة · ${formatNum(branchCount)} فروع رئيسية · ${common.templateName}`;
+  const meta = `${formatNum(common.totalNodes)} nós · ${formatNum(branchCount)} ramos principais · ${common.templateName}`;
   const metaBaseline = titleTop + titleH + 16;
   drawText(ctx, fitText(ctx, meta, CONTENT_W, 9.5), PAGE_W - MARGIN, metaBaseline, {
     size: 9.5,
@@ -935,7 +935,7 @@ async function renderSinglePage(
     title: null,
     background: null,
     fontScale: 1,
-    rootCaption: "الموضوع الرئيسي",
+    rootCaption: "Tema principal",
   });
   await drawMapInRect(
     ctx,
@@ -961,9 +961,9 @@ async function renderSingleLandscape(
   const { canvas, ctx } = createPageCanvas(LAND_W, LAND_H);
   const right = LAND_W - DETAIL_MARGIN;
   const detailW = LAND_W - DETAIL_MARGIN * 2;
-  drawPageChrome(ctx, LAND_W, LAND_H, 1, 1, common.title, `القالب · ${common.templateName}`, true);
+  drawPageChrome(ctx, LAND_W, LAND_H, 1, 1, common.title, `Modelo · ${common.templateName}`, true);
 
-  drawText(ctx, "خريطة ذهنية · مستند كامل", right, 78, {
+  drawText(ctx, "Mapa mental · documento completo", right, 78, {
     size: 9.2,
     weight: 600,
     color: ACCENT,
@@ -980,7 +980,7 @@ async function renderSingleLandscape(
   });
 
   const branchCount = map.root.children?.length ?? 0;
-  const meta = `${formatNum(common.totalNodes)} عقدة · ${formatNum(branchCount)} فروع رئيسية · ${common.templateName}`;
+  const meta = `${formatNum(common.totalNodes)} nós · ${formatNum(branchCount)} ramos principais · ${common.templateName}`;
   drawText(ctx, fitText(ctx, meta, 900, 9.2), right, titleTop + titleH + 12, {
     size: 9.2,
     color: MUTED,
@@ -1000,7 +1000,7 @@ async function renderSingleLandscape(
     title: null,
     background: null,
     fontScale: 1,
-    rootCaption: "الموضوع الرئيسي",
+    rootCaption: "Tema principal",
   });
   await drawMapInRect(
     ctx,
@@ -1019,9 +1019,9 @@ async function renderCoverPage(
   common: RenderCommon & { branches: BranchPlan[] },
 ) {
   const { canvas, ctx } = createPageCanvas();
-  drawPageChrome(ctx, PAGE_W, PAGE_H, 1, common.totalPages, common.title, "استوديو الخرائط الذهنية");
+  drawPageChrome(ctx, PAGE_W, PAGE_H, 1, common.totalPages, common.title, "Estúdio de mapas mentais");
 
-  drawText(ctx, `خريطة ذهنية · ${formatDate()}`, PAGE_W - MARGIN, 96, {
+  drawText(ctx, `Mapa mental · ${formatDate()}`, PAGE_W - MARGIN, 96, {
     size: 9.5,
     weight: 600,
     color: ACCENT,
@@ -1041,7 +1041,7 @@ async function renderCoverPage(
   const subtitle =
     rootLabel && rootLabel !== common.title
       ? rootLabel
-      : "ملخّص بصري للموضوع الرئيسي وفروعه، مع صفحات مستقلة لكل فرع.";
+      : "Resumo visual do tema principal e dos seus ramos, com páginas independentes para cada ramo.";
   const subtitleBaseline = titleTop + titleH + 18;
   drawText(ctx, fitText(ctx, subtitle, CONTENT_W, 11.5), PAGE_W - MARGIN, subtitleBaseline, {
     size: 11.5,
@@ -1054,9 +1054,9 @@ async function renderCoverPage(
   const statH = 64;
   const mainBranchCount = map.root.children?.length ?? common.branches.length;
   const stats = [
-    { label: "الفروع الرئيسية", value: formatNum(mainBranchCount) },
-    { label: "إجمالي العقد", value: formatNum(common.totalNodes) },
-    { label: "القالب البصري", value: common.templateName },
+    { label: "Ramos principais", value: formatNum(mainBranchCount) },
+    { label: "Total de nós", value: formatNum(common.totalNodes) },
+    { label: "Modelo visual", value: common.templateName },
   ];
   stats.forEach((stat, i) => {
     const x = PAGE_W - MARGIN - statW - i * (statW + gap);
@@ -1085,12 +1085,12 @@ async function renderCoverPage(
   const overviewLabelY = statTop + statH + 40;
   sectionLabel(
     ctx,
-    "نظرة عامة على الخريطة",
+    "Visão geral do mapa",
     overviewLabelY,
     common.usesPrintLayout
-      ? "الفروع الرئيسية فقط · التفاصيل بتخطيط طباعي مُحسَّن للقراءة"
+      ? "Somente ramos principais · detalhes em diagramação otimizada para leitura"
       : common.branches.length
-        ? "الفروع الرئيسية فقط · تُفصَّل في الصفحات التالية"
+        ? "Somente ramos principais · detalhados nas próximas páginas"
         : undefined,
   );
 
@@ -1121,7 +1121,7 @@ async function renderCoverPage(
     title: null,
     background: null,
     fontScale: 1,
-    rootCaption: "الموضوع الرئيسي",
+    rootCaption: "Tema principal",
   });
   await drawMapInRect(
     ctx,
@@ -1133,7 +1133,7 @@ async function renderCoverPage(
   );
 
   if (shown) {
-    sectionLabel(ctx, "محتويات المستند", contentsTop + 12);
+    sectionLabel(ctx, "Conteúdo do documento", contentsTop + 12);
     const colW = columns === 1 ? CONTENT_W : (CONTENT_W - 24) / 2;
     const rowH = 30;
     const entriesTop = contentsTop + 26;
@@ -1145,7 +1145,7 @@ async function renderCoverPage(
       const cy = entriesTop + row * rowH + 9;
 
       if (i >= shown) {
-        drawText(ctx, `و${formatNum(branchCount - 10)} فروع أخرى`, right - 2, cy + 3.2, {
+        drawText(ctx, `e mais ${formatNum(branchCount - 10)} ramos`, right - 2, cy + 3.2, {
           size: 9,
           color: MUTED,
         });
@@ -1164,7 +1164,7 @@ async function renderCoverPage(
         align: "center",
       });
 
-      const pageText = `ص ${formatNum(branch.start)}`;
+      const pageText = `p. ${formatNum(branch.start)}`;
       drawText(ctx, pageText, right - colW + 2, cy + 3.2, {
         size: 8.5,
         color: FAINT,
@@ -1218,14 +1218,14 @@ async function renderDetailPage(
     pageNo,
     common.totalPages,
     `${page.branch.label} · ${common.title}`,
-    `الفرع ${formatNum(page.branchIndex + 1)} من ${formatNum(common.branches.length)}`,
+    `Ramo ${formatNum(page.branchIndex + 1)} de ${formatNum(common.branches.length)}`,
     true,
   );
 
   const eyebrow =
     page.partTotal > 1
-      ? `تفصيل الفرع · ${common.detailName} · الجزء ${formatNum(page.part)} من ${formatNum(page.partTotal)}`
-      : `تفصيل الفرع · ${common.detailName}`;
+      ? `Detalhe do ramo · ${common.detailName} · parte ${formatNum(page.part)} de ${formatNum(page.partTotal)}`
+      : `Detalhe do ramo · ${common.detailName}`;
   drawText(ctx, eyebrow, right, 78, { size: 9.2, weight: 600, color: ACCENT });
 
   const titleTop = 88;
@@ -1239,14 +1239,14 @@ async function renderDetailPage(
   });
 
   const nodeCount = countTree(page.root);
-  let meta = `${formatNum(nodeCount)} عقدة · ${formatNum(page.root.children.length)} فروع فرعية`;
+  let meta = `${formatNum(nodeCount)} nós · ${formatNum(page.root.children.length)} sub-ramos`;
   if (page.partTotal > 1) {
-    meta += ` · الصفحة ${formatNum(page.part)} من ${formatNum(page.partTotal)} لهذا الفرع`;
+    meta += ` · página ${formatNum(page.part)} de ${formatNum(page.partTotal)} deste ramo`;
   }
   drawText(ctx, fitText(ctx, meta, 900, 9.2), right, 160, { size: 9.2, color: MUTED });
 
   if (page.crumbs.length) {
-    const path = `المسار · ${[common.title, ...page.crumbs].join(" / ")}`;
+    const path = `Caminho · ${[common.title, ...page.crumbs].join(" / ")}`;
     drawText(ctx, fitText(ctx, path, 900, 8.5), right, 176, {
       size: 8.5,
       color: FAINT,
@@ -1264,7 +1264,7 @@ async function renderDetailPage(
   drawCard(ctx, DETAIL_MARGIN, cardTop, detailW, cardH);
 
   const caption =
-    page.root.id === page.branch.id ? "الفرع الرئيسي" : "محور الصفحة";
+    page.root.id === page.branch.id ? "Ramo principal" : "Eixo da página";
   const svg = buildMindMapSvg(
     { ...common.map, title: page.root.label, root: { label: page.root.label } },
     page.layout,
@@ -1303,11 +1303,11 @@ export async function downloadPdf(
   const templateName =
     options.templateName ??
     MINDMAP_TEMPLATES.find((item) => item.id === template)?.name ??
-    "شجرة جانبية";
+    "Árvore lateral";
   const title =
-    String(map.title || map.root.label || "خريطة ذهنية")
+    String(map.title || map.root.label || "Mapa mental")
       .replace(/\s+/g, " ")
-      .trim() || "خريطة ذهنية";
+      .trim() || "Mapa mental";
 
   const direction = mapDirection(map);
   const pdfLayout = layoutMindMap(treeFrom(map.root), template, new Set(), direction);
@@ -1315,8 +1315,8 @@ export async function downloadPdf(
   const detailName = !plan.usesPrintLayout
     ? templateName
     : plan.detailTemplate === "columns"
-      ? "تخطيط طباعي · أعمدة منظمة"
-      : "تخطيط طباعي";
+      ? "Diagramação · colunas organizadas"
+      : "Diagramação";
   const common: RenderCommon = {
     title,
     templateName,
@@ -1364,7 +1364,7 @@ export async function downloadPdf(
   const blob = buildPdf(
     pages,
     title,
-    `خريطة ذهنية: ${title} — ${formatNum(plan.branches.length || (map.root.children?.length ?? 0))} فروع، ${formatNum(pdfLayout.total)} عقدة.`,
+    `Mapa mental: ${title} — ${formatNum(plan.branches.length || (map.root.children?.length ?? 0))} ramos, ${formatNum(pdfLayout.total)} nós.`,
   );
   downloadBlob(blob, `${safeName(map)}.pdf`);
 }

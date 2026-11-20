@@ -53,7 +53,7 @@ export function sourceRoutes(app: any) {
   app.get("/sources/:id", async (req: any, res: any) => {
     try {
       const src = await readSource(req.params.id)
-      if (!src) return res.status(404).send({ ok: false, error: "source not found" })
+      if (!src) return res.status(404).send({ ok: false, error: "fonte não encontrada" })
       res.send({ ok: true, source: { ...src, preview: cleanPreview(src.preview) } })
     } catch (e: any) {
       res.status(500).send({ ok: false, error: e?.message || "failed" })
@@ -64,7 +64,7 @@ export function sourceRoutes(app: any) {
     try {
       const { files } = await parseMultipart(req)
       if (!files.length) {
-        return res.status(400).send({ ok: false, error: "no files uploaded" })
+        return res.status(400).send({ ok: false, error: "nenhum arquivo enviado" })
       }
 
       const created: SourceMeta[] = []
@@ -106,7 +106,7 @@ export function sourceRoutes(app: any) {
       if (!created.length) {
         return res.status(400).send({
           ok: false,
-          error: errors.join(" | ") || "could not extract text from the uploaded file",
+          error: errors.join(" | ") || "não foi possível extrair o texto do arquivo enviado",
           errors,
         })
       }
@@ -121,7 +121,7 @@ export function sourceRoutes(app: any) {
     try {
       const id = req.params.id
       const src = await readSource(id)
-      if (!src) return res.status(404).send({ ok: false, error: "source not found" })
+      if (!src) return res.status(404).send({ ok: false, error: "fonte não encontrada" })
 
       for (const p of [src.filePath, src.textPath]) {
         try { if (p && fs.existsSync(p)) fs.unlinkSync(p) } catch { }

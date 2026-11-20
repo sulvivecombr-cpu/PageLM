@@ -10,8 +10,8 @@ export default function BagFab({ count, onClick }: Props) {
       type="button"
       onClick={onClick}
       className="relative mb-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-stone-900 transition-colors hover:bg-stone-800"
-      aria-label={`Open saved notes (${count})`}
-      title="Saved notes"
+      aria-label={`Abrir notas salvas (${count})`}
+      title="Notas salvas"
     >
       <img
         src="https://forum.playhive.com/uploads/default/original/3X/f/3/f3e340eef1c12e1080f55958d70c5afc8a73dfa3.png"

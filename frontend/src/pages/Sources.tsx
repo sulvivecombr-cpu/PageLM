@@ -14,7 +14,7 @@ function fmtBytes(n: number) {
 
 function fmtDate(ts: number) {
   try {
-    return new Intl.DateTimeFormat("ar", { dateStyle: "medium", timeStyle: "short" }).format(new Date(ts));
+    return new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium", timeStyle: "short" }).format(new Date(ts));
   } catch {
     return new Date(ts).toLocaleString();
   }
@@ -53,7 +53,7 @@ export default function Sources() {
       const res = await listSources();
       setSources(res.sources || []);
     } catch (e: any) {
-      setError(e?.message || "تعذر تحميل المصادر");
+      setError(e?.message || "Não foi possível carregar as fontes");
     } finally {
       setLoading(false);
     }
@@ -73,12 +73,12 @@ export default function Sources() {
       setSources((prev) => [...added, ...prev]);
       setNotice(
         added.length === 1
-          ? `تمت إضافة «${added[0].name}» بنجاح.`
-          : `تمت إضافة ${added.length} مصادر بنجاح.`,
+          ? `“${added[0].name}” foi adicionado com sucesso.`
+          : `${added.length} fontes foram adicionadas com sucesso.`,
       );
       if (res.errors?.length) setError(res.errors.join(" | "));
     } catch (e: any) {
-      setError(e?.message || "فشل رفع الملف. تأكد من أن الصيغة مدعومة.");
+      setError(e?.message || "Falha no envio do arquivo. Verifique se o formato é suportado.");
     } finally {
       setUploading(false);
       if (inputRef.current) inputRef.current.value = "";
@@ -87,15 +87,15 @@ export default function Sources() {
 
   const remove = async (src: SourceItem) => {
     if (deleting) return;
-    if (!window.confirm(`حذف المصدر «${src.name}»؟ سيختفي من كل البوابات.`)) return;
+    if (!window.confirm(`Excluir a fonte “${src.name}”? Ela desaparecerá de todos os recursos.`)) return;
     setDeleting(src.id);
     setError("");
     try {
       await deleteSource(src.id);
       setSources((prev) => prev.filter((s) => s.id !== src.id));
-      setNotice(`تم حذف «${src.name}».`);
+      setNotice(`“${src.name}” foi excluído.`);
     } catch (e: any) {
-      setError(e?.message || "تعذر حذف المصدر");
+      setError(e?.message || "Não foi possível excluir a fonte");
     } finally {
       setDeleting(null);
     }
@@ -104,28 +104,28 @@ export default function Sources() {
   const totalChars = sources.reduce((n, s) => n + (s.chars || 0), 0);
 
   return (
-    <div dir="rtl" className="min-h-screen w-full pl-4 pr-4 md:pl-32">
+    <div className="min-h-screen w-full pl-4 pr-4 md:pl-32">
       <div className="max-w-6xl mx-auto pt-8 pb-24">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between mb-8">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-medium mb-3">
               <span className="size-1.5 rounded-full bg-sky-400 animate-pulse" />
-              البوابة الأولى · المصادر
+              Primeiro passo · Fontes
             </div>
-            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">مصادرك الدراسية</h1>
+            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">Suas fontes de estudo</h1>
             <p className="text-stone-400 mt-2 max-w-2xl leading-relaxed">
-              ارفع ملفاتك مرة واحدة، ثم اسألها في المحادثة أو حوّلها في الاستوديو إلى اختبارات، QCM، بطاقات مراجعة وملخصات.
+              Envie seus arquivos uma vez e depois pergunte sobre eles na conversa, ou transforme-os no Estúdio em quizzes, flashcards e resumos.
             </p>
           </div>
           <div className="flex items-center gap-4 text-sm text-stone-400">
             <div className="text-center">
               <div className="text-2xl font-semibold text-white">{sources.length}</div>
-              <div className="text-xs">مصدر</div>
+              <div className="text-xs">fonte{sources.length === 1 ? "" : "s"}</div>
             </div>
             <div className="w-px h-10 bg-stone-800" />
             <div className="text-center">
               <div className="text-2xl font-semibold text-white">{totalChars > 1000 ? `${Math.round(totalChars / 1000)}k` : totalChars}</div>
-              <div className="text-xs">حرف مستخرج</div>
+              <div className="text-xs">caracteres extraídos</div>
             </div>
           </div>
         </div>
@@ -168,10 +168,10 @@ export default function Sources() {
             </div>
             <div>
               <div className="text-white font-semibold text-lg">
-                {uploading ? "جارٍ استخراج النص من ملفاتك…" : "اسحب ملفاتك هنا أو اضغط للاختيار"}
+                {uploading ? "Extraindo o texto dos seus arquivos…" : "Arraste seus arquivos aqui ou clique para escolher"}
               </div>
               <div className="text-stone-500 text-sm mt-1">
-                PDF · DOCX · MD · TXT — ويدعم العربية والملفات الممسوحة ضوئيًا
+                PDF · DOCX · MD · TXT — com suporte a português e arquivos digitalizados
               </div>
             </div>
             {uploading && (
@@ -189,8 +189,8 @@ export default function Sources() {
         )}
 
         <div className="mt-8 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">المكتبة</h2>
-          {sources.length > 0 && <span className="text-xs text-stone-500">مرتبة من الأحدث</span>}
+          <h2 className="text-lg font-semibold text-white">Biblioteca</h2>
+          {sources.length > 0 && <span className="text-xs text-stone-500">Ordenada da mais recente</span>}
         </div>
 
         {loading ? (
@@ -204,8 +204,8 @@ export default function Sources() {
             <div className="mx-auto size-16 rounded-2xl bg-stone-900 border border-stone-800 flex items-center justify-center mb-4">
               <FileIcon cls="size-8 text-stone-500" />
             </div>
-            <div className="text-white font-semibold">لا توجد مصادر بعد</div>
-            <p className="text-stone-500 text-sm mt-1">ارفع أول ملف لتبدأ رحلة الدراسة من مصدرك الخاص.</p>
+            <div className="text-white font-semibold">Nenhuma fonte ainda</div>
+            <p className="text-stone-500 text-sm mt-1">Envie seu primeiro arquivo para começar a estudar a partir do seu próprio material.</p>
           </div>
         ) : (
           <div className="mt-4 grid md:grid-cols-2 gap-4">
@@ -225,7 +225,7 @@ export default function Sources() {
                       <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-stone-500">
                         <span>{fmtBytes(src.size)}</span>
                         <span className="size-1 rounded-full bg-stone-700" />
-                        <span>{src.chars.toLocaleString("ar")} حرف</span>
+                        <span>{src.chars.toLocaleString("pt-BR")} caracteres</span>
                         <span className="size-1 rounded-full bg-stone-700" />
                         <span>{fmtDate(src.createdAt)}</span>
                       </div>
@@ -233,7 +233,7 @@ export default function Sources() {
                   </div>
 
                   <p className="mt-4 text-sm text-stone-400 leading-relaxed line-clamp-3 min-h-[3.9rem]" dir="auto">
-                    {src.preview || "تم استخراج النص بنجاح."}
+                    {src.preview || "Texto extraído com sucesso."}
                   </p>
 
                   <div className="mt-4 flex items-center gap-2">
@@ -244,7 +244,7 @@ export default function Sources() {
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="size-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3.75h6.75M21 12c0 4.556-4.03 8.25-9 8.25a9.76 9.76 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
                       </svg>
-                      اسأل المصدر
+                      Perguntar à fonte
                     </Link>
                     <Link
                       to={`/studio?sourceId=${encodeURIComponent(src.id)}`}
@@ -253,14 +253,14 @@ export default function Sources() {
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="size-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
                       </svg>
-                      استوديو
+                      Estúdio
                     </Link>
                     <button
                       onClick={() => remove(src)}
                       disabled={deleting === src.id}
                       className="p-2 rounded-xl border border-stone-800 text-stone-500 hover:text-red-300 hover:border-red-500/30 hover:bg-red-500/10 transition-colors disabled:opacity-50"
-                      title="حذف المصدر"
-                      aria-label="حذف المصدر"
+                      title="Excluir fonte"
+                      aria-label="Excluir fonte"
                     >
                       {deleting === src.id ? (
                         <svg className="size-4 animate-spin" viewBox="0 0 24 24" fill="none">

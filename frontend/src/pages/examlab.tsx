@@ -56,10 +56,10 @@ export default function ExamLabs() {
   )
 
   const resultVisual = useMemo(() => {
-    if (percentage >= 90) return { msg: "Excellent!", cls: "bg-green-900/20 border border-green-700 text-green-200", icon: "🏆" }
-    if (percentage >= 70) return { msg: "Great job!", cls: "bg-blue-900/20 border border-blue-700 text-blue-200", icon: "🎉" }
-    if (percentage >= 50) return { msg: "Good effort!", cls: "bg-yellow-900/20 border border-yellow-700 text-yellow-200", icon: "📚" }
-    return { msg: "Keep studying!", cls: "bg-red-900/20 border border-red-700 text-red-200", icon: "💪" }
+    if (percentage >= 90) return { msg: "Excelente!", cls: "bg-green-900/20 border border-green-700 text-green-200", icon: "🏆" }
+    if (percentage >= 70) return { msg: "Muito bem!", cls: "bg-blue-900/20 border border-blue-700 text-blue-200", icon: "🎉" }
+    if (percentage >= 50) return { msg: "Bom esforço!", cls: "bg-yellow-900/20 border border-yellow-700 text-yellow-200", icon: "📚" }
+    return { msg: "Continue estudando!", cls: "bg-red-900/20 border border-red-700 text-red-200", icon: "💪" }
   }, [percentage])
 
   useEffect(() => {
@@ -141,7 +141,7 @@ export default function ExamLabs() {
           <button
             onClick={() => navigate(-1)}
             className="p-2 rounded-xl bg-stone-950 border border-zinc-800 hover:bg-stone-900 transition-colors"
-            aria-label="Back"
+            aria-label="Voltar"
           >
             <svg
               viewBox="0 0 24 24"
@@ -157,14 +157,14 @@ export default function ExamLabs() {
               />
             </svg>
           </button>
-          <h1 className="text-2xl font-semibold text-white">Exam Labs</h1>
+          <h1 className="text-2xl font-semibold text-white">Laboratório de provas</h1>
         </div>
         <div className="px-3 py-1 rounded-full bg-gradient-to-r from-sky-500/20 to-blue-500/20 border border-sky-500/30 text-sky-300 text-xs font-medium">
           BETA
         </div>
       </div>
 
-      {loadingExams && <LoadingIndicator label="Loading exams…" />}
+      {loadingExams && <LoadingIndicator label="Carregando provas…" />}
 
       <div className="grid gap-6">
         {exams.map((ex) => (
@@ -178,11 +178,11 @@ export default function ExamLabs() {
                 {ex.name}
               </div>
               <div className="px-3 py-1 rounded-full bg-sky-900/30 text-sky-300 text-xs font-medium">
-                {ex.sections.length} sections
+                {ex.sections.length} seções
               </div>
             </div>
             <div className="text-sm text-stone-400">
-              Click to start this exam
+              Clique para começar esta prova
             </div>
           </div>
         ))}
@@ -190,7 +190,7 @@ export default function ExamLabs() {
 
       {!loadingExams && !exams.length && (
         <div className="mt-16 text-center text-stone-400">
-          No exams available.
+          Nenhuma prova disponível.
         </div>
       )}
     </div>
@@ -204,13 +204,13 @@ export default function ExamLabs() {
       <div className="w-full max-w-4xl mx-auto p-4 pt-8 pb-24 my-auto">
         {connecting && (
           <div className="mt-10">
-            <LoadingIndicator label="Building your exam…" />
+            <LoadingIndicator label="Montando sua prova…" />
           </div>
         )}
 
         {qs.length > 0 && !done && q && (
           <>
-            <QuizHeader topic={activeExam || "Exam"} idx={idx} total={total} score={score} />
+            <QuizHeader topic={activeExam || "Prova"} idx={idx} total={total} score={score} />
             <QuestionCard
               q={q}
               selected={selected}

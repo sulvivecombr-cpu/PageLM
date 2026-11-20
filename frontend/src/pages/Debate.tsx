@@ -84,10 +84,10 @@ export default function Debate() {
                 setSession(data.session);
                 setMessages(data.session.messages);
             } else {
-                setError(data.error || "Failed to load debate session");
+                setError(data.error || "Não foi possível carregar o debate");
             }
         } catch (err: any) {
-            setError(err.message || "Failed to load debate session");
+            setError(err.message || "Não foi possível carregar o debate");
         }
     };
 
@@ -134,7 +134,7 @@ export default function Debate() {
                 case "ai_concede":
                     setMessages((prev) => [
                         ...prev,
-                        { role: "assistant", content: `I must concede this debate. ${data.reason}`, timestamp: Date.now() },
+                        { role: "assistant", content: `Preciso conceder este debate. ${data.reason}`, timestamp: Date.now() },
                     ]);
                     setIsStreaming(false);
                     setStreamingContent("");
@@ -153,7 +153,7 @@ export default function Debate() {
 
         ws.onerror = (error) => {
             console.error("WebSocket error:", error);
-            setError("Connection error");
+            setError("Erro de conexão");
         };
 
         ws.onclose = () => {
@@ -180,10 +180,10 @@ export default function Debate() {
                 setMessages([]);
                 navigate(`/debate?debateId=${data.debateId}`);
             } else {
-                setError(data.error || "Failed to start debate");
+                setError(data.error || "Não foi possível iniciar o debate");
             }
         } catch (err: any) {
-            setError(err.message || "Failed to start debate");
+            setError(err.message || "Não foi possível iniciar o debate");
         }
     };
 
@@ -209,10 +209,10 @@ export default function Debate() {
 
             const data = await response.json();
             if (!data.ok) {
-                setError(data.error || "Failed to submit argument");
+                setError(data.error || "Não foi possível enviar o argumento");
             }
         } catch (err: any) {
-            setError(err.message || "Failed to submit argument");
+            setError(err.message || "Não foi possível enviar o argumento");
         }
     };
 
@@ -232,7 +232,7 @@ export default function Debate() {
     const handleSurrender = async () => {
         if (!debateId || isDebateEnded) return;
 
-        if (!confirm("Are you sure you want to surrender this debate?")) return;
+        if (!confirm("Tem certeza de que quer desistir deste debate?")) return;
 
         try {
             const response = await fetch(
@@ -248,10 +248,10 @@ export default function Debate() {
                 setIsDebateEnded(true);
                 fetchAnalysis();
             } else {
-                setError(data.error || "Failed to surrender");
+                setError(data.error || "Não foi possível desistir");
             }
         } catch (err: any) {
-            setError(err.message || "Failed to surrender");
+            setError(err.message || "Não foi possível desistir");
         }
     };
 
@@ -259,7 +259,7 @@ export default function Debate() {
         if (!debateId) return;
 
         setIsAnalyzing(true);
-        setAnalysisPhase("Starting analysis...");
+        setAnalysisPhase("Iniciando a análise...");
 
         // Connect to analysis WebSocket first
         const analysisWs = new WebSocket(`ws://localhost:5000/ws/debate/analyze?debateId=${debateId}`);
@@ -299,7 +299,7 @@ export default function Debate() {
 
         analysisWs.onerror = (error) => {
             console.error("Analysis WebSocket error:", error);
-            setError("Analysis connection error");
+            setError("Erro de conexão da análise");
             setIsAnalyzing(false);
             setAnalysisPhase("");
         };
@@ -328,7 +328,7 @@ export default function Debate() {
                 analysisWs.close();
             }
         } catch (err: any) {
-            setError(err.message || "Failed to start analysis");
+            setError(err.message || "Não foi possível iniciar a análise");
             setIsAnalyzing(false);
             setAnalysisPhase("");
             analysisWs.close();
@@ -341,23 +341,23 @@ export default function Debate() {
                 <div className="max-w-2xl w-full space-y-8">
                     <div className="text-center space-y-4">
                         <h1 className="text-4xl lg:text-5xl font-bold text-white">
-                            Start a Debate
+                            Comece um debate
                         </h1>
                         <p className="text-lg text-stone-400">
-                            Challenge AI in a structured debate on any topic
+                            Desafie a IA em um debate estruturado sobre qualquer tema
                         </p>
                     </div>
 
                     <div className="bg-stone-950/90 backdrop-blur-sm border border-stone-900 rounded-2xl p-8 space-y-6">
                         <div>
                             <label className="block text-sm font-medium text-stone-300 mb-2">
-                                Debate Topic
+                                Tema do debate
                             </label>
                             <input
                                 type="text"
                                 value={topic}
                                 onChange={(e) => setTopic(e.target.value)}
-                                placeholder="e.g., boons and banes of AI in education"
+                                placeholder="ex.: os prós e contras da IA na educação"
                                 className="w-full px-4 py-3 bg-stone-900/70 border border-zinc-800 rounded-xl text-white placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                 onKeyDown={(e) => e.key === "Enter" && startDebate()}
                             />
@@ -365,7 +365,7 @@ export default function Debate() {
 
                         <div>
                             <label className="block text-sm font-medium text-stone-300 mb-3">
-                                Your Position
+                                Sua posição
                             </label>
                             <div className="flex gap-4">
                                 <button
@@ -376,8 +376,8 @@ export default function Debate() {
                                         }`}
                                 >
                                     <div className="text-2xl mb-1">👍</div>
-                                    <div>For</div>
-                                    <div className="text-xs mt-1 opacity-80">Support the topic</div>
+                                    <div>A favor</div>
+                                    <div className="text-xs mt-1 opacity-80">Defenda o tema</div>
                                 </button>
                                 <button
                                     onClick={() => setPosition("against")}
@@ -387,8 +387,8 @@ export default function Debate() {
                                         }`}
                                 >
                                     <div className="text-2xl mb-1">👎</div>
-                                    <div>Against</div>
-                                    <div className="text-xs mt-1 opacity-80">Oppose the topic</div>
+                                    <div>Contra</div>
+                                    <div className="text-xs mt-1 opacity-80">Conteste o tema</div>
                                 </button>
                             </div>
                         </div>
@@ -398,7 +398,7 @@ export default function Debate() {
                             disabled={!topic.trim()}
                             className="w-full py-4 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 disabled:from-stone-800 disabled:to-stone-800 disabled:cursor-not-allowed text-[#fff] font-bold rounded-xl transition-all shadow-lg"
                         >
-                            Begin Debate
+                            Começar o debate
                         </button>
                     </div>
 
@@ -428,11 +428,11 @@ export default function Debate() {
                                         : "bg-red-600/20 text-red-400 border border-red-600/30"
                                         }`}
                                 >
-                                    You: {session?.position === "for" ? "For" : "Against"}
+                                    Você: {session?.position === "for" ? "A favor" : "Contra"}
                                 </span>
                                 <span className="text-stone-500">vs</span>
                                 <span className="px-3 py-1 rounded-full font-semibold bg-purple-600/20 text-purple-400 border border-purple-600/30">
-                                    AI: {session?.position === "for" ? "Against" : "For"}
+                                    IA: {session?.position === "for" ? "Contra" : "A favor"}
                                 </span>
                             </div>
                         </div>
@@ -445,7 +445,7 @@ export default function Debate() {
                             }}
                             className="px-4 py-2 bg-stone-900/70 border border-zinc-800 hover:bg-stone-800 text-stone-300 rounded-lg transition-colors"
                         >
-                            New Debate
+                            Novo debate
                         </button>
                     </div>
                 </div>
@@ -483,7 +483,7 @@ export default function Debate() {
                                     </div>
                                 )}
                                 <span className="text-sm font-semibold text-stone-400">
-                                    {msg.role === "user" ? "You" : "AI Opponent"}
+                                    {msg.role === "user" ? "Você" : "Oponente de IA"}
                                 </span>
                                 {msg.role === "user" && (
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold shadow-lg ${session?.position === "for"
@@ -516,7 +516,7 @@ export default function Debate() {
                                     AI
                                 </div>
                                 <span className="text-sm font-semibold text-stone-400">
-                                    AI Opponent
+                                    Oponente de IA
                                 </span>
                             </div>
                             <div className="px-6 py-4 rounded-2xl shadow-lg bg-stone-950/90 border border-zinc-900 shadow-[0_10px_30px_rgba(15,23,42,0.10)] ring-1 ring-black/10 backdrop-blur text-white">
@@ -542,10 +542,10 @@ export default function Debate() {
                             onKeyDown={handleKeyDown}
                             placeholder={
                                 isDebateEnded
-                                    ? "Debate has ended"
+                                    ? "O debate terminou"
                                     : isStreaming
-                                        ? "AI is responding..."
-                                        : "Type your argument... (Shift+Enter for new line)"
+                                        ? "A IA está respondendo..."
+                                        : "Escreva seu argumento... (Shift+Enter para nova linha)"
                             }
                             disabled={isStreaming || isDebateEnded}
                             className="flex-1 px-4 py-3 bg-stone-900/70 border border-zinc-800 rounded-xl text-white placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent resize-none disabled:opacity-50 disabled:cursor-not-allowed custom-scroll"
@@ -563,10 +563,10 @@ export default function Debate() {
                             {isStreaming ? (
                                 <div className="flex items-center gap-2">
                                     <div className="w-5 h-5 border-2 border-[#fff] border-t-transparent rounded-full animate-spin" />
-                                    <span>Waiting...</span>
+                                    <span>Aguardando...</span>
                                 </div>
                             ) : (
-                                "Argue"
+                                "Argumentar"
                             )}
                         </button>
                     </div>
@@ -576,7 +576,7 @@ export default function Debate() {
                             disabled={isStreaming || messages.length === 0 || isDebateEnded}
                             className="px-4 py-2 bg-orange-600/20 hover:bg-orange-600/30 border border-orange-600/40 hover:border-orange-600/60 text-orange-400 hover:text-orange-300 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm font-semibold"
                         >
-                            🏳️ Surrender
+                            🏳️ Desistir
                         </button>
                     </div>
                 </div>
@@ -593,17 +593,17 @@ export default function Debate() {
                                 </div>
                                 <h2 className="text-3xl font-bold text-white">
                                     {analysis.winner === "user"
-                                        ? "You Won!"
+                                        ? "Você venceu!"
                                         : analysis.winner === "ai"
-                                            ? "AI Won!"
-                                            : "It's a Draw!"}
+                                            ? "A IA venceu!"
+                                            : "Empate!"}
                                 </h2>
                                 <p className="text-lg text-stone-400">{analysis.reason}</p>
                             </div>
 
                             {/* Overall Assessment */}
                             <div className="bg-stone-900/50 border border-zinc-800 rounded-xl p-6">
-                                <h3 className="text-xl font-bold text-white mb-3">📊 Overall Assessment</h3>
+                                <h3 className="text-xl font-bold text-white mb-3">📊 Avaliação geral</h3>
                                 <p className="text-stone-300 leading-relaxed">{analysis.overallAssessment}</p>
                             </div>
 
@@ -612,7 +612,7 @@ export default function Debate() {
                                 {/* User Performance */}
                                 <div className="space-y-4">
                                     <div className="bg-green-900/20 border border-green-800/30 rounded-xl p-5">
-                                        <h3 className="text-lg font-bold text-green-400 mb-3">💪 Your Strengths</h3>
+                                        <h3 className="text-lg font-bold text-green-400 mb-3">💪 Seus pontos fortes</h3>
                                         <ul className="space-y-2">
                                             {analysis.userStrengths.map((strength, idx) => (
                                                 <li key={idx} className="text-stone-300 text-sm flex items-start gap-2">
@@ -624,7 +624,7 @@ export default function Debate() {
                                     </div>
                                     {analysis.userWeaknesses.length > 0 && (
                                         <div className="bg-red-900/20 border border-red-800/30 rounded-xl p-5">
-                                            <h3 className="text-lg font-bold text-red-400 mb-3">📉 Areas to Improve</h3>
+                                            <h3 className="text-lg font-bold text-red-400 mb-3">📉 Pontos a melhorar</h3>
                                             <ul className="space-y-2">
                                                 {analysis.userWeaknesses.map((weakness, idx) => (
                                                     <li key={idx} className="text-stone-300 text-sm flex items-start gap-2">
@@ -640,7 +640,7 @@ export default function Debate() {
                                 {/* AI Performance */}
                                 <div className="space-y-4">
                                     <div className="bg-purple-900/20 border border-purple-800/30 rounded-xl p-5">
-                                        <h3 className="text-lg font-bold text-purple-400 mb-3">🤖 AI Strengths</h3>
+                                        <h3 className="text-lg font-bold text-purple-400 mb-3">🤖 Pontos fortes da IA</h3>
                                         <ul className="space-y-2">
                                             {analysis.aiStrengths.map((strength, idx) => (
                                                 <li key={idx} className="text-stone-300 text-sm flex items-start gap-2">
@@ -652,7 +652,7 @@ export default function Debate() {
                                     </div>
                                     {analysis.aiWeaknesses.length > 0 && (
                                         <div className="bg-red-900/20 border border-red-800/30 rounded-xl p-5">
-                                            <h3 className="text-lg font-bold text-red-400 mb-3">📉 AI Weaknesses</h3>
+                                            <h3 className="text-lg font-bold text-red-400 mb-3">📉 Pontos fracos da IA</h3>
                                             <ul className="space-y-2">
                                                 {analysis.aiWeaknesses.map((weakness, idx) => (
                                                     <li key={idx} className="text-stone-300 text-sm flex items-start gap-2">
@@ -669,7 +669,7 @@ export default function Debate() {
                             {/* Key Moments */}
                             {analysis.keyMoments.length > 0 && (
                                 <div className="bg-stone-900/50 border border-zinc-800 rounded-xl p-6">
-                                    <h3 className="text-xl font-bold text-white mb-4">⚡ Key Moments</h3>
+                                    <h3 className="text-xl font-bold text-white mb-4">⚡ Momentos-chave</h3>
                                     <ul className="space-y-3">
                                         {analysis.keyMoments.map((moment, idx) => (
                                             <li key={idx} className="text-stone-300 flex items-start gap-3">
@@ -694,7 +694,7 @@ export default function Debate() {
                                     }}
                                     className="flex-1 py-3 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-[#fff] font-bold rounded-xl transition-all shadow-lg"
                                 >
-                                    New Debate
+                                    Novo debate
                                 </button>
                                 <button
                                     onClick={() => {
@@ -703,7 +703,7 @@ export default function Debate() {
                                     }}
                                     className="px-6 py-3 bg-stone-900/70 border border-zinc-800 hover:bg-stone-800 text-stone-300 font-semibold rounded-xl transition-colors"
                                 >
-                                    Review Debate
+                                    Revisar debate
                                 </button>
                             </div>
                         </div>
@@ -715,7 +715,7 @@ export default function Debate() {
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="bg-stone-950 border border-zinc-900 rounded-2xl p-8 text-center space-y-4 min-w-[300px]">
                         <div className="w-16 h-16 border-4 border-sky-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                        <p className="text-white font-semibold">Analyzing debate...</p>
+                        <p className="text-white font-semibold">Analisando o debate...</p>
                         {analysisPhase && (
                             <p className="text-sky-400 text-sm animate-pulse">{analysisPhase}</p>
                         )}

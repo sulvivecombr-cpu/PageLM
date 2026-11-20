@@ -13,13 +13,13 @@ export default function Tools() {
             <Link
               to='/'
               className="p-2 rounded-xl bg-stone-950 border border-zinc-800 hover:bg-stone-900 transition-colors"
-              aria-label="Back"
+              aria-label="Voltar"
             >
               <svg viewBox="0 0 24 24" className="size-5 text-stone-300" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
               </svg>
             </Link>
-            <h1 className="text-2xl font-semibold text-white flex items-center gap-3">Tools</h1>
+            <h1 className="text-2xl font-semibold text-white flex items-center gap-3">Ferramentas</h1>
           </div>
           <div className="px-3 py-1 rounded-full bg-gradient-to-r from-sky-500/20 to-blue-500/20 border border-sky-500/30 text-sky-300 text-xs font-medium">
             BETA

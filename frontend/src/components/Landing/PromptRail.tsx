@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { chatJSON } from "../../lib/api";
 
 const PROMPTS = [
-  "Teach me a lesson on Quadratic Equations. Assume I absolutely know nothing.",
-  "Explain the basics of Photosynthesis.",
-  "How do I write a compelling short story?",
-  "What is Machine Learning and how does it work?",
-  "Teach me the fundamentals of cooking.",
-  "Help me understand the French Revolution.",
-  "Explain programming concepts.",
-  "How do I manage my personal finances?",
+  "Me dê uma aula sobre equações do segundo grau. Considere que eu não sei nada.",
+  "Explique o básico da fotossíntese.",
+  "Como escrevo um conto curto e envolvente?",
+  "O que é aprendizado de máquina e como funciona?",
+  "Me ensine os fundamentos da culinária.",
+  "Me ajude a entender a Revolução Francesa.",
+  "Explique conceitos de programação.",
+  "Como organizo minhas finanças pessoais?",
 ];
 
 const ITEM_H = 32;
@@ -98,7 +98,7 @@ export default function PromptRail({ onSend }: { onSend?: (prompt: string) => vo
 
   return (
     <div className="ml-auto hidden items-center gap-2 rounded-full border border-stone-900 bg-stone-950 py-1 pl-3 pr-1 md:flex">
-      <span className="text-[10px] font-semibold uppercase tracking-wide text-stone-500">Try</span>
+      <span className="text-[10px] font-semibold uppercase tracking-wide text-stone-500">Teste</span>
       <div ref={railRef} className="relative h-8 w-44 cursor-grab overflow-hidden active:cursor-grabbing lg:w-72">
         <div className="transition-transform duration-500 ease-in-out" style={{ transform: `translateY(${translateY}px)` }}>
           {PROMPTS.map((p, i) => (
@@ -114,8 +114,8 @@ export default function PromptRail({ onSend }: { onSend?: (prompt: string) => vo
         onClick={sendNow}
         disabled={busy}
         className="flex size-8 shrink-0 items-center justify-center rounded-full bg-stone-900 text-stone-300 transition-colors hover:bg-stone-800 hover:text-white disabled:opacity-50"
-        aria-label="Send suggested prompt"
-        title={busy ? "Starting..." : "Send"}
+        aria-label="Enviar sugestão"
+        title={busy ? "Iniciando..." : "Enviar"}
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor" className="size-4">
           <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />

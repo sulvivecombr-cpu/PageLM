@@ -28,18 +28,18 @@ export type Layout = {
 };
 
 export const MINDMAP_TEMPLATES: { id: MindMapTemplate; name: string; hint: string }[] = [
-  { id: "tree", name: "شجرة جانبية", hint: "الأكثر وضوحًا للمواضيع العامة" },
-  { id: "balanced", name: "شجرة متوازنة", hint: "مناسبة للمقارنات والمحورين" },
-  { id: "org", name: "هرمية عمودية", hint: "مناسبة للتصنيفات والمستويات" },
-  { id: "radial", name: "إشعاعية", hint: "مفهوم مركزي وعدة جوانب" },
-  { id: "arc", name: "قوس مفتوح", hint: "فروع متوازنة حول محور واحد" },
-  { id: "timeline", name: "خط مراحل", hint: "مناسبة للعمليات والخطوات" },
-  { id: "stairs", name: "سلّم المراحل", hint: "تدرّج الخطوات من مرحلة إلى أخرى" },
-  { id: "outline", name: "مخطط تفصيلي", hint: "قائمة متدرجة سهلة القراءة" },
-  { id: "fishbone", name: "عظمة السمكة", hint: "مناسبة للأسباب والعوامل" },
-  { id: "columns", name: "أعمدة منظمة", hint: "فروع كثيرة في أعمدة مرتبة" },
-  { id: "lanes", name: "مسارات أفقية", hint: "فروع مستقلة في صفوف واضحة" },
-  { id: "matrix", name: "شبكة مصفوفة", hint: "عدة فئات في شبكة منظمة" },
+  { id: "tree", name: "Árvore lateral", hint: "A mais clara para temas gerais" },
+  { id: "balanced", name: "Árvore equilibrada", hint: "Boa para comparações e dois eixos" },
+  { id: "org", name: "Hierarquia vertical", hint: "Boa para classificações e níveis" },
+  { id: "radial", name: "Radial", hint: "Um conceito central e vários aspectos" },
+  { id: "arc", name: "Arco aberto", hint: "Ramos equilibrados em torno de um eixo" },
+  { id: "timeline", name: "Linha do tempo", hint: "Boa para processos e etapas" },
+  { id: "stairs", name: "Escada de etapas", hint: "Progressão de uma etapa para outra" },
+  { id: "outline", name: "Esquema", hint: "Lista escalonada fácil de ler" },
+  { id: "fishbone", name: "Espinha de peixe", hint: "Boa para causas e fatores" },
+  { id: "columns", name: "Colunas organizadas", hint: "Muitos ramos em colunas ordenadas" },
+  { id: "lanes", name: "Faixas horizontais", hint: "Ramos independentes em linhas claras" },
+  { id: "matrix", name: "Matriz", hint: "Várias categorias em uma grade organizada" },
 ];
 
 export function normalizeTemplate(v: unknown): MindMapTemplate {

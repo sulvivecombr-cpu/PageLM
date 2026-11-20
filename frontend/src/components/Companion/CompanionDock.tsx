@@ -14,9 +14,9 @@ type CompanionMessage = {
 }
 
 const defaultSuggestions = [
-  "Summarize the key ideas",
-  "Make a quick quiz",
-  "Explain this like I'm new"
+  "Resuma as ideias principais",
+  "Faça um quiz rápido",
+  "Explique como se eu fosse iniciante"
 ]
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -57,8 +57,8 @@ export default function CompanionDock() {
 
   const headerTitle = useMemo(() => {
     if (document?.title) return document.title
-    if (document?.filePath) return document.filePath.split(/[\\/]/).pop() || "Document"
-    return "Study Companion"
+    if (document?.filePath) return document.filePath.split(/[\\/]/).pop() || "Documento"
+    return "Companheiro de estudo"
   }, [document?.filePath, document?.title])
 
   const send = async (prompt?: string) => {
@@ -89,7 +89,7 @@ export default function CompanionDock() {
         history
       })
       const payload = response?.companion
-      const assistantContent = payload?.answer || "I couldn't generate a response from the provided context."
+      const assistantContent = payload?.answer || "Não consegui gerar uma resposta com o contexto fornecido."
       const assistantMessage: CompanionMessage = {
         id: makeId(),
         role: "assistant",
@@ -100,7 +100,7 @@ export default function CompanionDock() {
       }
       setMessages(prev => [...prev, assistantMessage])
     } catch (err: any) {
-      const msg = err?.message || "Failed to contact companion"
+      const msg = err?.message || "Falha ao falar com o companheiro"
       setError(msg)
       setMessages(prev => prev.slice(0, -1))
     } finally {
@@ -125,13 +125,13 @@ export default function CompanionDock() {
           type="button"
           onClick={() => setOpen(true)}
           className={`fixed ${launcherPlacement} z-40 flex items-center gap-1.5 rounded-full bg-sky-500 px-3 py-2 text-xs font-semibold text-[#fff] shadow-lg shadow-sky-500/25 transition-colors hover:bg-sky-600 md:rounded-2xl md:px-4 md:py-3 md:text-sm`}
-          aria-label="Open Study Companion"
+          aria-label="Abrir companheiro de estudo"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 md:hidden">
             <path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
           </svg>
-          <span className="md:hidden">Companion</span>
-          <span className="hidden md:inline">Study Companion</span>
+          <span className="md:hidden">Companheiro</span>
+          <span className="hidden md:inline">Companheiro de estudo</span>
         </button>
       )}
 
@@ -143,24 +143,24 @@ export default function CompanionDock() {
       >
         <div className="flex items-start justify-between gap-3 px-5 pt-5 pb-3 border-b border-white/5">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wide text-sky-300/80 mb-1">AI Companion</div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-sky-300/80 mb-1">Companheiro de IA</div>
             <div className="text-white text-base font-medium leading-snug">{headerTitle}</div>
             {document?.filePath && (
               <div className="text-[11px] text-stone-400 mt-1 truncate" title={document.filePath}>
-                Context: {document.filePath}
+                Contexto: {document.filePath}
               </div>
             )}
           </div>
           <div className="flex items-center gap-2">
             <span className={cx("inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px]", hasDocument ? "bg-emerald-500/10 text-emerald-300" : "bg-stone-800 text-stone-400")}>
               <span className="w-2 h-2 rounded-full bg-current" />
-              {hasDocument ? "Context linked" : "No document"}
+              {hasDocument ? "Contexto vinculado" : "Sem documento"}
             </span>
             <button
               type="button"
               onClick={() => setOpen(false)}
               className="p-2 rounded-full hover:bg-white/10 text-stone-300 transition-colors"
-              aria-label="Close companion"
+              aria-label="Fechar companheiro"
             >
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 7l6 6m0-6-6 6" />
@@ -172,14 +172,14 @@ export default function CompanionDock() {
         <div ref={bodyRef} className="px-5 py-4 space-y-4 overflow-y-auto custom-scroll">
           {!hasDocument && (
             <div className="text-sm text-stone-400">
-              Open a note or topic to unlock the companion. It will only use the content of that document for answers.
+              Abra uma anotação ou um tema para liberar o companheiro. Ele usa apenas o conteúdo desse documento para responder.
             </div>
           )}
 
           {hasDocument && !messages.length && (
             <div className="space-y-3">
               <div className="text-sm text-stone-300 leading-relaxed">
-                Need a quick summary, quiz, or explanation? Ask anything about the current document and I&apos;ll stick to that context.
+                Precisa de um resumo rápido, de um quiz ou de uma explicação? Pergunte qualquer coisa sobre o documento atual e eu fico dentro desse contexto.
               </div>
               <div className="flex flex-wrap gap-2">
                 {defaultSuggestions.map(suggestion => (
@@ -216,13 +216,13 @@ export default function CompanionDock() {
                         <ul className="space-y-2 text-sm text-sky-100">
                           {msg.flashcards.slice(0, 4).map((card, idx) => (
                             <li key={`${msg.id}-card-${idx}`}>
-                              <div className="font-semibold">Q: {card.q}</div>
-                              <div className="text-sky-100/90">A: {card.a}</div>
+                              <div className="font-semibold">P: {card.q}</div>
+                              <div className="text-sky-100/90">R: {card.a}</div>
                             </li>
                           ))}
                           {msg.flashcards.length > 4 && (
                             <li className="text-xs text-sky-200/80">
-                              +{msg.flashcards.length - 4} more flashcards generated in this answer.
+                              +{msg.flashcards.length - 4} flashcards gerados nesta resposta.
                             </li>
                           )}
                         </ul>
@@ -239,7 +239,7 @@ export default function CompanionDock() {
           {busy && (
             <div className="flex justify-start">
               <div className="px-4 py-2 rounded-2xl bg-stone-900/80 border border-stone-700 text-xs text-stone-300 animate-pulse">
-                Thinking�?�
+                Pensando…
               </div>
             </div>
           )}
@@ -262,7 +262,7 @@ export default function CompanionDock() {
                   send()
                 }
               }}
-              placeholder={hasDocument ? "Ask about this document..." : "Open a document to start"}
+              placeholder={hasDocument ? "Pergunte sobre este documento..." : "Abra um documento para começar"}
               disabled={disabled && !hasDocument}
               className="flex-1 px-4 py-2.5 rounded-2xl bg-stone-900/80 border border-stone-700 text-sm text-white placeholder-stone-500 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 disabled:opacity-50"
             />
@@ -272,7 +272,7 @@ export default function CompanionDock() {
               disabled={disabled || !input.trim()}
               className="px-4 py-2.5 rounded-2xl bg-sky-500 hover:bg-sky-400 text-[#fff] text-sm font-medium transition-colors disabled:opacity-50"
             >
-              Send
+              Enviar
             </button>
           </div>
         </div>

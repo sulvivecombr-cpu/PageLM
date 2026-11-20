@@ -23,12 +23,12 @@ import MarkdownView from "../components/Chat/MarkdownView";
 import MindMapView from "../components/Studio/MindMapView";
 
 const KIND_LABEL: Record<StudioKind, string> = {
-  quiz: "اختبار سريع",
-  qcm: "QCM شامل",
-  flashcards: "بطاقات مراجعة",
-  summary: "ملخص ذكي",
-  mindmap: "خريطة ذهنية",
-  learning: "ملف التعلم",
+  quiz: "Quiz rápido",
+  qcm: "Prova completa",
+  flashcards: "Flashcards",
+  summary: "Resumo inteligente",
+  mindmap: "Mapa mental",
+  learning: "Material de estudo",
 };
 
 const ACTIONS: Array<{
@@ -42,32 +42,32 @@ const ACTIONS: Array<{
   {
     kind: "quiz",
     title: "Quiz",
-    desc: "اختبار قابل للتخصيص: العدد، الصعوبة، التلميحات، وعدد الخيارات.",
-    badge: "قابل للتخصيص",
+    desc: "Quiz personalizável: quantidade, dificuldade, dicas e número de opções.",
+    badge: "Personalizável",
     accent: "from-sky-500/20 via-sky-500/5 to-transparent",
     ring: "group-hover:border-sky-500/50 group-hover:shadow-sky-500/10",
   },
   {
     kind: "mindmap",
     title: "Mind Map",
-    desc: "خريطة ذهنية تفاعلية تربط المفاهيم وتكشف العلاقات بينها.",
-    badge: "تفاعلية",
+    desc: "Mapa mental interativo que conecta os conceitos e revela as relações entre eles.",
+    badge: "Interativo",
     accent: "from-rose-500/20 via-rose-500/5 to-transparent",
     ring: "group-hover:border-rose-500/50 group-hover:shadow-rose-500/10",
   },
   {
     kind: "flashcards",
     title: "Flashcards",
-    desc: "8 بطاقات مراجعة قابلة للقلب، جاهزة للحفظ.",
-    badge: "8 بطاقات",
+    desc: "8 flashcards para virar, prontos para memorizar.",
+    badge: "8 cartões",
     accent: "from-violet-500/20 via-violet-500/5 to-transparent",
     ring: "group-hover:border-violet-500/50 group-hover:shadow-violet-500/10",
   },
   {
     kind: "learning",
-    title: "ملف التعلم",
-    desc: "ملخص، درس كامل، سلسلة تمارين، أو سلسلة أسئلة — بقوالب جاهزة.",
-    badge: "4 أوضاع",
+    title: "Material de estudo",
+    desc: "Resumo, aula completa, lista de exercícios ou de perguntas — com modelos prontos.",
+    badge: "4 modos",
     accent: "from-amber-500/20 via-amber-500/5 to-transparent",
     ring: "group-hover:border-amber-500/50 group-hover:shadow-amber-500/10",
   },
@@ -85,64 +85,66 @@ const DEFAULT_QUIZ_SETTINGS: StudioQuizSettings = {
 };
 
 const LEARNING_MODES: Array<{ value: LearningMode; label: string; desc: string }> = [
-  { value: "summary", label: "ملخص", desc: "أهم المفاهيم ونقاط المراجعة" },
-  { value: "lesson", label: "درس كامل", desc: "شرح متدرج مع أمثلة محلولة" },
-  { value: "exercises", label: "تمارين", desc: "سلسلة تمارين مع الحلول" },
-  { value: "questions", label: "أسئلة", desc: "أسئلة مراجعة وإجابات نموذجية" },
+  { value: "summary", label: "Resumo", desc: "Principais conceitos e pontos de revisão" },
+  { value: "lesson", label: "Aula completa", desc: "Explicação gradual com exemplos resolvidos" },
+  { value: "exercises", label: "Exercícios", desc: "Lista de exercícios com soluções" },
+  { value: "questions", label: "Perguntas", desc: "Perguntas de revisão e respostas modelo" },
 ];
 
 const LEARNING_TEMPLATES: Array<{ value: LearningTemplate; label: string; desc: string }> = [
-  { value: "pedagogical", label: "منهاجي مفصّل", desc: "كفاءات، محاور، أمثلة، وتمارين محلولة" },
-  { value: "academic", label: "أكاديمي", desc: "منظم ومفصّل" },
-  { value: "exam", label: "تحضير امتحان", desc: "مبني على ما يُقيَّم" },
-  { value: "quick", label: "مراجعة سريعة", desc: "مركّز وقصير" },
+  { value: "pedagogical", label: "Pedagógico detalhado", desc: "Competências, eixos, exemplos e exercícios resolvidos" },
+  { value: "academic", label: "Acadêmico", desc: "Organizado e detalhado" },
+  { value: "exam", label: "Preparação para prova", desc: "Baseado no que é avaliado" },
+  { value: "quick", label: "Revisão rápida", desc: "Focado e curto" },
 ];
 
-const DIFFICULTY_LABEL = { easy: "سهل", medium: "متوسط", hard: "صعب" } as const;
-const LENGTH_LABEL = { short: "قصير", medium: "متوسط", long: "طويل" } as const;
-const QUESTION_TYPE_LABEL = { mcq: "اختيار من متعدد", truefalse: "صواب أو خطأ", mixed: "مختلط" } as const;
+const DIFFICULTY_LABEL = { easy: "Fácil", medium: "Médio", hard: "Difícil" } as const;
+const LENGTH_LABEL = { short: "Curto", medium: "Médio", long: "Longo" } as const;
+const QUESTION_TYPE_LABEL = { mcq: "Múltipla escolha", truefalse: "Verdadeiro ou falso", mixed: "Misto" } as const;
 const LANGUAGE_LABEL: Record<QuizLanguage, string> = {
-  auto: "تلقائي حسب المصدر",
-  ar: "العربية",
-  fr: "الفرنسية",
-  en: "الإنجليزية",
+  auto: "Automático (fonte)",
+  pt: "Português",
+  en: "Inglês",
+  fr: "Francês",
+  ar: "Árabe",
 };
 const LEARNING_MODE_LABEL: Record<LearningMode, string> = {
-  summary: "ملخص",
-  lesson: "درس كامل",
-  exercises: "تمارين",
-  questions: "أسئلة",
+  summary: "Resumo",
+  lesson: "Aula completa",
+  exercises: "Exercícios",
+  questions: "Perguntas",
 };
 const LEARNING_TEMPLATE_LABEL: Record<LearningTemplate, string> = {
-  quick: "مراجعة سريعة",
-  academic: "أكاديمي",
-  exam: "تحضير امتحان",
-  pedagogical: "منهاجي مفصّل",
+  quick: "Revisão rápida",
+  academic: "Acadêmico",
+  exam: "Preparação para prova",
+  pedagogical: "Pedagógico detalhado",
 };
 
 const DIFFICULTY_OPTIONS: Array<{ value: QuizDifficulty; label: string }> = [
-  { value: "easy", label: "سهل" },
-  { value: "medium", label: "متوسط" },
-  { value: "hard", label: "صعب" },
+  { value: "easy", label: "Fácil" },
+  { value: "medium", label: "Médio" },
+  { value: "hard", label: "Difícil" },
 ];
 
 const LENGTH_OPTIONS: Array<{ value: QuizLength; label: string }> = [
-  { value: "short", label: "قصير" },
-  { value: "medium", label: "متوسط" },
-  { value: "long", label: "طويل" },
+  { value: "short", label: "Curto" },
+  { value: "medium", label: "Médio" },
+  { value: "long", label: "Longo" },
 ];
 
 const QTYPE_OPTIONS: Array<{ value: QuizQuestionType; label: string }> = [
-  { value: "mcq", label: "اختيار من متعدد" },
-  { value: "truefalse", label: "صواب أو خطأ" },
-  { value: "mixed", label: "مختلط" },
+  { value: "mcq", label: "Múltipla escolha" },
+  { value: "truefalse", label: "Verdadeiro ou falso" },
+  { value: "mixed", label: "Misto" },
 ];
 
 const LANGUAGE_OPTIONS: Array<{ value: QuizLanguage; label: string }> = [
-  { value: "auto", label: "تلقائي" },
-  { value: "ar", label: "العربية" },
-  { value: "fr", label: "الفرنسية" },
-  { value: "en", label: "الإنجليزية" },
+  { value: "auto", label: "Automático" },
+  { value: "pt", label: "Português" },
+  { value: "en", label: "Inglês" },
+  { value: "fr", label: "Francês" },
+  { value: "ar", label: "Árabe" },
 ];
 
 const OPTION_COUNT_OPTIONS: Array<{ value: string; label: string }> = [
@@ -152,21 +154,21 @@ const OPTION_COUNT_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "5", label: "5" },
 ];
 
-const STEPS = ["قراءة المصدر", "استخراج المفاهيم", "صياغة المحتوى", "مراجعة الجودة"];
+const STEPS = ["Lendo a fonte", "Extraindo conceitos", "Redigindo o conteúdo", "Revisando a qualidade"];
 
 function friendlyError(raw: string) {
   const s = String(raw || "");
   if (/429|quota|resource[_ ]exhausted|rate limit|too many requests/i.test(s)) {
-    return "تم استهلاك حصة الذكاء الاصطناعي مؤقتًا (429). انتظر دقيقة أو دقيقتين ثم أعد المحاولة — مصدرك محفوظ ولا حاجة لرفعه مجددًا.";
+    return "A cota de IA foi atingida temporariamente (429). Aguarde um ou dois minutos e tente de novo — sua fonte continua salva, não é preciso enviá-la outra vez.";
   }
   if (/timeout|timed out/i.test(s)) {
-    return "استغرق التوليد وقتًا أطول من المتوقع. حاول مرة أخرى، أو استخدم مصدرًا أصغر حجمًا.";
+    return "A geração demorou mais do que o esperado. Tente novamente ou use uma fonte menor.";
   }
   if (/invalid .*json|empty .* from model/i.test(s)) {
-    return "لم يكتمل المحتوى بصيغة صحيحة هذه المرة. اضغط «حاول مجددًا» — عادةً تنجح المحاولة الثانية.";
+    return "O conteúdo não saiu em formato válido desta vez. Clique em “Tentar novamente” — na segunda tentativa costuma funcionar.";
   }
   if (/source not found|source is empty|missing|no valid content/i.test(s)) {
-    return "تعذر قراءة نص هذا المصدر. أعد رفعه من بوابة المصادر ثم حاول مجددًا.";
+    return "Não foi possível ler o texto desta fonte. Envie o arquivo novamente em Fontes e tente outra vez.";
   }
   return s;
 }
@@ -349,7 +351,7 @@ export default function Studio() {
         if (fromUrl && list.some((s) => s.id === fromUrl)) setSelectedId(fromUrl);
         else if (list.length) setSelectedId((prev) => (list.some((s) => s.id === prev) ? prev : list[0].id));
       } catch (e: any) {
-        setLoadError(e?.message || "تعذر تحميل المصادر");
+        setLoadError(e?.message || "Não foi possível carregar as fontes");
       } finally {
         setLoading(false);
       }
@@ -418,14 +420,14 @@ export default function Studio() {
           close();
         }
         if (ev.type === "error") {
-          setError(ev.error || "تعذر التوليد");
+          setError(ev.error || "Não foi possível gerar");
           setBusy(false);
           close();
         }
       });
       wsRef.current = { close };
     } catch (e: any) {
-      setError(e?.message || "تعذر بدء التوليد");
+      setError(e?.message || "Não foi possível iniciar a geração");
       setBusy(false);
     }
   };
@@ -519,11 +521,11 @@ export default function Studio() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-medium mb-3">
               <span className="size-1.5 rounded-full bg-violet-400 animate-pulse" />
-              البوابة الثالثة · الاستوديو
+              Terceiro passo · Estúdio
             </div>
-            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">استوديو التوليد</h1>
+            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">Estúdio de geração</h1>
             <p className="text-stone-400 mt-2 max-w-2xl leading-relaxed">
-              اختر مصدرًا، ثم اختر ما تريد أن نصنعه منه. كل شيء مبني على محتوى ملفك — لا على تخمين عام.
+              Escolha uma fonte e depois o que você quer criar a partir dela. Tudo vem do conteúdo do seu arquivo — nada de achismo.
             </p>
           </div>
           <Link
@@ -531,7 +533,7 @@ export default function Studio() {
             className="inline-flex items-center justify-center gap-2 self-start sm:self-auto rounded-2xl border border-stone-800 bg-stone-950 hover:bg-stone-900 hover:border-stone-700 px-4 py-2.5 text-sm text-stone-300 transition-colors"
           >
             <SourceIcon className="size-4" />
-            إدارة المصادر
+            Gerenciar fontes
           </Link>
         </div>
 
@@ -547,9 +549,9 @@ export default function Studio() {
               <div className="mx-auto size-20 rounded-3xl border border-stone-800 bg-stone-900/80 flex items-center justify-center mb-6 studio-float">
                 <SourceIcon className="size-9 text-violet-300" />
               </div>
-              <h2 className="text-2xl font-semibold text-white">الاستوديو يحتاج مصدرًا أولًا</h2>
+              <h2 className="text-2xl font-semibold text-white">O Estúdio precisa de uma fonte primeiro</h2>
               <p className="text-stone-400 mt-2 max-w-lg mx-auto leading-relaxed">
-                ارفع ملفك في بوابة المصادر، ثم عد إلى هنا لتوليد اختبار، بطاقات، خريطة ذهنية، أو ملف تعلم منه.
+                Envie seu arquivo em Fontes e volte aqui para gerar um quiz, flashcards, um mapa mental ou material de estudo.
               </p>
               <Link
                 to="/sources"
@@ -558,7 +560,7 @@ export default function Studio() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="size-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                ارفع مصدرك الأول
+                Envie sua primeira fonte
               </Link>
             </div>
           </div>
@@ -566,8 +568,8 @@ export default function Studio() {
           <>
             <section className="mb-6">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-sm font-semibold text-stone-300">1 · اختر المصدر</h2>
-                {selected && <span className="text-xs text-stone-500">{fmtBytes(selected.size)} · {selected.chars.toLocaleString("ar")} حرف</span>}
+                <h2 className="text-sm font-semibold text-stone-300">1 · Escolha a fonte</h2>
+                {selected && <span className="text-xs text-stone-500">{fmtBytes(selected.size)} · {selected.chars.toLocaleString("pt-BR")} caracteres</span>}
               </div>
               <div className="flex gap-3 overflow-x-auto custom-scroll pb-2">
                 {sources.map((src) => {
@@ -577,7 +579,7 @@ export default function Studio() {
                       key={src.id}
                       onClick={() => { if (!busy) { setSelectedId(src.id); resetRun(); } }}
                       disabled={busy}
-                      className={`shrink-0 w-64 text-right rounded-2xl border p-3.5 transition-all duration-300 ${
+                      className={`shrink-0 w-64 text-left rounded-2xl border p-3.5 transition-all duration-300 ${
                         active
                           ? "border-sky-500/50 bg-gradient-to-br from-sky-500/15 to-violet-500/10 shadow-lg shadow-sky-500/10"
                           : "border-stone-800 bg-stone-950 hover:border-stone-700 hover:bg-stone-900/60"
@@ -589,7 +591,7 @@ export default function Studio() {
                         </div>
                         <div className="min-w-0">
                           <div className="text-sm font-medium text-white truncate" dir="auto">{src.name}</div>
-                          <div className="text-[11px] text-stone-500">{fmtBytes(src.size)} · {src.chars.toLocaleString("ar")} حرف</div>
+                          <div className="text-[11px] text-stone-500">{fmtBytes(src.size)} · {src.chars.toLocaleString("pt-BR")} caracteres</div>
                         </div>
                       </div>
                     </button>
@@ -600,8 +602,8 @@ export default function Studio() {
 
             <section className="mb-6">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-sm font-semibold text-stone-300">2 · اختر ما تريد صنعه</h2>
-                {selected && <span className="text-xs text-stone-500 truncate max-w-[45%]" dir="auto">من: {selected.name}</span>}
+                <h2 className="text-sm font-semibold text-stone-300">2 · Escolha o que criar</h2>
+                {selected && <span className="text-xs text-stone-500 truncate max-w-[45%]" dir="auto">De: {selected.name}</span>}
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {ACTIONS.map((a) => (
@@ -609,7 +611,7 @@ export default function Studio() {
                     key={a.kind}
                     onClick={() => openSettings(a.kind)}
                     disabled={busy || !selected}
-                    className={`group relative text-right overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50 disabled:hover:translate-y-0 ${a.ring}`}
+                    className={`group relative text-left overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50 disabled:hover:translate-y-0 ${a.ring}`}
                   >
                     <div className={`absolute inset-0 bg-gradient-to-br ${a.accent} opacity-80`} />
                     <div className="relative">
@@ -622,9 +624,9 @@ export default function Studio() {
                       <div className="mt-4 text-lg font-semibold text-white">{a.title}</div>
                       <div className="mt-1 text-xs leading-relaxed text-stone-400 min-h-[2.6rem]">{a.desc}</div>
                       <div className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-stone-300 group-hover:text-white transition-colors">
-                        ابدأ التوليد
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-3.5 transition-transform group-hover:-translate-x-0.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                        Começar a gerar
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-3.5 transition-transform group-hover:translate-x-0.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                       </div>
                     </div>
@@ -637,23 +639,23 @@ export default function Studio() {
               <div className="rounded-2xl border border-stone-900 bg-stone-950/60 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm">
                 <div className="flex items-center gap-2 text-stone-400">
                   <span className="size-1.5 rounded-full bg-emerald-400" />
-                  سيُبنى المحتوى حصريًا من هذا المصدر:
+                  O conteúdo será criado exclusivamente a partir desta fonte:
                 </div>
                 <div className="text-stone-200 truncate" dir="auto">{selected.name}</div>
                 <div className="sm:ms-auto flex gap-3 text-xs">
-                  <Link to={`/chat?sourceId=${encodeURIComponent(selected.id)}`} className="text-sky-300 hover:text-sky-200">اسأل المصدر</Link>
-                  <Link to="/sources" className="text-stone-400 hover:text-stone-200">تغيير المصدر</Link>
+                  <Link to={`/chat?sourceId=${encodeURIComponent(selected.id)}`} className="text-sky-300 hover:text-sky-200">Perguntar à fonte</Link>
+                  <Link to="/sources" className="text-stone-400 hover:text-stone-200">Trocar fonte</Link>
                 </div>
               </div>
             )}
 
             {error && !busy && (
               <div className="mt-6 rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4">
-                <div className="font-semibold text-red-200">تعذر إكمال التوليد</div>
+                <div className="font-semibold text-red-200">Não foi possível concluir a geração</div>
                 <div className="text-sm text-red-300/80 mt-1" dir="auto">{friendlyError(error)}</div>
                 <div className="mt-3 flex gap-2">
-                  {kind && <button onClick={() => start(kind, activeOptions)} className="rounded-xl bg-red-500/20 border border-red-500/30 px-4 py-2 text-sm text-red-200 hover:bg-red-500/30">حاول مجددًا</button>}
-                  <button onClick={resetRun} className="rounded-xl bg-stone-900 border border-stone-800 px-4 py-2 text-sm text-stone-300 hover:bg-stone-800">رجوع</button>
+                  {kind && <button onClick={() => start(kind, activeOptions)} className="rounded-xl bg-red-500/20 border border-red-500/30 px-4 py-2 text-sm text-red-200 hover:bg-red-500/30">Tentar novamente</button>}
+                  <button onClick={resetRun} className="rounded-xl bg-stone-900 border border-stone-800 px-4 py-2 text-sm text-stone-300 hover:bg-stone-800">Voltar</button>
                 </div>
               </div>
             )}
@@ -722,11 +724,11 @@ export default function Studio() {
                       <div>
                         <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-wider text-sky-300/80">
                           <span className="size-1.5 rounded-full bg-sky-400 animate-pulse" />
-                          Generating · {KIND_LABEL[kind]}
+                          Gerando · {KIND_LABEL[kind]}
                         </div>
                         <h3 className="mt-2 text-2xl sm:text-3xl font-semibold text-white leading-snug">
-                          نصنع لك {KIND_LABEL[kind]}
-                          <span className="block text-lg sm:text-xl font-normal text-stone-400 mt-1">من مصدرك، بجودة عالية</span>
+                          Criando {KIND_LABEL[kind]}
+                          <span className="block text-lg sm:text-xl font-normal text-stone-400 mt-1">Da sua fonte, com alta qualidade</span>
                         </h3>
 
                         <div className="mt-4 flex items-center gap-2 text-sm text-stone-400 min-w-0">
@@ -772,9 +774,9 @@ export default function Studio() {
                         </div>
 
                         <div className="mt-6 flex items-center justify-between gap-3">
-                          <span className="text-xs text-stone-500">قد يستغرق من 10 إلى 60 ثانية حسب حجم المصدر.</span>
+                          <span className="text-xs text-stone-500">Pode levar de 10 a 60 segundos, conforme o tamanho da fonte.</span>
                           <button onClick={cancel} className="rounded-xl border border-stone-800 bg-stone-900/80 px-4 py-2 text-xs text-stone-300 hover:bg-stone-800 transition-colors">
-                            إلغاء
+                            Cancelar
                           </button>
                         </div>
                       </div>
@@ -794,15 +796,15 @@ export default function Studio() {
                       </svg>
                     </div>
                     <div>
-                      <div className="text-white font-semibold">تم إنشاء {KIND_LABEL[result.kind]}</div>
+                      <div className="text-white font-semibold">{KIND_LABEL[result.kind]} pronto</div>
                       <div className="text-xs text-stone-500" dir="auto">
-                        {selected.name} · {selected.chars.toLocaleString("ar")} حرف · تم التوليد الآن من المصدر
+                        {selected.name} · {selected.chars.toLocaleString("pt-BR")} caracteres · gerado agora a partir da fonte
                       </div>
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <button onClick={resetRun} className="rounded-xl border border-stone-800 bg-stone-950 px-3.5 py-2 text-xs text-stone-300 hover:bg-stone-900">نوع آخر</button>
-                    <button onClick={() => start(result.kind, activeOptions)} className="rounded-xl border border-sky-500/30 bg-sky-500/10 px-3.5 py-2 text-xs text-sky-200 hover:bg-sky-500/20">نسخة جديدة</button>
+                    <button onClick={resetRun} className="rounded-xl border border-stone-800 bg-stone-950 px-3.5 py-2 text-xs text-stone-300 hover:bg-stone-900">Outro tipo</button>
+                    <button onClick={() => start(result.kind, activeOptions)} className="rounded-xl border border-sky-500/30 bg-sky-500/10 px-3.5 py-2 text-xs text-sky-200 hover:bg-sky-500/20">Nova versão</button>
                   </div>
                 </div>
 
@@ -813,24 +815,24 @@ export default function Studio() {
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                           <div className="text-xs text-sky-300 font-medium">
-                            {result.kind === "qcm" || result.settings?.mode === "exam" ? "وضع الامتحان" : "وضع التدريب"}
+                            {result.kind === "qcm" || result.settings?.mode === "exam" ? "Modo prova" : "Modo prática"}
                           </div>
-                          <h3 className="text-2xl font-semibold text-white mt-1">{result.questions.length} أسئلة جاهزة</h3>
+                          <h3 className="text-2xl font-semibold text-white mt-1">{result.questions.length} perguntas prontas</h3>
                           <p className="text-stone-400 text-sm mt-1" dir="auto">
                             {result.settings
                               ? `${DIFFICULTY_LABEL[result.settings.difficulty]} · ${LENGTH_LABEL[result.settings.length]} · ${QUESTION_TYPE_LABEL[result.settings.questionType]} · ${LANGUAGE_LABEL[result.settings.language] ?? LANGUAGE_LABEL.auto} · ${
-                                  result.settings.hints ? "تلميحات مفعّلة" : "بدون تلميحات"
-                                } · ${result.settings.optionsCount} خيارات`
-                              : "اختيار من متعدد، مع تصحيح فوري ومراجعة كاملة في النهاية."}
+                                  result.settings.hints ? "dicas ativadas" : "sem dicas"
+                                } · ${result.settings.optionsCount} opções`
+                              : "Múltipla escolha, com correção imediata e revisão completa no final."}
                           </p>
                         </div>
                         <button
                           onClick={startQuiz}
                           className="shrink-0 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-6 py-3 text-[#fff] font-medium transition-all duration-300"
                         >
-                          ابدأ الاختبار الآن
+                          Começar o quiz agora
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-4">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                           </svg>
                         </button>
                       </div>
@@ -841,7 +843,7 @@ export default function Studio() {
                             <span className="text-sm text-stone-300 line-clamp-2" dir="auto">{q.question}</span>
                           </div>
                         ))}
-                        {result.questions.length > 3 && <div className="text-xs text-stone-500 ps-8">+ {result.questions.length - 3} أسئلة أخرى…</div>}
+                        {result.questions.length > 3 && <div className="text-xs text-stone-500 ps-8">+ {result.questions.length - 3} outras perguntas…</div>}
                       </div>
                     </div>
                   </div>
@@ -851,15 +853,15 @@ export default function Studio() {
                   <div className="rounded-3xl border border-stone-800 bg-stone-950 p-5 sm:p-6">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
                       <div>
-                        <h3 className="text-lg font-semibold text-white">{result.cards.length} بطاقات جاهزة</h3>
-                        <p className="text-xs text-stone-500 mt-1">اضغط على أي بطاقة لقلبها ورؤية الإجابة.</p>
+                        <h3 className="text-lg font-semibold text-white">{result.cards.length} flashcards prontos</h3>
+                        <p className="text-xs text-stone-500 mt-1">Clique em qualquer cartão para virar e ver a resposta.</p>
                       </div>
                       <button
                         onClick={() => saveCards(result.cards)}
                         disabled={saving || saved}
                         className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors ${saved ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300" : "border-stone-700 bg-stone-900 text-stone-200 hover:bg-stone-800"}`}
                       >
-                        {saved ? "تم الحفظ في الحقيبة ✓" : saving ? "جارٍ الحفظ…" : "حفظ الكل في الحقيبة"}
+                        {saved ? "Salvo na mochila ✓" : saving ? "Salvando…" : "Salvar tudo na mochila"}
                       </button>
                     </div>
                     <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -867,21 +869,21 @@ export default function Studio() {
                         <div key={i} className="[perspective:1200px]">
                           <button
                             onClick={() => setFlipped((f) => ({ ...f, [i]: !f[i] }))}
-                            className={`studio-flip relative h-52 w-full text-right ${flipped[i] ? "is-flipped" : ""}`}
-                            aria-label={`بطاقة ${i + 1}`}
+                            className={`studio-flip relative h-52 w-full text-left ${flipped[i] ? "is-flipped" : ""}`}
+                            aria-label={`Cartão ${i + 1}`}
                           >
                             <div className="studio-flip-face absolute inset-0 rounded-2xl border border-stone-800 bg-gradient-to-br from-stone-900 to-stone-950 p-5 flex flex-col justify-between">
                               <div className="flex items-start justify-between gap-2">
-                                <span className="text-[10px] uppercase tracking-wider text-sky-300/80">سؤال {i + 1}</span>
+                                <span className="text-[10px] uppercase tracking-wider text-sky-300/80">Pergunta {i + 1}</span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-4 text-stone-600">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                                 </svg>
                               </div>
                               <p className="text-sm text-stone-200 leading-relaxed line-clamp-6" dir="auto">{card.q}</p>
-                              <span className="text-[10px] text-stone-600">اضغط للقلب</span>
+                              <span className="text-[10px] text-stone-600">Clique para virar</span>
                             </div>
                             <div className="studio-flip-face studio-flip-back absolute inset-0 rounded-2xl border border-violet-500/25 bg-gradient-to-br from-violet-500/15 via-stone-950 to-stone-950 p-5 flex flex-col justify-between">
-                              <span className="text-[10px] uppercase tracking-wider text-violet-300/80">الإجابة</span>
+                              <span className="text-[10px] uppercase tracking-wider text-violet-300/80">Resposta</span>
                               <p className="text-sm text-stone-100 leading-relaxed line-clamp-6" dir="auto">{card.a}</p>
                               <div className="flex flex-wrap gap-1">
                                 {(card.tags || []).slice(0, 3).map((t) => (
@@ -900,11 +902,11 @@ export default function Studio() {
                   <div className="rounded-3xl border border-stone-800 bg-stone-950 p-5 sm:p-8">
                     <div className="flex items-center justify-between gap-3 mb-4">
                       <div>
-                        <h3 className="text-lg font-semibold text-white">ملخص المصدر</h3>
-                        <p className="text-xs text-stone-500 mt-1">مبني على محتوى الملف، مع نقاط مراجعة وأسئلة فهم.</p>
+                        <h3 className="text-lg font-semibold text-white">Resumo da fonte</h3>
+                        <p className="text-xs text-stone-500 mt-1">Baseado no conteúdo do arquivo, com pontos de revisão e perguntas de compreensão.</p>
                       </div>
                       <button onClick={() => copySummary(result.markdown)} className="rounded-xl border border-stone-800 bg-stone-900 px-3.5 py-2 text-xs text-stone-300 hover:bg-stone-800">
-                        {copied ? "تم النسخ ✓" : "نسخ الملخص"}
+                        {copied ? "Copiado ✓" : "Copiar resumo"}
                       </button>
                     </div>
                     <div className="rounded-2xl border border-stone-900 bg-stone-900/60 p-4 sm:p-6 max-h-[70vh] overflow-y-auto custom-scroll">
@@ -920,27 +922,27 @@ export default function Studio() {
                         <div className="text-xs text-amber-300 font-medium">
                           {LEARNING_MODE_LABEL[result.mode]} · {LEARNING_TEMPLATE_LABEL[result.template]}
                         </div>
-                        <h3 className="text-lg font-semibold text-white mt-1">ملف التعلم جاهز</h3>
-                        <p className="text-xs text-stone-500 mt-1">مبني على محتوى الملف، جاهز للقراءة أو التحميل أو الطباعة.</p>
+                        <h3 className="text-lg font-semibold text-white mt-1">Material de estudo pronto</h3>
+                        <p className="text-xs text-stone-500 mt-1">Baseado no conteúdo do arquivo, pronto para ler, baixar ou imprimir.</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <button
                           onClick={() => copyLearning(result.markdown)}
                           className="rounded-xl border border-stone-800 bg-stone-900 px-3.5 py-2 text-xs text-stone-300 hover:bg-stone-800"
                         >
-                          {docCopied ? "تم النسخ ✓" : "نسخ"}
+                          {docCopied ? "Copiado ✓" : "Copiar"}
                         </button>
                         <button
                           onClick={() => downloadMarkdown(`${selected.name.replace(/\.[^.]+$/, "")}-learning.md`, result.markdown)}
                           className="rounded-xl border border-stone-800 bg-stone-900 px-3.5 py-2 text-xs text-stone-300 hover:bg-stone-800"
                         >
-                          تحميل Markdown
+                          Baixar Markdown
                         </button>
                         <button
                           onClick={() => window.print()}
                           className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3.5 py-2 text-xs text-amber-200 hover:bg-amber-500/20"
                         >
-                          طباعة / PDF
+                          Imprimir / PDF
                         </button>
                       </div>
                     </div>
@@ -966,24 +968,23 @@ export default function Studio() {
             onClick={() => setSettingsFor(null)}
           >
             <div
-              dir="rtl"
-              onClick={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
               className="w-full max-w-xl max-h-[92vh] flex flex-col overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 shadow-2xl shadow-stone-500/25"
             >
               <div className="shrink-0 flex items-start justify-between gap-3 border-b border-stone-800 bg-stone-950/95 px-5 py-3.5 backdrop-blur">
                 <div>
                   <h2 className="text-lg font-semibold text-white">
-                    {settingsFor === "quiz" ? "إعدادات Quiz" : "إعدادات ملف التعلم"}
+                    {settingsFor === "quiz" ? "Configurações do quiz" : "Configurações do material"}
                   </h2>
                   <p className="text-xs text-stone-500 mt-0.5">
                     {settingsFor === "quiz"
-                      ? "خصّص الاختبار ليناسب مستواك وهدفك."
-                      : "اختر الوضع والقالب المناسبين لطريقة دراستك."}
+                      ? "Ajuste o quiz ao seu nível e objetivo."
+                      : "Escolha o modo e o modelo que combinam com a sua forma de estudar."}
                   </p>
                 </div>
                 <button
                   onClick={() => setSettingsFor(null)}
-                  aria-label="إغلاق"
+                  aria-label="Fechar"
                   className="rounded-xl border border-stone-800 bg-stone-900 p-2 text-stone-400 hover:text-white hover:bg-stone-800"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-4">
@@ -997,7 +998,7 @@ export default function Studio() {
                   <>
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-stone-200">عدد الأسئلة</span>
+                        <span className="text-sm font-medium text-stone-200">Número de perguntas</span>
                         <span className="text-sm font-semibold text-sky-300 tabular-nums">{quizSettings.count}</span>
                       </div>
                       <input
@@ -1016,7 +1017,7 @@ export default function Studio() {
                     </div>
 
                     <div>
-                      <div className="text-sm font-medium text-stone-200 mb-2">الصعوبة</div>
+                      <div className="text-sm font-medium text-stone-200 mb-2">Dificuldade</div>
                       <PillGroup
                         value={quizSettings.difficulty}
                         options={DIFFICULTY_OPTIONS}
@@ -1025,7 +1026,7 @@ export default function Studio() {
                     </div>
 
                     <div>
-                      <div className="text-sm font-medium text-stone-200 mb-2">طول الأسئلة</div>
+                      <div className="text-sm font-medium text-stone-200 mb-2">Extensão das perguntas</div>
                       <PillGroup
                         value={quizSettings.length}
                         options={LENGTH_OPTIONS}
@@ -1034,7 +1035,7 @@ export default function Studio() {
                     </div>
 
                     <div>
-                      <div className="text-sm font-medium text-stone-200 mb-2">نوع الأسئلة</div>
+                      <div className="text-sm font-medium text-stone-200 mb-2">Tipo de pergunta</div>
                       <PillGroup
                         value={quizSettings.questionType}
                         options={QTYPE_OPTIONS}
@@ -1050,9 +1051,9 @@ export default function Studio() {
 
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-sm font-medium text-stone-200">لغة الأسئلة</span>
+                        <span className="text-sm font-medium text-stone-200">Idioma das perguntas</span>
                         <span className="text-[10px] font-medium px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300">
-                          جديد
+                          Novo
                         </span>
                       </div>
                       <PillGroup
@@ -1061,7 +1062,7 @@ export default function Studio() {
                         onChange={(v) => setQuizSettings((s) => ({ ...s, language: v }))}
                       />
                       <p className="text-[11px] text-stone-500 mt-1.5">
-                        «تلقائي» يتبع لغة المصدر؛ ويمكنك فرض العربية أو الفرنسية أو الإنجليزية.
+                        “Automático” segue o idioma da fonte; você pode forçar português, inglês, francês ou árabe.
                       </p>
                     </div>
 
@@ -1071,11 +1072,11 @@ export default function Studio() {
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-stone-200">عدد الخيارات</span>
+                        <span className="text-sm font-medium text-stone-200">Número de opções</span>
                         <span className="text-[11px] text-stone-500">
                           {quizSettings.questionType === "truefalse"
-                            ? "صواب أو خطأ يستخدم خيارين دائمًا"
-                            : `إجابة صحيحة + ${Math.max(0, quizSettings.optionsCount - 1)} خاطئة`}
+                            ? "Verdadeiro ou falso usa sempre duas opções"
+                            : `1 resposta certa + ${Math.max(0, quizSettings.optionsCount - 1)} erradas`}
                         </span>
                       </div>
                       <PillGroup
@@ -1087,8 +1088,8 @@ export default function Studio() {
 
                     <div className="flex items-start justify-between gap-4 rounded-2xl border border-stone-800 bg-stone-900/40 px-4 py-3">
                       <div>
-                        <div className="text-sm font-medium text-stone-200">تلميحات</div>
-                        <div className="text-xs text-stone-500 mt-0.5">زر تلميح يساعدك دون كشف الإجابة.</div>
+                        <div className="text-sm font-medium text-stone-200">Dicas</div>
+                        <div className="text-xs text-stone-500 mt-0.5">Um botão de dica que ajuda sem revelar a resposta.</div>
                       </div>
                       <Toggle
                         checked={quizSettings.hints}
@@ -1097,11 +1098,11 @@ export default function Studio() {
                     </div>
 
                     <div>
-                      <div className="text-sm font-medium text-stone-200 mb-2">نمط الاختبار</div>
+                      <div className="text-sm font-medium text-stone-200 mb-2">Modo do quiz</div>
                       <div className="grid grid-cols-2 gap-2">
                         {[
-                          { value: "practice", label: "تدريب", desc: "شرح بعد كل سؤال" },
-                          { value: "exam", label: "امتحان", desc: "النتيجة في النهاية" },
+                          { value: "practice", label: "Prática", desc: "Explicação após cada pergunta" },
+                          { value: "exam", label: "Prova", desc: "Resultado só no final" },
                         ].map((m) => (
                           <button
                             key={m.value}
@@ -1109,7 +1110,7 @@ export default function Studio() {
                             onClick={() =>
                               setQuizSettings((s) => ({ ...s, mode: m.value as "practice" | "exam" }))
                             }
-                            className={`rounded-2xl border px-3.5 py-2.5 text-right transition-colors ${
+                            className={`rounded-2xl border px-3.5 py-2.5 text-left transition-colors ${
                               quizSettings.mode === m.value
                                 ? "border-sky-500/50 bg-sky-500/10"
                                 : "border-stone-800 bg-stone-900/40 hover:border-stone-700"
@@ -1127,14 +1128,14 @@ export default function Studio() {
                 ) : (
                   <>
                     <div>
-                      <div className="text-sm font-medium text-stone-200 mb-2">وضع الملف</div>
+                      <div className="text-sm font-medium text-stone-200 mb-2">Modo do material</div>
                       <div className="grid grid-cols-2 gap-2">
                         {LEARNING_MODES.map((m) => (
                           <button
                             key={m.value}
                             type="button"
                             onClick={() => setLearningMode(m.value)}
-                            className={`rounded-2xl border px-3.5 py-2.5 text-right transition-colors ${
+                            className={`rounded-2xl border px-3.5 py-2.5 text-left transition-colors ${
                               learningMode === m.value
                                 ? "border-amber-500/50 bg-amber-500/10"
                                 : "border-stone-800 bg-stone-900/40 hover:border-stone-700"
@@ -1150,14 +1151,14 @@ export default function Studio() {
                     </div>
 
                     <div>
-                      <div className="text-sm font-medium text-stone-200 mb-2">القالب</div>
+                      <div className="text-sm font-medium text-stone-200 mb-2">Modelo</div>
                       <div className="grid grid-cols-2 gap-2">
                         {LEARNING_TEMPLATES.map((t) => (
                           <button
                             key={t.value}
                             type="button"
                             onClick={() => setLearningTemplate(t.value)}
-                            className={`rounded-2xl border px-3 py-2.5 text-right transition-colors ${
+                            className={`rounded-2xl border px-3 py-2.5 text-left transition-colors ${
                               learningTemplate === t.value
                                 ? "border-amber-500/50 bg-amber-500/10"
                                 : "border-stone-800 bg-stone-900/40 hover:border-stone-700"
@@ -1172,13 +1173,13 @@ export default function Studio() {
                       </div>
                       {learningMode === "lesson" && learningTemplate === "pedagogical" && (
                         <p className="text-[11px] leading-relaxed text-amber-300/70 mt-1.5">
-                          يشمل: الكفاءات، المدخل التمهيدي، المحاور، التعريفات، الخواص، الأمثلة، التمثيل البياني، والتمارين المحلولة.
+                          Inclui: competências, introdução, eixos, definições, propriedades, exemplos, gráficos e exercícios resolvidos.
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <div className="text-sm font-medium text-stone-200 mb-2">المستوى</div>
+                      <div className="text-sm font-medium text-stone-200 mb-2">Nível</div>
                       <PillGroup
                         value={learningDifficulty}
                         options={DIFFICULTY_OPTIONS}
@@ -1188,8 +1189,8 @@ export default function Studio() {
 
                     <div className="flex items-start justify-between gap-4 rounded-2xl border border-stone-800 bg-stone-900/40 px-4 py-3">
                       <div>
-                        <div className="text-sm font-medium text-stone-200">إرفاق الإجابات</div>
-                        <div className="text-xs text-stone-500 mt-0.5">حلول نموذجية للتمارين والأسئلة في نهاية الملف.</div>
+                        <div className="text-sm font-medium text-stone-200">Incluir respostas</div>
+                        <div className="text-xs text-stone-500 mt-0.5">Soluções modelo para os exercícios e perguntas no final do material.</div>
                       </div>
                       <Toggle checked={learningAnswers} onChange={setLearningAnswers} />
                     </div>
@@ -1202,16 +1203,16 @@ export default function Studio() {
                   onClick={() => setSettingsFor(null)}
                   className="rounded-xl border border-stone-800 bg-stone-900 px-4 py-2.5 text-sm text-stone-300 hover:bg-stone-800"
                 >
-                  إلغاء
+                  Cancelar
                 </button>
                 <button
                   onClick={settingsFor === "quiz" ? launchQuiz : launchLearning}
                   disabled={!selected || busy}
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-4 py-2.5 text-sm font-medium text-[#fff] transition-all disabled:opacity-50"
                 >
-                  توليد الآن
+                  Gerar agora
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                   </svg>
                 </button>
               </div>

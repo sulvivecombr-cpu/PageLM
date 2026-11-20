@@ -60,7 +60,7 @@ export function examRoutes(app: any) {
   app.post("/exam", async (req: any, res: any) => {
     try {
       const examId = String(req.body?.examId || "").trim()
-      if (!examId) return res.status(400).send({ ok: false, error: "examId required" })
+      if (!examId) return res.status(400).send({ ok: false, error: "examId obrigatório" })
 
       const runId = crypto.randomUUID()
       res.status(202).send({ ok: true, runId, stream: `/ws/exams?runId=${runId}` })
@@ -94,7 +94,7 @@ export function examRoutes(app: any) {
         try {
           const all = loadAllExams().filter(okSpec)
           if (!all.length) {
-            emitToAll(s, { type: "error", error: "no exams found" })
+            emitToAll(s, { type: "error", error: "nenhuma prova encontrada" })
             return
           }
           emitToAll(s, { type: "phase", value: "generating_all", count: all.length })

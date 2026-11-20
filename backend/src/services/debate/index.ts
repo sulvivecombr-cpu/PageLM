@@ -104,6 +104,8 @@ export async function* streamDebateResponse(
 
     const systemPrompt = `You are an expert debater participating in a formal debate about: "${session.topic}"
 
+Write every response in Brazilian Portuguese.
+
 Your position: You are arguing ${opposingPosition.toUpperCase()} the topic.
 User's position: They are arguing ${session.position.toUpperCase()} the topic.
 
@@ -199,12 +201,12 @@ export async function* streamDebateAnalysis(sessionId: string): AsyncGenerator<
         throw new Error("Debate session not found");
     }
 
-    yield { type: "phase", value: "Gathering debate data..." };
+    yield { type: "phase", value: "Reunindo os dados do debate..." };
 
     const userMessages = session.messages.filter(m => m.role === "user").map(m => m.content);
     const aiMessages = session.messages.filter(m => m.role === "assistant").map(m => m.content);
 
-    yield { type: "phase", value: "Analyzing arguments..." };
+    yield { type: "phase", value: "Analisando os argumentos..." };
 
     const analysisPrompt = `You are an expert debate judge analyzing a completed debate on the topic: "${session.topic}"
 
@@ -217,6 +219,8 @@ ${userMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
 
 AI's arguments:
 ${aiMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
+
+Write every text value in Brazilian Portuguese.
 
 Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JSON):
 {
@@ -236,12 +240,12 @@ Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JS
     ];
 
     try {
-        yield { type: "phase", value: "Consulting AI judge..." };
+        yield { type: "phase", value: "Consultando o juiz de IA..." };
 
         const response = await llm.call(messages);
         const analysisText = toText(response).trim();
 
-        yield { type: "phase", value: "Processing results..." };
+        yield { type: "phase", value: "Processando os resultados..." };
 
         let jsonText = analysisText;
         const jsonMatch = analysisText.match(/```(?:json)?\s*(\{[\s\S]*\})\s*```/);
@@ -261,17 +265,17 @@ Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JS
     } catch (error) {
         console.error("[Debate Analysis] Error:", error);
 
-        yield { type: "phase", value: "Generating fallback analysis..." };
+        yield { type: "phase", value: "Gerando uma análise alternativa..." };
 
         const fallbackAnalysis: DebateAnalysis = {
             winner: session.winner || "draw",
-            reason: session.winner === "user" ? "User presented stronger arguments" : session.winner === "ai" ? "AI presented stronger arguments" : "Both sides presented balanced arguments",
-            userStrengths: ["Engaged in debate", "Presented arguments", "Maintained position"],
-            aiStrengths: ["Provided counterarguments", "Challenged user's points", "Used logical reasoning"],
+            reason: session.winner === "user" ? "Você apresentou argumentos mais fortes" : session.winner === "ai" ? "A IA apresentou argumentos mais fortes" : "Os dois lados apresentaram argumentos equilibrados",
+            userStrengths: ["Participou ativamente do debate", "Apresentou argumentos", "Manteve a posição"],
+            aiStrengths: ["Trouxe contra-argumentos", "Questionou os pontos do usuário", "Usou raciocínio lógico"],
             userWeaknesses: [],
             aiWeaknesses: [],
-            keyMoments: ["Opening arguments", "Key rebuttals", "Final exchanges"],
-            overallAssessment: `The debate featured ${userMessages.length} exchanges with arguments from both sides. Due to technical limitations, a detailed analysis could not be completed, but both participants engaged meaningfully in the discussion.`
+            keyMoments: ["Argumentos de abertura", "Refutações principais", "Trocas finais"],
+            overallAssessment: `O debate teve ${userMessages.length} trocas com argumentos dos dois lados. Por limitações técnicas, a análise detalhada não pôde ser concluída, mas os dois participantes se envolveram de forma significativa na discussão.`
         };
 
         yield { type: "analysis", data: fallbackAnalysis };
@@ -300,6 +304,8 @@ ${userMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
 
 AI's arguments:
 ${aiMessages.map((msg, i) => `${i + 1}. ${msg}`).join("\n\n")}
+
+Write every text value in Brazilian Portuguese.
 
 Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JSON):
 {
@@ -344,12 +350,12 @@ Provide a comprehensive analysis in this EXACT JSON format (no markdown, just JS
         console.error("[Debate Analysis] Error:", error);
         return {
             winner: session.winner || "draw",
-            reason: session.winner === "user" ? "User presented stronger arguments" : session.winner === "ai" ? "AI presented stronger arguments" : "Both sides presented balanced arguments",
-            userStrengths: ["Engaged in debate", "Presented arguments", "Maintained position"],
-            aiStrengths: ["Provided counterarguments", "Challenged user's points", "Used logical reasoning"],
+            reason: session.winner === "user" ? "Você apresentou argumentos mais fortes" : session.winner === "ai" ? "A IA apresentou argumentos mais fortes" : "Os dois lados apresentaram argumentos equilibrados",
+            userStrengths: ["Participou ativamente do debate", "Apresentou argumentos", "Manteve a posição"],
+            aiStrengths: ["Trouxe contra-argumentos", "Questionou os pontos do usuário", "Usou raciocínio lógico"],
             userWeaknesses: [],
             aiWeaknesses: [],
-            keyMoments: ["Opening arguments", "Key rebuttals", "Final exchanges"],
+            keyMoments: ["Argumentos de abertura", "Refutações principais", "Trocas finais"],
             overallAssessment: "The debate featured " + userMessages.length + " exchanges with arguments from both sides. Due to technical limitations, a detailed analysis could not be completed, but both participants engaged meaningfully in the discussion."
         };
     }

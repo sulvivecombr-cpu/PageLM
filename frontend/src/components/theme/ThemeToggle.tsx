@@ -21,7 +21,7 @@ export default function ThemeToggle({ className = "", size = "md" }: Props) {
       type="button"
       onClick={toggleTheme}
       className={className}
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      aria-label={isDark ? "Mudar para o tema claro" : "Mudar para o tema escuro"}
       aria-pressed={isDark}
       title={isDark ? "Tema claro" : "Tema escuro"}
     >

@@ -24,7 +24,7 @@ export type StudioKind = "quiz" | "qcm" | "flashcards" | "summary" | "mindmap" |
 export type QuizDifficulty = "easy" | "medium" | "hard";
 export type QuizLength = "short" | "medium" | "long";
 export type QuizQuestionType = "mcq" | "truefalse" | "mixed";
-export type QuizLanguage = "auto" | "ar" | "fr" | "en";
+export type QuizLanguage = "auto" | "ar" | "fr" | "en" | "pt";
 export type LearningMode = "summary" | "lesson" | "exercises" | "questions";
 export type LearningTemplate = "quick" | "academic" | "exam" | "pedagogical";
 export type QuizSettings = {
@@ -259,7 +259,7 @@ export async function chatAskOnce(opts: {
         }
       }
       if (ev.type === "done") { close(); resolve(); }
-      if (ev.type === "error") { close(); reject(new Error(ev.error || "chat failed")); }
+      if (ev.type === "error") { close(); reject(new Error(ev.error || "falha na conversa")); }
     });
   });
 
@@ -275,7 +275,7 @@ export async function companionAsk(input: {
   history?: CompanionHistoryEntry[];
 }) {
   const question = (input.question || "").trim();
-  if (!question) throw new Error("Question is required");
+  if (!question) throw new Error("A pergunta é obrigatória");
 
   const payload: Record<string, unknown> = { question };
   if (input.filePath) payload.filePath = input.filePath;
@@ -447,7 +447,7 @@ export async function podcastStart(payload: { topic: string }) {
     body: JSON.stringify(payload),
   })
   const data = await res.json()
-  if (!res.ok) throw new Error(data.error || "Failed to start podcast")
+  if (!res.ok) throw new Error(data.error || "Não foi possível iniciar o podcast")
   return data
 }
 
