@@ -64,7 +64,7 @@ export default function QuickAdd({ onAdd, loading }: QuickAddProps) {
                     <button
                         onClick={handleSubmit}
                         disabled={loading || (!text.trim() && selectedFiles.length === 0)}
-                        className="px-4 py-2 rounded-lg bg-blue-600 text-white disabled:opacity-60 hover:bg-blue-700"
+                        className="px-4 py-2 rounded-lg bg-blue-600 text-[#fff] disabled:opacity-60 hover:bg-blue-700"
                     >
                         {loading ? "Adding..." : "Add"}
                     </button>

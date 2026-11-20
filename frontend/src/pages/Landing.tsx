@@ -79,9 +79,9 @@ export default function Landing() {
           title="Input Area Unavailable"
           description="An error occurred while loading the chat input or file uploader. Please refresh the page to continue."
           theme={{
-            backgroundColor: "#0c0a09",
-            textColor: "#e7e5e4",
-            primaryColor: "#1c1917",
+            backgroundColor: "#ffffff",
+            textColor: "#0f172a",
+            primaryColor: "#1d4ed8",
             fontFamily: "'Schibsted Grotesk', sans-serif",
             borderRadius: "24px"
           }}
@@ -100,7 +100,7 @@ export default function Landing() {
         </AdaptiveErrorBoundary>
 
         <div className="w-full md:w-fit flex">
-          <div className="w-full md:w-fit md:min-w-fit p-1.5 rounded-2xl rounded-t-none bg-stone-950 flex flex-col items-start sm:items-center border border-stone-900 border-t-0 border-r-0 border-b-0 sm:border-b shadow-[inset_2px_-2px_15px] shadow-stone-900/80">
+          <div className="w-full md:w-fit md:min-w-fit p-1.5 rounded-2xl rounded-t-none bg-stone-950 flex flex-col items-start sm:items-center border border-stone-900 border-t-0 border-r-0 border-b-0 sm:border-b shadow-[0_10px_28px_-16px_rgba(15,23,42,0.22)]">
             <div className="flex items-start justify-between md:justify-start space-x-2 p-1.5 w-full">
               <div className="relative">
                 <div

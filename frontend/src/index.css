@@ -1,8 +1,116 @@
-@import "tailwindcss";
+/* The UI library ships a prebuilt Tailwind theme; it is imported first so the
+   palette overrides below are the last theme declarations in the cascade. */
 @import "@cognicatch/react/style.css";
+@import "tailwindcss";
+
+/*
+ * Light theme palette.
+ *
+ * The UI was originally authored on Tailwind's dark-first neutrals (stone/zinc
+ * surfaces with white text). Instead of rewriting every utility in every
+ * component, the palette tokens are remapped here once: the neutral ramps are
+ * inverted (950 = lightest surface, 50 = darkest ink) and the accent ramps are
+ * deepened so they stay readable on light backgrounds.
+ *
+ * Because `white` now means "primary ink", anything that genuinely needs white
+ * ink or fill on top of an accent colour or an image uses `text-[#fff]` /
+ * `bg-[#fff]` explicitly.
+ */
+@theme {
+  --color-white: #0f172a;
+  --color-black: #000000;
+
+  --color-stone-50: #0b1220;
+  --color-stone-100: #141b2b;
+  --color-stone-200: #1f2937;
+  --color-stone-300: #333d4d;
+  --color-stone-400: #55606f;
+  --color-stone-500: #6b7686;
+  --color-stone-600: #8b94a3;
+  --color-stone-700: #c5cbd6;
+  --color-stone-800: #dfe4ec;
+  --color-stone-900: #e9edf3;
+  --color-stone-950: #ffffff;
+
+  --color-zinc-50: #0b1220;
+  --color-zinc-100: #141b2b;
+  --color-zinc-200: #1f2937;
+  --color-zinc-300: #333d4d;
+  --color-zinc-400: #55606f;
+  --color-zinc-500: #6b7686;
+  --color-zinc-600: #8b94a3;
+  --color-zinc-700: #c9cfda;
+  --color-zinc-800: #dfe4ec;
+  --color-zinc-900: #eaedf3;
+  --color-zinc-950: #ffffff;
+
+  /* Brand accent: deep blue */
+  --color-sky-50: #eff4ff;
+  --color-sky-100: #dbe6ff;
+  --color-sky-200: #1e40af;
+  --color-sky-300: #1d4ed8;
+  --color-sky-400: #1d4ed8;
+  --color-sky-500: #1d4ed8;
+  --color-sky-600: #1e40af;
+  --color-sky-700: #1e3a8a;
+  --color-sky-800: #172554;
+  --color-sky-900: #e6edfd;
+  --color-sky-950: #f2f6ff;
+
+  --color-blue-100: #dbe6ff;
+  --color-blue-200: #1e40af;
+  --color-blue-300: #1d4ed8;
+  --color-blue-400: #1d4ed8;
+  --color-blue-500: #2563eb;
+  --color-blue-600: #1d4ed8;
+  --color-blue-700: #1e40af;
+  --color-blue-800: #bfd3f7;
+  --color-blue-900: #e6edfd;
+  --color-blue-950: #f2f6ff;
+
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #065f46;
+  --color-emerald-300: #047857;
+  --color-emerald-400: #059669;
+  --color-emerald-500: #047857;
+  --color-emerald-600: #065f46;
+  --color-emerald-700: #064e3b;
+  --color-emerald-900: #d1fae5;
+
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #92400e;
+  --color-amber-300: #b45309;
+  --color-amber-400: #b45309;
+  --color-amber-500: #d97706;
+  --color-amber-600: #b45309;
+  --color-amber-700: #92400e;
+
+  --color-rose-100: #ffe4e6;
+  --color-rose-200: #9f1239;
+  --color-rose-300: #be123c;
+  --color-rose-400: #e11d48;
+  --color-rose-500: #be123c;
+  --color-rose-600: #be123c;
+  --color-rose-700: #9f1239;
+
+  --color-red-200: #991b1b;
+  --color-red-300: #b91c1c;
+  --color-red-500: #dc2626;
+  --color-red-600: #dc2626;
+
+  --color-violet-100: #ede9fe;
+  --color-violet-200: #5b21b6;
+  --color-violet-300: #6d28d9;
+  --color-violet-400: #7c3aed;
+  --color-violet-500: #6d28d9;
+  --color-violet-600: #5b21b6;
+  --color-violet-900: #ede9fe;
+}
 
 body {
   font-family: 'Schibsted Grotesk', sans-serif;
+  background-color: #f5f6f8;
+  color: #0f172a;
 }
 
 /* When the side rail is hidden, let the page use the full width. */
@@ -14,7 +122,7 @@ body {
 
 .custom-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(82, 82, 91, 0.9) rgba(24, 24, 27, 0.7);
+  scrollbar-color: rgba(148, 158, 174, 0.9) transparent;
 }
 
 .custom-scroll::-webkit-scrollbar {
@@ -22,18 +130,18 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-track {
-  background: rgba(24, 24, 27, 0.7);
+  background: transparent;
   border-radius: 9999px;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: rgba(82, 82, 91, 0.95);
+  background: rgba(148, 158, 174, 0.85);
   border-radius: 9999px;
-  border: 2px solid rgba(24, 24, 27, 0.85);
+  border: 2px solid transparent;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(113, 113, 122, 1);
+  background: rgba(107, 118, 134, 1);
 }
 
 ::-webkit-scrollbar-track {
@@ -42,7 +150,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
     cursor: pointer;
-    background-color: rgb(47, 47, 47);
+    background-color: rgb(203, 209, 222);
     border-radius: 10px;
     border: 2px solid transparent;
     background-clip: content-box;
@@ -169,8 +277,8 @@ body {
 .studio-particle { animation: studioParticle var(--dur, 4.5s) ease-out infinite; animation-delay: var(--delay, 0s); }
 .studio-grid {
   background-image:
-    linear-gradient(rgba(56, 189, 248, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(29, 78, 216, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 78, 216, 0.10) 1px, transparent 1px);
   background-size: 48px 48px;
   animation: studioGrid 6s linear infinite;
 }
@@ -218,11 +326,11 @@ body {
 }
 
 .studio-mm-canvas {
-  background-color: #0a0a09;
+  background-color: #f7f9fd;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.065) 1px, transparent 0),
-    radial-gradient(ellipse 72% 72% at 84% 42%, rgba(139, 92, 246, 0.12), transparent 70%),
-    radial-gradient(ellipse 64% 64% at 16% 58%, rgba(56, 189, 248, 0.09), transparent 70%);
+    radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.07) 1px, transparent 0),
+    radial-gradient(ellipse 72% 72% at 84% 42%, rgba(109, 40, 217, 0.07), transparent 70%),
+    radial-gradient(ellipse 64% 64% at 16% 58%, rgba(29, 78, 216, 0.07), transparent 70%);
   background-size: 22px 22px, 100% 100%, 100% 100%;
 }
 
@@ -234,7 +342,7 @@ body {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation: studioMmEdgeIn 700ms cubic-bezier(0.4, 0, 0.2, 1) both;
-  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.18));
+  filter: drop-shadow(0 0 5px rgba(29, 78, 216, 0.18));
 }
 
 @media (prefers-reduced-motion: reduce) {

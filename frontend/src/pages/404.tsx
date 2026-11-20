@@ -2,21 +2,21 @@ import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black px-6 relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#f5f6f8] px-6 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-5 w-1 h-1 bg-white rounded-full animate-pulse opacity-80"></div>
+        <div className="absolute top-10 left-5 w-1 h-1 bg-sky-500/25 rounded-full animate-pulse opacity-80"></div>
         <div className="absolute top-16 right-12 w-0.5 h-0.5 bg-blue-200 rounded-full animate-twinkle opacity-60"></div>
         <div className="absolute top-24 left-1/3 w-1 h-1 bg-yellow-200 rounded-full animate-pulse opacity-70"></div>
-        <div className="absolute top-40 right-1/4 w-0.5 h-0.5 bg-white rounded-full animate-twinkle opacity-50"></div>
+        <div className="absolute top-40 right-1/4 w-0.5 h-0.5 bg-sky-500/25 rounded-full animate-twinkle opacity-50"></div>
         <div className="absolute top-48 left-20 w-1 h-1 bg-blue-100 rounded-full animate-pulse opacity-60"></div>
         <div className="absolute top-60 right-8 w-0.5 h-0.5 bg-yellow-100 rounded-full animate-twinkle opacity-80"></div>
-        <div className="absolute top-72 left-2/3 w-1 h-1 bg-white rounded-full animate-pulse opacity-40"></div>
+        <div className="absolute top-72 left-2/3 w-1 h-1 bg-sky-500/25 rounded-full animate-pulse opacity-40"></div>
         <div className="absolute bottom-20 left-8 w-0.5 h-0.5 bg-blue-200 rounded-full animate-twinkle opacity-70"></div>
         <div className="absolute bottom-32 right-16 w-1 h-1 bg-yellow-200 rounded-full animate-pulse opacity-50"></div>
-        <div className="absolute bottom-40 left-1/4 w-0.5 h-0.5 bg-white rounded-full animate-twinkle opacity-60"></div>
+        <div className="absolute bottom-40 left-1/4 w-0.5 h-0.5 bg-sky-500/25 rounded-full animate-twinkle opacity-60"></div>
         <div className="absolute bottom-48 right-1/3 w-1 h-1 bg-blue-100 rounded-full animate-pulse opacity-80"></div>
         <div className="absolute bottom-60 left-3/4 w-0.5 h-0.5 bg-yellow-100 rounded-full animate-twinkle opacity-40"></div>
-        <div className="absolute top-80 left-12 w-1 h-1 bg-white rounded-full animate-pulse opacity-90"></div>
+        <div className="absolute top-80 left-12 w-1 h-1 bg-sky-500/25 rounded-full animate-pulse opacity-90"></div>
         <div className="absolute top-96 right-24 w-0.5 h-0.5 bg-blue-200 rounded-full animate-twinkle opacity-70"></div>
         <div className="absolute bottom-80 right-12 w-1 h-1 bg-yellow-200 rounded-full animate-pulse opacity-60"></div>
         
@@ -39,10 +39,10 @@ export default function NotFound() {
         </div>
         
         <div className="space-y-6">
-          <h2 className="text-3xl font-light text-gray-200 tracking-wide">
+          <h2 className="text-3xl font-light text-stone-200 tracking-wide">
             Oops! Study session interrupted
           </h2>
-          <p className="text-gray-400 text-lg leading-relaxed font-light max-w-md mx-auto">
+          <p className="text-stone-500 text-lg leading-relaxed font-light max-w-md mx-auto">
             The page you're looking for took a study break. Let's get you back to learning something amazing!
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function NotFound() {
         </div>
         
         <div className="mt-16 opacity-60">
-          <p className="text-gray-500 text-sm font-light italic tracking-wide">
+          <p className="text-stone-500 text-sm font-light italic tracking-wide">
             "Every mistake is a learning opportunity"
           </p>
         </div>

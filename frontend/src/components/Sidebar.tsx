@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { getChats } from "../lib/api";
+import Logo from "./Logo";
 
 interface Chat {
   id: string;
@@ -45,7 +46,7 @@ export default function Sidebar() {
   const isChat = p === '/' || p === '/chat' || p.startsWith('/chat/');
   const isSources = p === '/sources' || p.startsWith('/sources/');
   const isStudio = p === '/studio' || p.startsWith('/studio/');
-  const cls = (active: boolean) => `relative p-2.5 rounded-2xl duration-300 transition-all ${active ? 'text-white bg-stone-800 shadow-inner shadow-black/40' : 'text-stone-400 hover:bg-stone-900 hover:text-stone-200'}`;
+  const cls = (active: boolean) => `relative p-2.5 rounded-2xl duration-300 transition-all ${active ? 'text-white bg-stone-800 shadow-inner shadow-stone-500/20' : 'text-stone-400 hover:bg-stone-900 hover:text-stone-200'}`;
   const chatButtonClass = `p-2.5 rounded-2xl duration-300 transition-all ${isToggled ? 'text-white bg-stone-800' : 'text-stone-400 hover:bg-stone-900 hover:text-stone-200'}`;
 
   const collapseNav = () => {
@@ -67,7 +68,7 @@ export default function Sidebar() {
         <button
           type="button"
           onClick={() => setIsCollapsed(false)}
-          className="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 z-50 h-16 w-8 items-center justify-center rounded-r-2xl border border-l-0 border-stone-800 bg-stone-950/95 text-stone-300 shadow-xl shadow-black/40 transition-colors hover:bg-stone-900 hover:text-white"
+          className="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 z-50 h-16 w-8 items-center justify-center rounded-r-2xl border border-l-0 border-stone-800 bg-stone-950/95 text-stone-300 shadow-xl shadow-stone-500/20 transition-colors hover:bg-stone-900 hover:text-white"
           title="إظهار القائمة"
           aria-label="إظهار القائمة"
         >
@@ -145,7 +146,7 @@ export default function Sidebar() {
           } bg-stone-950/50 backdrop-blur-xl border border-stone-900 text-stone-400 flex flex-col items-center justify-between py-4 z-40`}
         >
           <Link to="/" className="hidden md:block" aria-label="PageLM">
-            <img src='/logo.png' alt='logo' className='w-10 h-auto rounded-full' />
+            <Logo size={40} />
           </Link>
 
           <nav className='flex md:flex-col items-center gap-3 md:gap-3 my-auto'>

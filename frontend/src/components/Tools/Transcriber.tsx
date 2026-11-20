@@ -204,7 +204,7 @@ export default function Transcriber() {
           <div className="absolute bottom-16 sm:bottom-20 flex items-center gap-6 sm:gap-8">
             <button
               onClick={cancelRecording}
-              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/10 text-white/60 hover:text-white/90 hover:border-white/20 transition-all duration-300 flex items-center justify-center"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-[#fff]/10 text-[#fff]/60 hover:text-[#fff]/90 hover:border-[#fff]/20 transition-all duration-300 flex items-center justify-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.03)',
                 backdropFilter: 'blur(20px)',
@@ -218,7 +218,7 @@ export default function Transcriber() {
 
             <button
               onClick={recording ? stopRecording : undefined}
-              className="w-16 h-16 sm:w-18 sm:h-18 rounded-full border border-white/15 text-white/80 hover:text-white hover:border-white/25 transition-all duration-300 flex items-center justify-center"
+              className="w-16 h-16 sm:w-18 sm:h-18 rounded-full border border-[#fff]/15 text-[#fff]/80 hover:text-[#fff] hover:border-[#fff]/25 transition-all duration-300 flex items-center justify-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 backdropFilter: 'blur(20px)',
@@ -233,8 +233,8 @@ export default function Transcriber() {
 
           {processing && (
             <div className="absolute bottom-4 sm:bottom-6 text-center">
-              <div className="text-white/90 text-base sm:text-lg font-light tracking-wide">Processing</div>
-              <div className="text-white/60 text-xs sm:text-sm mt-1">Converting speech to text</div>
+              <div className="text-[#fff]/90 text-base sm:text-lg font-light tracking-wide">Processing</div>
+              <div className="text-[#fff]/60 text-xs sm:text-sm mt-1">Converting speech to text</div>
             </div>
           )}
         </div>
@@ -262,11 +262,11 @@ export default function Transcriber() {
           <button
             onClick={startRecording}
             disabled={busy}
-            className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
+            className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 disabled:opacity-50 disabled:cursor-not-allowed text-[#fff] font-medium transition-all duration-300 flex items-center justify-center gap-2"
           >
             {busy ? (
               <>
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-[#fff]/30 border-t-[#fff] rounded-full animate-spin"></div>
                 Processing...
               </>
             ) : (
@@ -291,7 +291,7 @@ export default function Transcriber() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={busy}
-            className="px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 disabled:opacity-50 disabled:cursor-not-allowed text-stone-300 hover:text-white font-medium transition-all duration-300 flex items-center gap-2"
+            className="px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 disabled:opacity-50 disabled:cursor-not-allowed text-stone-300 hover:text-[#fff] font-medium transition-all duration-300 flex items-center gap-2"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
@@ -417,7 +417,7 @@ export default function Transcriber() {
                 <label className="text-sm font-medium text-stone-300">Original Transcription</label>
                 <button
                   onClick={copyToClipboard}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-orange-600 text-white hover:bg-orange-700 transition-colors flex items-center gap-1"
+                  className="text-xs px-3 py-1.5 rounded-lg bg-orange-600 text-[#fff] hover:bg-orange-700 transition-colors flex items-center gap-1"
                 >
                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />

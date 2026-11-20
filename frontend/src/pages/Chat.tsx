@@ -449,7 +449,7 @@ export default function Chat() {
                 if (m.role === "assistant") {
                   return (
                     <div key={i} className="w-full flex justify-start">
-                      <div className="w-full mx-auto rounded-3xl bg-stone-950/90 border border-zinc-900 shadow-[0_10px_30px_rgba(0,0,0,0.45)] ring-1 ring-black/10 backdrop-blur px-5 sm:px-8 py-5 sm:py-8 max-w-full">
+                      <div className="w-full mx-auto rounded-3xl bg-stone-950/90 border border-zinc-900 shadow-[0_10px_30px_rgba(15,23,42,0.10)] ring-1 ring-black/10 backdrop-blur px-5 sm:px-8 py-5 sm:py-8 max-w-full">
                         <div className="animate-[fadeIn_300ms_ease-out] leading-7 md:leading-8 overflow-x-auto">
                           <MarkdownView md={m.content} />
                         </div>

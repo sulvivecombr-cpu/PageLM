@@ -212,7 +212,7 @@ export default function Sources() {
             {sources.map((src) => {
               const kind = fileKind(src);
               return (
-                <article key={src.id} className="group relative rounded-3xl border border-stone-900 bg-stone-950/80 p-5 transition-all duration-300 hover:border-stone-700 hover:shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
+                <article key={src.id} className="group relative rounded-3xl border border-stone-900 bg-stone-950/80 p-5 transition-all duration-300 hover:border-stone-700 hover:shadow-[0_18px_50px_rgba(15,23,42,0.10)]">
                   <div className="flex items-start gap-4">
                     <div className={`shrink-0 size-14 rounded-2xl bg-gradient-to-br border flex items-center justify-center ${kind.cls}`}>
                       <FileIcon cls="size-7" />
@@ -248,7 +248,7 @@ export default function Sources() {
                     </Link>
                     <Link
                       to={`/studio?sourceId=${encodeURIComponent(src.id)}`}
-                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500/90 to-violet-500/90 hover:from-sky-400 hover:to-violet-400 px-3 py-2 text-sm text-white font-medium transition-all duration-300"
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500/90 to-violet-500/90 hover:from-sky-400 hover:to-violet-400 px-3 py-2 text-sm text-[#fff] font-medium transition-all duration-300"
                     >
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="size-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />

@@ -10,7 +10,7 @@ export default function App() {
       <AdaptiveToastProvider
         theme="dark"
       />
-      <div className="bg-black text-stone-300 min-h-screen flex flex-col">
+      <div className="bg-[#f5f6f8] text-stone-300 min-h-screen flex flex-col">
         <Sidebar />
         <div className="app-content flex-1 relative">
           <Outlet />

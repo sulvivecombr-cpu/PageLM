@@ -26,7 +26,7 @@ export default function PromptBox({
 
   return (
     <div
-      className="rounded-3xl bg-stone-950 border border-stone-900 shadow-[inset_0_3px_15px] shadow-stone-900 flex items-start rounded-bl-none rounded-br-none md:rounded-br-3xl"
+      className="rounded-3xl bg-stone-950 border border-stone-800 shadow-[0_1px_2px_rgba(15,23,42,0.06),0_18px_40px_-18px_rgba(15,23,42,0.28)] flex items-start rounded-bl-none rounded-br-none md:rounded-br-3xl"
       onDragOver={onDragOver}
       onDrop={onDrop}
     >

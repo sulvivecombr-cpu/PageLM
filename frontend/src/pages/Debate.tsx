@@ -337,7 +337,7 @@ export default function Debate() {
 
     if (!debateId) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen w-full pl-4 pr-4 md:pl-32 bg-black">
+            <div className="flex flex-col items-center justify-center min-h-screen w-full pl-4 pr-4 md:pl-32 bg-[#f5f6f8]">
                 <div className="max-w-2xl w-full space-y-8">
                     <div className="text-center space-y-4">
                         <h1 className="text-4xl lg:text-5xl font-bold text-white">
@@ -371,7 +371,7 @@ export default function Debate() {
                                 <button
                                     onClick={() => setPosition("for")}
                                     className={`flex-1 py-4 px-6 rounded-xl font-semibold transition-all ${position === "for"
-                                        ? "bg-green-600 text-white shadow-lg shadow-green-600/30"
+                                        ? "bg-green-600 text-[#fff] shadow-lg shadow-green-600/30"
                                         : "bg-stone-900/70 border border-zinc-800 text-stone-400 hover:bg-stone-800"
                                         }`}
                                 >
@@ -382,7 +382,7 @@ export default function Debate() {
                                 <button
                                     onClick={() => setPosition("against")}
                                     className={`flex-1 py-4 px-6 rounded-xl font-semibold transition-all ${position === "against"
-                                        ? "bg-red-600 text-white shadow-lg shadow-red-600/30"
+                                        ? "bg-red-600 text-[#fff] shadow-lg shadow-red-600/30"
                                         : "bg-stone-900/70 border border-zinc-800 text-stone-400 hover:bg-stone-800"
                                         }`}
                                 >
@@ -396,7 +396,7 @@ export default function Debate() {
                         <button
                             onClick={startDebate}
                             disabled={!topic.trim()}
-                            className="w-full py-4 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 disabled:from-stone-800 disabled:to-stone-800 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all shadow-lg"
+                            className="w-full py-4 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 disabled:from-stone-800 disabled:to-stone-800 disabled:cursor-not-allowed text-[#fff] font-bold rounded-xl transition-all shadow-lg"
                         >
                             Begin Debate
                         </button>
@@ -413,7 +413,7 @@ export default function Debate() {
     }
 
     return (
-        <div className="flex flex-col h-screen w-full md:pl-32 bg-black">
+        <div className="flex flex-col h-screen w-full md:pl-32 bg-[#f5f6f8]">
             <div className="flex-shrink-0 border-b border-zinc-900 bg-stone-950/90 backdrop-blur-sm">
                 <div className="px-6 py-4">
                     <div className="flex items-center justify-between">
@@ -478,7 +478,7 @@ export default function Debate() {
                         >
                             <div className="flex items-center gap-2">
                                 {msg.role === "assistant" && (
-                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center text-white font-bold shadow-lg">
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center text-[#fff] font-bold shadow-lg">
                                         AI
                                     </div>
                                 )}
@@ -497,9 +497,9 @@ export default function Debate() {
                             <div
                                 className={`px-6 py-4 rounded-2xl shadow-lg transition-all hover:shadow-xl ${msg.role === "user"
                                     ? session?.position === "for"
-                                        ? "bg-gradient-to-br from-green-600 to-green-700 text-white shadow-green-600/20"
-                                        : "bg-gradient-to-br from-red-600 to-red-700 text-white shadow-red-600/20"
-                                    : "bg-stone-950/90 border border-zinc-900 shadow-[0_10px_30px_rgba(0,0,0,0.45)] ring-1 ring-black/10 backdrop-blur text-white"
+                                        ? "bg-gradient-to-br from-green-600 to-green-700 text-[#fff] shadow-green-600/20"
+                                        : "bg-gradient-to-br from-red-600 to-red-700 text-[#fff] shadow-red-600/20"
+                                    : "bg-stone-950/90 border border-zinc-900 shadow-[0_10px_30px_rgba(15,23,42,0.10)] ring-1 ring-black/10 backdrop-blur text-white"
                                     }`}
                             >
                                 <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
@@ -512,14 +512,14 @@ export default function Debate() {
                     <div className="flex justify-start animate-[slideInLeft_0.3s_ease-out]">
                         <div className="max-w-3xl items-start flex flex-col gap-2">
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center text-white font-bold shadow-lg">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center text-[#fff] font-bold shadow-lg">
                                     AI
                                 </div>
                                 <span className="text-sm font-semibold text-stone-400">
                                     AI Opponent
                                 </span>
                             </div>
-                            <div className="px-6 py-4 rounded-2xl shadow-lg bg-stone-950/90 border border-zinc-900 shadow-[0_10px_30px_rgba(0,0,0,0.45)] ring-1 ring-black/10 backdrop-blur text-white">
+                            <div className="px-6 py-4 rounded-2xl shadow-lg bg-stone-950/90 border border-zinc-900 shadow-[0_10px_30px_rgba(15,23,42,0.10)] ring-1 ring-black/10 backdrop-blur text-white">
                                 <p className="whitespace-pre-wrap leading-relaxed">
                                     {streamingContent}
                                     <span className="inline-block w-2 h-5 bg-gradient-to-r from-purple-500 to-purple-600 ml-1 animate-pulse rounded-sm" />
@@ -556,13 +556,13 @@ export default function Debate() {
                             onClick={submitArgument}
                             disabled={!argument.trim() || isStreaming || isDebateEnded}
                             className={`px-6 py-3 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${session?.position === "for"
-                                ? "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white shadow-green-600/20"
-                                : "bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white shadow-red-600/20"
+                                ? "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-[#fff] shadow-green-600/20"
+                                : "bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-[#fff] shadow-red-600/20"
                                 }`}
                         >
                             {isStreaming ? (
                                 <div className="flex items-center gap-2">
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                    <div className="w-5 h-5 border-2 border-[#fff] border-t-transparent rounded-full animate-spin" />
                                     <span>Waiting...</span>
                                 </div>
                             ) : (
@@ -692,7 +692,7 @@ export default function Debate() {
                                         setAnalysis(null);
                                         navigate("/debate");
                                     }}
-                                    className="flex-1 py-3 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all shadow-lg"
+                                    className="flex-1 py-3 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-[#fff] font-bold rounded-xl transition-all shadow-lg"
                                 >
                                     New Debate
                                 </button>

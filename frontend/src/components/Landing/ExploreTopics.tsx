@@ -46,7 +46,7 @@ export default function ExploreTopics() {
     >
       <img src={imgSrc(title)} alt={title} className="w-full h-full rounded-3xl object-cover" draggable={false} />
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-transparent to-black" />
-      <div className="absolute right-0 bottom-0 pr-4 pb-4 text-stone-200 text-xl sm:text-2xl">{title}</div>
+      <div className="absolute right-0 bottom-0 pr-4 pb-4 text-[#fff] text-xl sm:text-2xl">{title}</div>
     </button>
   );
 

@@ -45,7 +45,7 @@ export default function FlashCards({ items = [], onAdd, onToggleCollapse }: Prop
               return (
                 <div
                   key={`${i}-${title}`}
-                  className="group rounded-2xl bg-stone-950/80 border border-zinc-900 hover:bg-stone-900/80 transition-colors shadow-[0_6px_24px_rgba(0,0,0,0.35)]"
+                  className="group rounded-2xl bg-stone-950/80 border border-zinc-900 hover:bg-stone-900/80 transition-colors shadow-[0_6px_24px_rgba(15,23,42,0.08)]"
                 >
                   <div className="p-5">
                     <div className="flex items-start gap-3">

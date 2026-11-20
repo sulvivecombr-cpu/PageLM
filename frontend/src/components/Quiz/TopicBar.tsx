@@ -94,7 +94,7 @@ export default function TopicBar({
   return (
     <div
       dir="rtl"
-      className="relative mb-8 overflow-hidden rounded-3xl border border-stone-800 bg-stone-950/85 shadow-2xl shadow-black/30"
+      className="relative mb-8 overflow-hidden rounded-3xl border border-stone-800 bg-stone-950/85 shadow-2xl shadow-stone-500/15"
     >
       <div className="pointer-events-none absolute -top-24 -left-20 size-64 rounded-full bg-sky-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-28 -right-16 size-72 rounded-full bg-violet-500/10 blur-3xl" />
@@ -312,7 +312,7 @@ export default function TopicBar({
             type="button"
             onClick={onStart}
             disabled={disabled}
-            className="inline-flex min-w-44 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-violet-500 px-5 py-2.5 text-sm font-medium text-white transition-all hover:from-sky-400 hover:to-violet-400 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex min-w-44 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-violet-500 px-5 py-2.5 text-sm font-medium text-[#fff] transition-all hover:from-sky-400 hover:to-violet-400 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isLoading ? (
               <>

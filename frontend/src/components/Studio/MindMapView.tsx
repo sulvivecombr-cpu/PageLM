@@ -450,7 +450,7 @@ export default function MindMapView({ map }: Props) {
     <div
       dir="rtl"
       className={`overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 ${
-        fullscreen ? "fixed inset-2 z-[70] flex flex-col shadow-2xl shadow-black/80 sm:inset-4" : ""
+        fullscreen ? "fixed inset-2 z-[70] flex flex-col shadow-2xl shadow-stone-500/25 sm:inset-4" : ""
       }`}
     >
       <div className="flex flex-col gap-3 border-b border-stone-900 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
@@ -543,7 +543,7 @@ export default function MindMapView({ map }: Props) {
                 role="menu"
                 dir="rtl"
                 style={{ left: exportPos.left, top: exportPos.top }}
-                className="fixed z-[90] w-[17.5rem] overflow-hidden rounded-2xl border border-stone-700 bg-stone-950/95 p-1.5 shadow-2xl shadow-black/70 backdrop-blur-xl"
+                className="fixed z-[90] w-[17.5rem] overflow-hidden rounded-2xl border border-stone-700 bg-stone-950/95 p-1.5 shadow-2xl shadow-stone-500/25 backdrop-blur-xl"
               >
                 <div className="px-2.5 pb-2 pt-1.5">
                   <div className="text-[11px] font-semibold text-white">تصدير الخريطة</div>

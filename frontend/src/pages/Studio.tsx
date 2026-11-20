@@ -267,7 +267,7 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
       }`}
     >
       <span
-        className={`absolute top-0.5 size-5 rounded-full bg-white transition-all duration-200 ${
+        className={`absolute top-0.5 size-5 rounded-full bg-[#fff] transition-all duration-200 ${
           checked ? "left-6" : "left-0.5"
         }`}
       />
@@ -553,7 +553,7 @@ export default function Studio() {
               </p>
               <Link
                 to="/sources"
-                className="inline-flex items-center gap-2 mt-6 rounded-2xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-6 py-3 text-white font-medium transition-all duration-300"
+                className="inline-flex items-center gap-2 mt-6 rounded-2xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-6 py-3 text-[#fff] font-medium transition-all duration-300"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="size-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -617,7 +617,7 @@ export default function Studio() {
                         <div className="p-2.5 rounded-xl border border-stone-700/70 bg-stone-900/70 text-stone-200 group-hover:text-white transition-colors">
                           <ActionIcon kind={a.kind} className="size-6" />
                         </div>
-                        <span className="text-[10px] font-medium px-2 py-1 rounded-full bg-black/30 border border-white/10 text-stone-300">{a.badge}</span>
+                        <span className="text-[10px] font-medium px-2 py-1 rounded-full bg-stone-900/60 border border-white/10 text-stone-300">{a.badge}</span>
                       </div>
                       <div className="mt-4 text-lg font-semibold text-white">{a.title}</div>
                       <div className="mt-1 text-xs leading-relaxed text-stone-400 min-h-[2.6rem]">{a.desc}</div>
@@ -660,7 +660,7 @@ export default function Studio() {
 
             {busy && kind && selected && (
               <div className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-                <div className="studio-result w-full max-w-5xl overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 shadow-2xl shadow-black/60">
+                <div className="studio-result w-full max-w-5xl overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 shadow-2xl shadow-stone-500/20">
                   <div className="relative overflow-hidden">
                     <div className="absolute inset-0 studio-grid opacity-40" />
                     <div className="absolute -top-28 -left-24 size-80 rounded-full bg-sky-500/15 blur-3xl" />
@@ -690,7 +690,7 @@ export default function Studio() {
                         <div className="absolute size-40 rounded-full bg-violet-500/10 blur-2xl studio-glow" />
 
                         <div className="relative studio-float">
-                          <div className="relative w-44 h-56 rounded-3xl border border-stone-700 bg-gradient-to-br from-stone-900 via-stone-950 to-black shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden">
+                          <div className="relative w-44 h-56 rounded-3xl border border-stone-700 bg-gradient-to-br from-stone-900 via-stone-950 to-stone-900 shadow-[0_30px_80px_rgba(15,23,42,0.14)] overflow-hidden">
                             <div className="p-5 space-y-2.5">
                               <div className="h-2.5 w-24 rounded bg-sky-400/50" />
                               <div className="h-1.5 w-32 rounded bg-stone-700" />
@@ -826,7 +826,7 @@ export default function Studio() {
                         </div>
                         <button
                           onClick={startQuiz}
-                          className="shrink-0 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-6 py-3 text-white font-medium transition-all duration-300"
+                          className="shrink-0 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-6 py-3 text-[#fff] font-medium transition-all duration-300"
                         >
                           ابدأ الاختبار الآن
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-4">
@@ -907,7 +907,7 @@ export default function Studio() {
                         {copied ? "تم النسخ ✓" : "نسخ الملخص"}
                       </button>
                     </div>
-                    <div className="rounded-2xl border border-stone-900 bg-black/30 p-4 sm:p-6 max-h-[70vh] overflow-y-auto custom-scroll">
+                    <div className="rounded-2xl border border-stone-900 bg-stone-900/60 p-4 sm:p-6 max-h-[70vh] overflow-y-auto custom-scroll">
                       <MarkdownView md={result.markdown} />
                     </div>
                   </div>
@@ -944,7 +944,7 @@ export default function Studio() {
                         </button>
                       </div>
                     </div>
-                    <article id="learning-print-area" className="rounded-2xl border border-stone-900 bg-black/30 p-4 sm:p-6 max-h-[70vh] overflow-y-auto custom-scroll print:max-h-none print:overflow-visible">
+                    <article id="learning-print-area" className="rounded-2xl border border-stone-900 bg-stone-900/60 p-4 sm:p-6 max-h-[70vh] overflow-y-auto custom-scroll print:max-h-none print:overflow-visible">
                       <MarkdownView md={result.markdown} />
                     </article>
                   </div>
@@ -968,7 +968,7 @@ export default function Studio() {
             <div
               dir="rtl"
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-xl max-h-[92vh] flex flex-col overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 shadow-2xl shadow-black/70"
+              className="w-full max-w-xl max-h-[92vh] flex flex-col overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 shadow-2xl shadow-stone-500/25"
             >
               <div className="shrink-0 flex items-start justify-between gap-3 border-b border-stone-800 bg-stone-950/95 px-5 py-3.5 backdrop-blur">
                 <div>
@@ -1207,7 +1207,7 @@ export default function Studio() {
                 <button
                   onClick={settingsFor === "quiz" ? launchQuiz : launchLearning}
                   disabled={!selected || busy}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-4 py-2.5 text-sm font-medium text-white transition-all disabled:opacity-50"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-violet-500 hover:from-sky-400 hover:to-violet-400 px-4 py-2.5 text-sm font-medium text-[#fff] transition-all disabled:opacity-50"
                 >
                   توليد الآن
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-4">

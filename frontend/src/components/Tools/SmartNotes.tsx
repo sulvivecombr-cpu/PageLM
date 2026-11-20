@@ -56,7 +56,7 @@ export default function SmartNotes() {
           <button
             onClick={onGenerate}
             disabled={busy || !topic.trim()}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium transition-all duration-300"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-[#fff] font-medium transition-all duration-300"
           >
             {busy ? "Generating…" : "Generate"}
           </button>
@@ -71,7 +71,7 @@ export default function SmartNotes() {
             href={filePath}
             target="_blank"
             rel="noopener noreferrer"
-            className="block p-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-medium text-center"
+            className="block p-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-[#fff] font-medium text-center"
           >
             Download Notes
           </a>

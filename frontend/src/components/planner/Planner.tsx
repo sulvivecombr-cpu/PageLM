@@ -345,7 +345,7 @@ export default function Planner() {
                                         <button onClick={() => planTask(t.id)} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Plan</button>
                                         <button onClick={() => gen(t.id, "summary")} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Summary</button>
                                         <button onClick={() => gen(t.id, "flashcards")} className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-200">Flashcards</button>
-                                        <button onClick={() => del(t.id)} className="text-xs px-2 py-1 rounded bg-red-600 text-white">Delete</button>
+                                        <button onClick={() => del(t.id)} className="text-xs px-2 py-1 rounded bg-red-600 text-[#fff]">Delete</button>
                                     </div>
                                 </div>
 

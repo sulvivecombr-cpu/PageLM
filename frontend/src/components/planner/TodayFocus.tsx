@@ -52,7 +52,7 @@ export default function TodayFocus({ tasks, onStartSession, onCompleteTask }: To
                                         </div>
                                         <button
                                             onClick={() => onCompleteTask(task.id)}
-                                            className="px-3 py-1 rounded bg-green-600 text-white text-xs hover:bg-green-700"
+                                            className="px-3 py-1 rounded bg-green-600 text-[#fff] text-xs hover:bg-green-700"
                                         >
                                             Complete
                                         </button>
@@ -79,7 +79,7 @@ export default function TodayFocus({ tasks, onStartSession, onCompleteTask }: To
                                         </div>
                                         <button
                                             onClick={() => onStartSession(task.id)}
-                                            className="px-3 py-1 rounded bg-blue-600 text-white text-xs hover:bg-blue-700"
+                                            className="px-3 py-1 rounded bg-blue-600 text-[#fff] text-xs hover:bg-blue-700"
                                         >
                                             Start
                                         </button>

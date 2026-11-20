@@ -154,7 +154,7 @@ export default function PodcastGenerator() {
           <button
             onClick={onGenerate}
             disabled={busy || !topic.trim()}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium transition-all duration-300"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-[#fff] font-medium transition-all duration-300"
           >
             {busy ? "Generating…" : "Generate"}
           </button>
@@ -186,7 +186,7 @@ export default function PodcastGenerator() {
             <a
               href={audioFile}
               download={audioFilename || "podcast.mp3"}
-              className="block p-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium text-center transition-all duration-300 shadow-lg hover:shadow-emerald-500/20"
+              className="block p-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-[#fff] font-medium text-center transition-all duration-300 shadow-lg hover:shadow-emerald-500/20"
             >
               Download Podcast
             </a>

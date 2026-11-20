@@ -391,14 +391,14 @@ export default function PlannerMindmap({ tasks, plan, onPlan, onAssist, onUpdate
     }, [plan])
 
     return (
-        <div ref={wrapRef} className="relative w-full h-full bg-black overflow-hidden"
+        <div ref={wrapRef} className="relative w-full h-full bg-[#f7f9fd] overflow-hidden"
             onPointerMove={onMove} onPointerUp={onUp} onWheel={onWheel} onWheelCapture={onWheel} onPointerDown={startPan}
             style={{ overscrollBehavior: 'contain', touchAction: 'none' }}>
-            <div className="absolute inset-0 opacity-40" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, #1f2937 1px, transparent 0)`, backgroundSize: `24px 24px`, zIndex: 0 }} />
+            <div className="absolute inset-0 opacity-40" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)`, backgroundSize: `24px 24px`, zIndex: 0 }} />
             <div className="pointer-events-none absolute inset-0" style={{
                 zIndex: 1,
                 opacity: 0.7,
-                mixBlendMode: 'screen' as any,
+                mixBlendMode: 'multiply' as any,
                 backgroundImage: [
                     `radial-gradient(900px 500px at 18% 8%, rgba(56,189,248,0.10), rgba(56,189,248,0) 60%)`,
                     `radial-gradient(700px 420px at 82% 28%, rgba(147,51,234,0.09), rgba(147,51,234,0) 60%)`,
@@ -548,8 +548,8 @@ export default function PlannerMindmap({ tasks, plan, onPlan, onAssist, onUpdate
                                     setZoom(newZoom)
                                 }}>
                                 <div className="pointer-events-none absolute -inset-2 opacity-35" style={{ background: `radial-gradient(22px 22px at 50% 65%, rgba(56,189,248,0.2), transparent 70%)` }} />
-                                <div onPointerDown={e => onDown(e, t.id)} className="cursor-grab active:cursor-grabbing rounded-full border bg-[#0b1220]/70 border-[#1f2937] pl-3 pr-1.5 py-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.4)] backdrop-blur flex items-center gap-1.5">
-                                    <div className="text-[12px] text-slate-200 whitespace-nowrap max-w-[260px] truncate">{t.title}</div>
+                                <div onPointerDown={e => onDown(e, t.id)} className="cursor-grab active:cursor-grabbing rounded-full border bg-[#0b1220]/70 border-[#1f2937] pl-3 pr-1.5 py-1.5 shadow-[0_2px_8px_rgba(15,23,42,0.08)] backdrop-blur flex items-center gap-1.5">
+                                    <div className="text-[12px] text-stone-200 whitespace-nowrap max-w-[260px] truncate">{t.title}</div>
                                     <button onClick={(e) => { e.stopPropagation(); setMenuOpen(menuOpen === t.id ? null : t.id) }} className="text-[12px] text-slate-300 hover:text-slate-100 px-1 rounded hover:bg-stone-800">⋯</button>
                                 </div>
                                 {menuOpen === t.id && (
@@ -613,7 +613,7 @@ export default function PlannerMindmap({ tasks, plan, onPlan, onAssist, onUpdate
                                                     const nn = { ...sp }; delete nn[sid]; return nn
                                                 })
                                             }}
-                                            className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-stone-800 text-stone-100 hover:bg-red-600 hover:text-white flex items-center justify-center z-20"
+                                            className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-stone-800 text-stone-100 hover:bg-red-600 hover:text-[#fff] flex items-center justify-center z-20"
                                             aria-label="Delete bubble"
                                         >×</button>
                                         <span className="relative px-2">{label}{cnt ? ` (${cnt})` : ''}</span>
@@ -634,17 +634,17 @@ export default function PlannerMindmap({ tasks, plan, onPlan, onAssist, onUpdate
                         }} />
                         <div
                             onPointerDown={(e) => onDownCustom(e, n.id)}
-                            className="cursor-grab active:cursor-grabbing rounded-lg border bg-[#0b1220]/70 border-[#1f2937] px-2.5 py-1 shadow-[0_2px_8px_rgba(0,0,0,0.4)] backdrop-blur"
+                            className="cursor-grab active:cursor-grabbing rounded-lg border bg-[#0b1220]/70 border-[#1f2937] px-2.5 py-1 shadow-[0_2px_8px_rgba(15,23,42,0.08)] backdrop-blur"
                         >
                             <div className="flex items-center gap-2">
                                 {editingId === n.id ? (
                                     <input autoFocus defaultValue={n.label} onBlur={(e) => { setCustomNodes(list => list.map(x => x.id === n.id ? { ...x, label: e.target.value } : x)); setEditingId(null) }}
-                                        className="bg-transparent text-[12px] text-slate-200 outline-none" />
+                                        className="bg-transparent text-[12px] text-stone-200 outline-none" />
                                 ) : (
-                                    <div className="text-[12px] text-slate-200" onDoubleClick={() => setEditingId(n.id)}>{n.label}</div>
+                                    <div className="text-[12px] text-stone-200" onDoubleClick={() => setEditingId(n.id)}>{n.label}</div>
                                 )}
                                 <button onClick={() => setCustomNodes(list => list.filter(x => x.id !== n.id))}
-                                    className="text-[11px] text-slate-400 hover:text-slate-200">×</button>
+                                    className="text-[11px] text-stone-400 hover:text-stone-200">×</button>
                             </div>
                         </div>
                     </div>

@@ -8,8 +8,8 @@ body {
 }
 
 ::selection {
-    background: rgb(24, 24, 24);
-    color: skyblue;
+    background: rgba(29, 78, 216, 0.18);
+    color: #0f172a;
 }
 
 @font-face {
