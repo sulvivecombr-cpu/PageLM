@@ -90,22 +90,22 @@ export default function PromptRail({ onSend }: { onSend?: (prompt: string) => vo
         state: { chatId: cid, q },
       });
     } catch {
+      /* keep the typed prompt if the request fails */
     } finally {
       setBusy(false);
     }
   };
 
   return (
-    <div className="items-center justify-center pt-2 mt-2 md:mt-0 hidden md:flex">
-      <div className="relative z-0 rounded-3xl rounded-tl-[22px] rounded-bl-2xl md:rounded-r-none h-full p-2 px-4 border border-stone-800 md:border-r-0 text-sm flex items-center -ml-4 md:-ml-6.5 overflow-hidden max-w-sm">
-        <div ref={railRef} className="h-8 overflow-hidden relative w-full cursor-grab active:cursor-grabbing">
-          <div className="transition-transform duration-500 ease-in-out" style={{ transform: `translateY(${translateY}px)` }}>
-            {PROMPTS.map((p, i) => (
-              <div key={i} className="h-8 flex items-center">
-                <span className="text-sm md:text-xs">{p}</span>
-              </div>
-            ))}
-          </div>
+    <div className="ml-auto hidden items-center gap-2 rounded-full border border-stone-900 bg-stone-950 py-1 pl-3 pr-1 md:flex">
+      <span className="text-[10px] font-semibold uppercase tracking-wide text-stone-500">Try</span>
+      <div ref={railRef} className="relative h-8 w-44 cursor-grab overflow-hidden active:cursor-grabbing lg:w-72">
+        <div className="transition-transform duration-500 ease-in-out" style={{ transform: `translateY(${translateY}px)` }}>
+          {PROMPTS.map((p, i) => (
+            <div key={i} className="flex h-8 items-center">
+              <span className="truncate text-xs text-stone-300">{p}</span>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -113,11 +113,11 @@ export default function PromptRail({ onSend }: { onSend?: (prompt: string) => vo
         type="button"
         onClick={sendNow}
         disabled={busy}
-        className="h-full w-fit px-3 flex items-center justify-center bg-stone-900/50 border border-stone-900 border-l-0 rounded-r-2xl relative z-10 pointer-events-auto"
+        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-stone-900 text-stone-300 transition-colors hover:bg-stone-800 hover:text-white disabled:opacity-50"
         aria-label="Send suggested prompt"
         title={busy ? "Starting..." : "Send"}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-5">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor" className="size-4">
           <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
         </svg>
       </button>

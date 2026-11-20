@@ -1,18 +1,30 @@
-export default function BagFab({ count, onClick }: { count: number; onClick: () => void }) {
+type Props = {
+  count: number;
+  onClick: () => void;
+};
+
+/** Saved-notes launcher, sitting inside the chat composer bar. */
+export default function BagFab({ count, onClick }: Props) {
   return (
-    <div className="fixed bottom-4 right-8 z-50">
-      <div className="relative cursor-pointer hover:scale-105 transition-transform duration-300" onClick={onClick}>
-        <img
-          src="https://forum.playhive.com/uploads/default/original/3X/f/3/f3e340eef1c12e1080f55958d70c5afc8a73dfa3.png"
-          alt="bag"
-          className="h-20 w-auto"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className={`absolute -top-2 -right-2 bg-red-600 text-[#fff] text-xs rounded-full h-6 w-6 items-center justify-center font-bold ${count ? "flex" : "hidden"}`}>
+    <button
+      type="button"
+      onClick={onClick}
+      className="relative mb-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-stone-900 transition-colors hover:bg-stone-800"
+      aria-label={`Open saved notes (${count})`}
+      title="Saved notes"
+    >
+      <img
+        src="https://forum.playhive.com/uploads/default/original/3X/f/3/f3e340eef1c12e1080f55958d70c5afc8a73dfa3.png"
+        alt=""
+        className="size-6 object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+      {count > 0 && (
+        <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-[#fff]">
           {count}
-        </div>
-      </div>
-    </div>
+        </span>
+      )}
+    </button>
   );
 }

@@ -418,7 +418,7 @@ export default function Chat() {
         } gap-6 mt-20 lg:mt-6 mb-16`}
       >
         <div className="flex-1 min-w-0 pr-0 lg:pr-2">
-          <div className="w-full max-w-4xl mx-auto p-2 sm:p-4 pt-2 pb-28">
+          <div className="w-full max-w-4xl mx-auto p-2 sm:p-4 pt-2 pb-48 md:pb-32">
             {sourceId && (
               <div className="mb-5 flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl border border-sky-500/20 bg-gradient-to-r from-sky-500/10 via-sky-500/5 to-violet-500/5 px-4 py-3">
                 <div className="flex items-center gap-3 min-w-0">
@@ -516,8 +516,11 @@ export default function Chat() {
         askDoubt={(text) => { const v = text.trim(); if (v) sendFollowup(v); setSelected(null); }}
       />
 
-      <Composer disabled={busy} onSend={sendFollowup} />
-      <BagFab count={bag.length} onClick={() => setBagOpen(true)} />
+      <Composer
+        disabled={busy}
+        onSend={sendFollowup}
+        leading={<BagFab count={bag.length} onClick={() => setBagOpen(true)} />}
+      />
       <BagDrawer open={bagOpen} items={bag} onClose={() => setBagOpen(false)} onClear={clearBag} />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 
 type Props = {
   value: string;
@@ -23,72 +23,73 @@ export default function PromptBox({
   onDragOver,
   onDrop,
 }: Props) {
-
   return (
     <div
-      className="rounded-3xl bg-stone-950 border border-stone-800 shadow-[0_1px_2px_rgba(15,23,42,0.06),0_18px_40px_-18px_rgba(15,23,42,0.28)] flex items-start rounded-bl-none rounded-br-none md:rounded-br-3xl"
+      className="rounded-3xl border border-stone-900 bg-stone-950 shadow-[0_1px_2px_rgba(15,23,42,0.06),0_18px_40px_-24px_rgba(15,23,42,0.45)] transition-colors"
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
-      <div className="flex-1 p-3">
-        {stagedFileName && (
-          <div className="mb-3 inline-flex items-center gap-3 bg-stone-900/60 border border-stone-800 rounded-2xl px-3 py-2">
-            <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-400/40 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-rose-300" fill="currentColor">
+      {stagedFileName && (
+        <div className="px-3 pt-3">
+          <div className="inline-flex max-w-full items-center gap-3 rounded-2xl border border-stone-800 bg-stone-900/60 px-3 py-2">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-rose-400/40 bg-rose-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-5 text-rose-300" fill="currentColor">
                 <path d="M9 2a1 1 0 0 0-1 1v4H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2V3a1 1 0 0 0-1-1H9Zm5 5H10V4h4v3Z" />
               </svg>
             </div>
-            <div className="flex flex-col -space-y-0.5">
-              <span className="text-stone-100 text-sm">{stagedFileName}</span>
-              <span className="text-stone-400 text-xs">Attached</span>
+            <div className="flex min-w-0 flex-col">
+              <span className="truncate text-sm text-stone-100">{stagedFileName}</span>
+              <span className="text-xs text-stone-400">Attached</span>
             </div>
-            <button onClick={onRemoveFile} className="ml-2 text-stone-300 hover:text-white p-1 rounded-lg hover:bg-stone-800" aria-label="Remove file">
+            <button
+              onClick={onRemoveFile}
+              className="ml-1 rounded-lg p-1 text-stone-300 transition-colors hover:bg-stone-800 hover:text-white"
+              aria-label="Remove file"
+            >
               ✕
             </button>
           </div>
-        )}
+        </div>
+      )}
 
-        <textarea
-          rows={1}
-          placeholder="Ask me to teach you anything..."
-          className="w-full text-stone-200 bg-transparent rounded-2xl p-2.5 outline-none resize-none leading-6 min-h-[40px]"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              onSend();
-            }
-          }}
-          aria-label="Main prompt"
-        />
-      </div>
+      <textarea
+        rows={2}
+        placeholder="Ask me to teach you anything..."
+        className="w-full resize-none bg-transparent px-4 pb-2 pt-4 text-[15px] leading-6 text-stone-200 outline-none placeholder:text-stone-500"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            onSend();
+          }
+        }}
+        aria-label="Main prompt"
+      />
 
-      <div className="h-full w-fit p-2 flex flex-col space-y-2">
+      <div className="flex items-center justify-between gap-2 px-2.5 pb-2.5">
         <button
-          className="rounded-full bg-stone-900 hover:bg-stone-800 duration-300 transition-all hover:text-white p-2.5"
+          type="button"
+          className="flex size-10 items-center justify-center rounded-full bg-stone-900 text-stone-300 transition-colors hover:bg-stone-800 hover:text-white disabled:opacity-50"
           aria-label="Attach file"
           onClick={onPickFile}
           disabled={busy}
           title={stagedFileName ?? "Upload files"}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
-            <path
-              fillRule="evenodd"
-              d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"
-              clipRule="evenodd"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
           </svg>
         </button>
 
         <button
           onClick={onSend}
           disabled={busy || !value.trim()}
-          className="rounded-full bg-stone-900 hover:bg-stone-800 duration-300 transition-all hover:text-white p-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 rounded-full bg-sky-500 px-4 py-2.5 text-sm font-semibold text-[#fff] shadow-sm transition-colors hover:bg-sky-600 disabled:cursor-not-allowed disabled:opacity-40"
           aria-label="Send"
           title={busy ? "Please wait..." : "Send"}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+          <span>{busy ? "Working" : "Send"}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
           </svg>
         </button>

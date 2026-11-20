@@ -12,6 +12,14 @@
         var navCollapsed = savedNav !== null ? savedNav === "1" : window.innerWidth < 1024;
         if (navCollapsed) document.documentElement.classList.add("nav-collapsed");
       } catch (e) { }
+      try {
+        var savedTheme = localStorage.getItem("pagelm:theme");
+        var isDark = savedTheme
+          ? savedTheme === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", isDark);
+        document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+      } catch (e) { }
     </script>
   <title>PageLM</title>
   </head>

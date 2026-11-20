@@ -67,11 +67,20 @@ export default function Landing() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full pl-4 pr-4 md:pl-32">
-      <div className="flex-1 flex flex-col justify-center max-w-4xl mx-auto my-20 md:my-4 w-full px-2">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl text-white font-semibold pl-3 border-l-2 border-sky-500 mb-8">
-          What&apos;d you like to learn today?
-        </h1>
+    <div className="flex min-h-screen w-full flex-col px-4 pb-28 md:pb-24 md:pl-32">
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center pt-12 md:pt-4">
+        <div className="mb-6 md:mb-8">
+          <span className="inline-flex items-center gap-2 rounded-full border border-stone-800 bg-stone-950 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-400">
+            <span className="size-1.5 rounded-full bg-sky-500" />
+            AI study workspace
+          </span>
+          <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[2.75rem]">
+            What&apos;d you like to learn today?
+          </h1>
+          <p className="mt-2 max-w-xl text-sm text-stone-400 sm:text-base">
+            Ask anything, or drop a document to turn it into notes, quizzes and flashcards.
+          </p>
+        </div>
 
         <AdaptiveErrorBoundary
           mode="manual"
@@ -99,104 +108,90 @@ export default function Landing() {
           />
         </AdaptiveErrorBoundary>
 
-        <div className="w-full md:w-fit flex">
-          <div className="w-full md:w-fit md:min-w-fit p-1.5 rounded-2xl rounded-t-none bg-stone-950 flex flex-col items-start sm:items-center border border-stone-900 border-t-0 border-r-0 border-b-0 sm:border-b shadow-[0_10px_28px_-16px_rgba(15,23,42,0.22)]">
-            <div className="flex items-start justify-between md:justify-start space-x-2 p-1.5 w-full">
-              <div className="relative">
-                <div
-                  onClick={() => setShowMode(!showMode)}
-                  className="flex items-center space-x-4 p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer"
-                >
-                  <div className="flex flex-col -space-y-0.5 pr-2">
-                    <span className="text-xs text-stone-300">Prompt Mode</span>
-                    <span className="text-sm font-semibold text-white">{mode}</span>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 text-stone-400">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                  </svg>
-                </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setShowMode(!showMode)}
+              className="flex items-center gap-2 rounded-full border border-stone-900 bg-stone-950 px-3 py-2 text-xs transition-colors hover:bg-stone-900"
+              aria-haspopup="listbox"
+              aria-expanded={showMode}
+            >
+              <span className="text-stone-400">Mode</span>
+              <span className="font-semibold text-white">{mode}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.8" stroke="currentColor" className="size-3.5 text-stone-500">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
 
-                {showMode && (
-                  <div className="absolute top-full left-0 mt-1 p-1 w-36 bg-stone-950 border border-stone-800 rounded-xl shadow-lg z-20">
-                    {["Chat", "Quiz"].map((opt) => (
-                      <div
-                        key={opt}
-                        onClick={() => {
-                          setMode(opt as "Chat" | "Quiz");
-                          setShowMode(false);
-                        }}
-                        className={`px-3 py-2 cursor-pointer hover:bg-stone-800 transition rounded-lg ${mode === opt ? "text-sky-400" : "text-white"
-                          }`}
-                      >
-                        {opt}
-                      </div>
-                    ))}
-                  </div>
-                )}
+            {showMode && (
+              <div className="absolute left-0 top-full z-20 mt-1 w-36 rounded-2xl border border-stone-800 bg-stone-950 p-1 shadow-xl">
+                {["Chat", "Quiz"].map((opt) => (
+                  <button
+                    type="button"
+                    key={opt}
+                    onClick={() => {
+                      setMode(opt as "Chat" | "Quiz");
+                      setShowMode(false);
+                    }}
+                    className={`block w-full rounded-xl px-3 py-2 text-left text-sm transition-colors hover:bg-stone-900 ${
+                      mode === opt ? "font-semibold text-sky-500" : "text-white"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
               </div>
-
-              <div className="w-px h-8 mx-2 bg-white/10 rounded-full mt-2" />
-
-              <div className="p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer min-w-fit h-fit hidden md:flex items-center space-x-4" onClick={onPickFile} title={stagedFile ? stagedFile.name : "Click or drop"}>
-                <div className="flex flex-col -space-y-0.5 pr-2">
-                  <span className="text-xs text-stone-300">{stagedFile ? "File selected" : "Add files"}</span>
-                  <span className="text-sm font-semibold text-white">{stagedFile ? stagedFile.name : "Click or drop"}</span>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-6 text-stone-400">
-                  <path
-                    fillRule="evenodd"
-                    d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-
-              <div className="w-px h-8 mx-2 bg-white/10 rounded-full mt-2" />
-
-              <div className="relative">
-                <div
-                  onClick={() => setShowLength(!showLength)}
-                  className="flex items-center space-x-4 p-1.5 rounded-xl hover:bg-white/5 duration-300 transition-all cursor-pointer">
-                  <div className="flex flex-col -space-y-0.5 pr-2">
-                    <span className="text-xs text-stone-300">Response Length</span>
-                    <span className="text-sm font-semibold text-white">{responseLength}</span>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 text-stone-400">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                  </svg>
-                </div>
-
-                {showLength && (
-                  <div className="absolute top-full left-0 mt-1 p-1 w-40 bg-stone-950 border border-stone-800 rounded-xl shadow-lg z-20">
-                    {["Short", "Medium", "Long"].map((opt) => (
-                      <div
-                        key={opt}
-                        onClick={() => {
-                          setResponseLength(opt as "Short" | "Medium" | "Long");
-                          setShowLength(false);
-                        }}
-                        className={`px-3 py-2 cursor-pointer hover:bg-stone-800 transition rounded-lg ${responseLength === opt ? "text-sky-400" : "text-white"
-                          }`}
-                      >
-                        {opt}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-            </div>
+            )}
           </div>
 
-          <svg className="h-9 w-8 -ml-0.5 -mt-[2px] min-w-fit hidden md:block rotate-3" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1H71C21.4764 5.44502 6.18653 20.4467 1 71V1Z" fill="#101110" strokeWidth="2" stroke="url(#paint0_linear_1409_7)" />
-            <defs>
-              <linearGradient id="paint0_linear_1409_7" x1="33" y1="31" x2="1" y2="1" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#0D0B0B" />
-                <stop offset="1" stopColor="#070707" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setShowLength(!showLength)}
+              className="flex items-center gap-2 rounded-full border border-stone-900 bg-stone-950 px-3 py-2 text-xs transition-colors hover:bg-stone-900"
+              aria-haspopup="listbox"
+              aria-expanded={showLength}
+            >
+              <span className="text-stone-400">Length</span>
+              <span className="font-semibold text-white">{responseLength}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.8" stroke="currentColor" className="size-3.5 text-stone-500">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            {showLength && (
+              <div className="absolute left-0 top-full z-20 mt-1 w-40 rounded-2xl border border-stone-800 bg-stone-950 p-1 shadow-xl">
+                {["Short", "Medium", "Long"].map((opt) => (
+                  <button
+                    type="button"
+                    key={opt}
+                    onClick={() => {
+                      setResponseLength(opt as "Short" | "Medium" | "Long");
+                      setShowLength(false);
+                    }}
+                    className={`block w-full rounded-xl px-3 py-2 text-left text-sm transition-colors hover:bg-stone-900 ${
+                      responseLength === opt ? "font-semibold text-sky-500" : "text-white"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={onPickFile}
+            className="flex items-center gap-2 rounded-full border border-stone-900 bg-stone-950 px-3 py-2 text-xs transition-colors hover:bg-stone-900 md:hidden"
+            title={stagedFile ? stagedFile.name : "Attach a document"}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-4 text-stone-400">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
+            </svg>
+            <span className="font-semibold text-white">{stagedFile ? "Replace" : "Attach"}</span>
+          </button>
 
           <PromptRail onSend={(p) => onSend(p)} />
         </div>

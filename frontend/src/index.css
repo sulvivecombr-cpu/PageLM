@@ -4,19 +4,31 @@
 @import "tailwindcss";
 
 /*
- * Light theme palette.
+ * Theme palettes.
  *
- * The UI was originally authored on Tailwind's dark-first neutrals (stone/zinc
- * surfaces with white text). Instead of rewriting every utility in every
- * component, the palette tokens are remapped here once: the neutral ramps are
- * inverted (950 = lightest surface, 50 = darkest ink) and the accent ramps are
- * deepened so they stay readable on light backgrounds.
+ * The UI is authored on Tailwind's dark-first neutrals used as semantic slots:
+ *   stone-950 -> page/card surface, stone-900 -> secondary surface,
+ *   stone-800/700 -> borders, stone-400/300 -> body copy, white -> primary ink.
  *
- * Because `white` now means "primary ink", anything that genuinely needs white
- * ink or fill on top of an accent colour or an image uses `text-[#fff]` /
+ * Both palettes below fill exactly those slots, so a single `dark` class on
+ * <html> flips the whole app without touching component classes:
+ *   light -> inverted ramps (light surfaces, dark ink)
+ *   dark  -> the original dark-first ramps (dark surfaces, light ink)
+ *
+ * Because `white` means "primary ink", anything that genuinely needs white ink
+ * or fill on top of an accent colour or an image uses `text-[#fff]` /
  * `bg-[#fff]` explicitly.
  */
-@theme {
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+
+  /* App canvas (page background) */
+  --app-bg: #f5f6f8;
+  --app-bg-soft: #ffffff;
+
   --color-white: #0f172a;
   --color-black: #000000;
 
@@ -107,10 +119,111 @@
   --color-violet-900: #ede9fe;
 }
 
+.dark {
+  color-scheme: dark;
+
+  --app-bg: #070c15;
+  --app-bg-soft: #0c1421;
+
+  --color-white: #f8fafc;
+  --color-black: #000000;
+
+  --color-stone-50: #f8fafc;
+  --color-stone-100: #f1f5f9;
+  --color-stone-200: #e2e8f0;
+  --color-stone-300: #cbd5e1;
+  --color-stone-400: #94a3b8;
+  --color-stone-500: #64748b;
+  --color-stone-600: #475569;
+  --color-stone-700: #334155;
+  --color-stone-800: #1e293b;
+  --color-stone-900: #141d2e;
+  --color-stone-950: #0c1421;
+
+  --color-zinc-50: #f8fafc;
+  --color-zinc-100: #f1f5f9;
+  --color-zinc-200: #e2e8f0;
+  --color-zinc-300: #cbd5e1;
+  --color-zinc-400: #94a3b8;
+  --color-zinc-500: #64748b;
+  --color-zinc-600: #475569;
+  --color-zinc-700: #334155;
+  --color-zinc-800: #1e293b;
+  --color-zinc-900: #131c2b;
+  --color-zinc-950: #0b1220;
+
+  --color-sky-50: #0b1729;
+  --color-sky-100: #10213c;
+  --color-sky-200: #1e3a8a;
+  --color-sky-300: #93c5fd;
+  --color-sky-400: #60a5fa;
+  --color-sky-500: #3b82f6;
+  --color-sky-600: #2563eb;
+  --color-sky-700: #1d4ed8;
+  --color-sky-800: #1e40af;
+  --color-sky-900: #0f1d33;
+  --color-sky-950: #08111f;
+
+  --color-blue-100: #10213c;
+  --color-blue-200: #1e3a8a;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #0f1d33;
+  --color-blue-950: #08111f;
+
+  --color-emerald-100: #052e22;
+  --color-emerald-200: #065f46;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-900: #052e22;
+
+  --color-amber-100: #3a2a06;
+  --color-amber-200: #92400e;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+
+  --color-rose-100: #3b0d16;
+  --color-rose-200: #9f1239;
+  --color-rose-300: #fda4af;
+  --color-rose-400: #fb7185;
+  --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48;
+  --color-rose-700: #be123c;
+
+  --color-red-200: #7f1d1d;
+  --color-red-300: #fca5a5;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+
+  --color-violet-100: #2a1a4a;
+  --color-violet-200: #5b21b6;
+  --color-violet-300: #c4b5fd;
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+  --color-violet-900: #2a1a4a;
+}
+
 body {
   font-family: 'Schibsted Grotesk', sans-serif;
-  background-color: #f5f6f8;
-  color: #0f172a;
+  background-color: var(--app-bg);
+  color: var(--color-stone-200);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Theme toggle: keep the switch feeling immediate without animating layout. */
+.theme-toggle-icon {
+  transition: transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 200ms ease;
 }
 
 /* When the side rail is hidden, let the page use the full width. */

@@ -110,6 +110,11 @@ export default function CompanionDock() {
 
   const disabled = !hasDocument || busy
   const isStudio = pathname === "/studio" || pathname.startsWith("/studio/")
+  const isChat = pathname === "/chat" || pathname.startsWith("/chat/")
+  // On chat the composer sits above the mobile dock, so the launcher moves up.
+  const launcherPlacement = isChat
+    ? "bottom-[9.75rem] left-3 md:bottom-28 md:left-auto md:right-6"
+    : "bottom-24 left-3 md:bottom-6 md:left-auto md:right-6"
 
   if (isStudio) return null
 
@@ -119,15 +124,20 @@ export default function CompanionDock() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-2xl bg-sky-500/90 hover:bg-sky-500 text-[#fff] font-medium shadow-lg shadow-sky-500/30 transition-colors"
+          className={`fixed ${launcherPlacement} z-40 flex items-center gap-1.5 rounded-full bg-sky-500 px-3 py-2 text-xs font-semibold text-[#fff] shadow-lg shadow-sky-500/25 transition-colors hover:bg-sky-600 md:rounded-2xl md:px-4 md:py-3 md:text-sm`}
+          aria-label="Open Study Companion"
         >
-          Study Companion
+          <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 md:hidden">
+            <path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+          </svg>
+          <span className="md:hidden">Companion</span>
+          <span className="hidden md:inline">Study Companion</span>
         </button>
       )}
 
       <div
         className={cx(
-          "fixed bottom-6 right-6 z-40 w-[min(360px,calc(100vw-2rem))] max-h-[min(85vh,640px)] rounded-3xl border border-slate-800 bg-stone-950/95 backdrop-blur-xl shadow-2xl shadow-stone-500/20 transition-all duration-300",
+          "fixed bottom-24 right-3 z-40 w-[min(360px,calc(100vw-1.5rem))] max-h-[min(75vh,640px)] rounded-3xl border border-stone-800 bg-stone-950/95 backdrop-blur-xl shadow-2xl shadow-black/30 transition-all duration-300 md:bottom-6 md:right-6",
           open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
         )}
       >

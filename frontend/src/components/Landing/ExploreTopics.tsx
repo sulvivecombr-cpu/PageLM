@@ -97,7 +97,7 @@ export default function ExploreTopics() {
       </div>
 
       <div
-        className="absolute w-full h-full bottom-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none"
+        className="absolute w-full h-full bottom-0 bg-gradient-to-b from-transparent to-[var(--app-bg)] pointer-events-none"
         style={{
           transition: "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
           opacity: open ? 0 : 1
